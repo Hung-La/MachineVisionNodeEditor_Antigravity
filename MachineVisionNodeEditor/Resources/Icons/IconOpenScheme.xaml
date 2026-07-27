@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconOpenScheme">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <!--📄 File-->
+                    <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M2,1 L8,1 L8,6 L13,6 L13,15 L2,15 Z" />
+
+                    <!--📄 Góc gập-->
+                    <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M8,1 L13,6 L8,6 Z" />
+                    <GeometryDrawing Brush="#FF00B0FF" Geometry=" M5.3357,14.8147L6.2637,15.1857 8.6647,9.1857 7.7357,8.8147z M9.2307,9.8537L11.3767,12.0007 9.2307,14.1467 9.9377,14.8537 12.7907,12.0007 9.9377,9.1467z M1.2097,12.0007L4.0627,14.8537 4.7697,14.1467 2.6237,12.0007 4.7697,9.8537 4.0627,9.1467z"/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

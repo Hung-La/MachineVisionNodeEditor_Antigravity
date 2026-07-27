@@ -1,0 +1,137 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="/Resources/MainResource.xaml"></ResourceDictionary>-->
+        <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="BlueGrey" SecondaryColor="LightGreen" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+        
+        <ResourceDictionary Source="/Resources/Icons/IconTest.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconNewScheme.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconOpenScheme.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconSave.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconSavaAs.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconUndo.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconRedo.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconCopy.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconCut.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconPaste.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconImShow.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconGrayscale.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconDiagram.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconThreshold.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconBlur.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconImRead.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconImWrite.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconGaussianBlur.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconMedianBlur.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconBilateralFilter.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconResize.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconRotate.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="MenuItem" x:Key="MenuItemStyle" BasedOn="{StaticResource MaterialDesignMenuItem}"> <!--BasedOn="{StaticResource MaterialDesignMenuItem}"-->
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource MenuItemForeground}"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MenuItemBorder}"/>
+        <Setter Property="Margin" Value="1"/>
+        <Setter Property="Padding" Value="2"/>
+        <!--<Setter Property="Width" Value="25"></Setter>-->
+        <Setter Property="Height" Value="30"></Setter>
+    </Style>
+
+    <Style TargetType="RibbonButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="6"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RibbonButton">
+                    <Border
+                        x:Name="Root"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4"
+                        Margin="3"
+                        Padding="{TemplateBinding Padding}">
+
+                        <StackPanel HorizontalAlignment="Center">
+
+                            <!-- Icon -->
+                            <Image
+                                Width="25"
+                                Height="25"
+                                Source="{TemplateBinding LargeImageSource}"
+                                HorizontalAlignment="Center"/>
+
+                            <!-- Text -->
+                            <TextBlock
+                                Text="{TemplateBinding Label}"
+                                FontSize="11"
+                                HorizontalAlignment="Center"
+                                Margin="0,4,0,0"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+                    <!-- Hover / Press -->
+                    <ControlTemplate.Triggers>
+
+                        <!-- Hover -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="#22000000"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.25"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"></ScaleTransform>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                        </Trigger>
+
+                        <!-- Click -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="#33000000"/>
+                        </Trigger>
+
+                        <!-- Disabled -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="GroupBox" x:Key="Style for GroupBox" BasedOn="{x:Null}">
+        <Setter Property="Background" Value="{x:Null}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorIconsMain}"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+    </Style>
+
+    <Style TargetType="Border" x:Key="Border Style for Expander Header">
+        <Setter Property="Background" Value="#FF607D8B"></Setter>
+        <Setter Property="Padding" Value="15 5"></Setter>
+        <Setter Property="CornerRadius" Value="5"></Setter>
+    </Style>
+
+   
+
+</ResourceDictionary>

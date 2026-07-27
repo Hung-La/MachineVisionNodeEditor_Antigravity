@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Converter="clr-namespace:MachineVisionNodeEditor.Converters">
+
+    <Converter:MatToBitmapSourceConverter x:Key="MatToBitmapSourceConverter"></Converter:MatToBitmapSourceConverter>
+    <Converter:ResolutionConverter x:Key="ResolutionConverter"></Converter:ResolutionConverter>
+    <Converter:NodeViewModelConverter x:Key="NodeViewModelConverter"></Converter:NodeViewModelConverter>
+    
+</ResourceDictionary>

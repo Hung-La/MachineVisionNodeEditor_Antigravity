@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "60dfm8ewDIY=",
+  "success": true,
+  "projectFilePath": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Manh Hung\\.nuget\\packages\\materialdesigncolors\\5.3.1\\materialdesigncolors.5.3.1.nupkg.sha512",
+    "C:\\Users\\Manh Hung\\.nuget\\packages\\materialdesignthemes\\5.3.1\\materialdesignthemes.5.3.1.nupkg.sha512",
+    "C:\\Users\\Manh Hung\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.142\\microsoft.xaml.behaviors.wpf.1.1.142.nupkg.sha512",
+    "C:\\Users\\Manh Hung\\.nuget\\packages\\opencvsharp4\\4.13.0.20260627\\opencvsharp4.4.13.0.20260627.nupkg.sha512",
+    "C:\\Users\\Manh Hung\\.nuget\\packages\\opencvsharp4.runtime.win\\4.13.0.20260627\\opencvsharp4.runtime.win.4.13.0.20260627.nupkg.sha512",
+    "C:\\Users\\Manh Hung\\.nuget\\packages\\opencvsharp4.wpfextensions\\4.13.0.20260627\\opencvsharp4.wpfextensions.4.13.0.20260627.nupkg.sha512"
+  ],
+  "logs": []
+}

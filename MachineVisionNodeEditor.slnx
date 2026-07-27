@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MachineVisionAlgorithm/MachineVisionAlgorithm.csproj" Id="fab00def-3c1f-412f-92da-9c9bb65d9173" />
+  <Project Path="MachineVisionNodeEditor/MachineVisionNodeEditor.csproj" />
+</Solution>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MachineVisionNodeEditor.ViewModels.NodeViewModels.NodeControl_NodeViewModel" Collapsed="true">
+    <Position X="6" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAACAAAEAAAAAAAAAgQAAQAAAA=</HashCode>
+      <FileName>ViewModels\NodeViewModels\NodeControl_NodeViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MachineVisionNodeEditor.ViewModels.NodeViewModels.ImageImport_NodeViewModel">
+    <Position X="41.5" Y="2.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAQAAAAAAAAABAAAACAAAAAAAAACAAAA=</HashCode>
+      <FileName>ViewModels\NodeViewModels\ImageImport_NodeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MachineVisionNodeEditor.ViewModels.NodeViewModels.Node_NodeViewModel">
+    <Position X="49.25" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>ViewModels\NodeViewModels\Node_NodeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MachineVisionNodeEditor.ViewModels.BaseViewModel">
+    <Position X="1.75" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Models.NodeModels.NodeModel">
+    <Position X="11.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAIQAEEAAAAAAAACAAAAhAAAAAQAAAAAAYAA=</HashCode>
+      <FileName>Models\NodeModels\NodeModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Models.NodeModels.Test_NodeModel">
+    <Position X="11.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NodeModels\Test_NodeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Models.NodeModels.ImageImport_NodeModel">
+    <Position X="16" Y="7" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NodeModels\ImageImport_NodeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Models.NodeModels.PortModel" Collapsed="true">
+    <Position X="4" Y="9" Width="1.5" />
+    <InheritanceLine Type="MachineVisionNodeEditor.ViewModels.BaseViewModel" ManuallyRouted="true">
+      <Path>
+        <Point X="3.125" Y="4.747" />
+        <Point X="3.125" Y="6.027" />
+        <Point X="4.75" Y="6.027" />
+        <Point X="4.75" Y="9" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAwABgAEAAIAAAAAABAAAAAQAAACAAAAA=</HashCode>
+      <FileName>Models\NodeModels\PortModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Views.NodeProperties.NodePropertyControl">
+    <Position X="26.5" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\NodeProperties\NodePropertyControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Views.NodeProperties.ImageImport_PropertyView">
+    <Position X="32" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Views\NodeProperties\ImageImport_PropertyView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MachineVisionNodeEditor.Views.NodeProperties.ConnectionPropertyView">
+    <Position X="26.5" Y="8.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\NodeProperties\ConnectionPropertyView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="MachineVisionNodeEditor.Models.NodeModels.NodeType">
+    <Position X="11.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACACAAAAAA=</HashCode>
+      <FileName>Models\NodeModels\NodeModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MachineVisionNodeEditor.Models.NodeModels.PortType" Collapsed="true">
+    <Position X="1.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NodeModels\PortModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

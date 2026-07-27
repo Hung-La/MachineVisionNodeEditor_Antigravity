@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconTest">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!-- 🧪 Outer frame -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M3,3 L17,3 L17,17 L3,17 Z"/>
+
+                <!-- 📄 Background -->
+                <GeometryDrawing
+                    Brush="White"
+                    Geometry="M4,4 L16,4 L16,16 L4,16 Z"/>
+
+                <!-- 🧪 Flask -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsSecond}"
+                    Geometry="
+                        M9,5
+                        L11,5
+                        L11,8
+                        L14,13
+                        C14.5,14 13.5,15 12.5,15
+                        L7.5,15
+                        C6.5,15 5.5,14 6,13
+                        L9,8 Z"/>
+
+                <!-- 💧 Liquid -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsThird}"
+                    Geometry="
+                        M7,12
+                        L13,12
+                        L12,14
+                        L8,14 Z"/>
+
+                <!-- ✨ Bubble -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsFourth}"
+                    Geometry="M12,9 A0.7,0.7 0 1 1 11.9,9 Z"/>
+
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsFourth}"
+                    Geometry="M9,10 A0.4,0.4 0 1 1 8.9,10 Z"/>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

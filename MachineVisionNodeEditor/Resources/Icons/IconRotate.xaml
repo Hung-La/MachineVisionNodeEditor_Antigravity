@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconRotate">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!-- 🖼️ Rotated image frame -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="
+                        M7,3
+                        L15,7
+                        L11,15
+                        L3,11 Z"/>
+
+                <!-- 📄 Inner background -->
+                <GeometryDrawing
+                    Brush="White"
+                    Geometry="
+                        M7.5,4.5
+                        L13.5,7.5
+                        L10.5,13.5
+                        L4.5,10.5 Z"/>
+
+                <!-- ⛰️ Landscape -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsThird}"
+                    Geometry="
+                        M6,10
+                        L8,8
+                        L9.5,9
+                        L11.5,6.5
+                        L12,10.5 Z"/>
+
+                <!-- ☀️ Sun -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsFourth}"
+                    Geometry="M10.8,6.5 A0.7,0.7 0 1 1 10.7,6.5 Z"/>
+
+                <!-- 🔄 Rotate arrow -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsSecond}"
+                    Geometry="
+                        M10,1
+                        C14,1 17,4 17,8
+                        L15.5,6.5
+                        L15,7
+                        L18,10
+                        L21,7
+                        L20.5,6.5
+                        L19,8
+                        C19,3 15,0 10,0 Z"/>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

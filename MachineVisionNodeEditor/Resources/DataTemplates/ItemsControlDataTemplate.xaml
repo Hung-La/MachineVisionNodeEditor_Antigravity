@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:NodeViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.NodeViewModels"
+                    xmlns:NodeView="clr-namespace:MachineVisionNodeEditor.Views.Nodes">
+
+
+    <!--#region DataTemplate for Main Canvas ItemsControl-->
+    <DataTemplate DataType="{x:Type NodeViewModel:Node_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:ImageImport_NodeViewModel}">
+        <NodeView:ImageImport_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:ConvertColor_NodeViewModel}">
+        <NodeView:ConvertColor_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:Node_ConnectionViewModel}">
+        <NodeView:Node_ConnectionView></NodeView:Node_ConnectionView>
+    </DataTemplate>
+    
+    <!--#endregion-->
+    
+</ResourceDictionary>

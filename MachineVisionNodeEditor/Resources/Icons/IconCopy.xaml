@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconCopy">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!-- 📄 Tờ phía sau -->
+                <GeometryDrawing
+                Brush="{DynamicResource ColorIconsMain}"
+                Geometry="M4,3 L11,3 L11,11 L4,11 Z" />
+
+                <!-- 📄 Tờ phía trước -->
+                <GeometryDrawing
+                Brush="{DynamicResource ColorIconsSecond}"
+                Geometry="M7,6 L14,6 L14,14 L7,14 Z" />
+
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

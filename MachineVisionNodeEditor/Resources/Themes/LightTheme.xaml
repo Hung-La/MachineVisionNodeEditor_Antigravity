@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush Color="#dcdde1" x:Key="Backdrop"></SolidColorBrush>
+    <SolidColorBrush Color="#718093" x:Key="Text"></SolidColorBrush>
+    <SolidColorBrush Color="#dcdde1" x:Key="NodeText"></SolidColorBrush>
+    <SolidColorBrush Color="#fff" x:Key="Card"></SolidColorBrush>
+    <SolidColorBrush Color="#FF78909C" x:Key="Grid"></SolidColorBrush>
+
+    <SolidColorBrush Color="#FFFF3D00" x:Key="PathData"></SolidColorBrush>
+    <SolidColorBrush Color="#263238" x:Key="NodeBackground"></SolidColorBrush>
+    <SolidColorBrush Color="BlueViolet" x:Key="CoordinateText"></SolidColorBrush>
+
+    <SolidColorBrush Color="MediumPurple" x:Key="ConnectionColor"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="ColorIconsMain"  Color="#414141"/>
+    <SolidColorBrush x:Key="ColorIconsSecond"  Color="#005098"/>
+    <SolidColorBrush x:Key="ColorIconsThird"  Color="#FF76FF03"/>
+    <SolidColorBrush x:Key="ColorIconsFourth"  Color="#FFFF3D00"/>
+    
+    <SolidColorBrush Color="White" x:Key="WindowBackground"></SolidColorBrush>
+    <SolidColorBrush Color="#444" x:Key="PopupBackground"></SolidColorBrush>
+    <SolidColorBrush Color="White" x:Key="PopupForeground"></SolidColorBrush>
+
+    <SolidColorBrush Color="#FF607D8B" x:Key="SliderBrush"></SolidColorBrush>
+
+    <!--#region Menu Item-->
+    <SolidColorBrush x:Key="MenuItemBackground" Color="White"/>
+    <SolidColorBrush x:Key="MenuItemHoverBackground" Color="#e5f1fb"/>
+    <SolidColorBrush x:Key="MenuItemBorder" Color="WhiteSmoke"/>
+    <SolidColorBrush x:Key="MenuItemForeground" Color="Black"/>
+    <!--#endregion-->
+    
+</ResourceDictionary>

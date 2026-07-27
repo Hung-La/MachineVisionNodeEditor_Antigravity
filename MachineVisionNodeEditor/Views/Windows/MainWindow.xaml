@@ -1,0 +1,689 @@
+﻿<Window x:Class="MachineVisionNodeEditor.Views.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MachineVisionNodeEditor"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+        xmlns:UserControl="clr-namespace:MachineVisionNodeEditor.Views.UserControls"
+        xmlns:ToggleButton="clr-namespace:HungLaToggleButtonLib;assembly=HungLaToggleButtonLib"
+        xmlns:WindowViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.WindowViewModels"
+        xmlns:NodeViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.NodeViewModels"
+        xmlns:Node="clr-namespace:MachineVisionNodeEditor.Views.Nodes"
+        xmlns:Behavior="clr-namespace:MachineVisionNodeEditor.Behaviors"
+        WindowStyle="None"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource WindowBackground}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Name="mainWindow"
+        d:DataContext="{d:DesignInstance Type=WindowViewModel:Window_MainWindowViewModel}"
+        Title="Machine Vision Diagram Editor" 
+        d:Height="800" d:Width="1200"
+        Height="1000" Width="1700"
+        KeyDown="mainWindow_KeyDown"
+        Closing="mainWindow_Closing">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="/Resources/MainResource.xaml"></ResourceDictionary>-->
+                <ResourceDictionary Source="/Resources/Styles/WindowStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/ValueConverters/WindowValueConverter.xaml"></ResourceDictionary>
+                <!--<ResourceDictionary Source="/Resources/DataTemplates/ItemsControlDataTemplate.xaml"></ResourceDictionary>-->
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <UserControl:UserControl_ControlBar
+            Grid.Row="0"
+            Tag="{Binding ElementName=mainWindow, Path=Title}">
+
+        </UserControl:UserControl_ControlBar>
+
+        <DockPanel 
+            Grid.Row="1">
+            <Menu
+                ItemContainerStyle="{StaticResource MenuItemStyle}"
+                DockPanel.Dock="Left">
+
+                <MenuItem Header="File">
+                    <MenuItem Header="New"></MenuItem>
+                    <MenuItem Header="Open"></MenuItem>
+                    <MenuItem Header="Exit"></MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="Edit">
+                    <MenuItem Header="Copy"></MenuItem>
+                    <MenuItem Header="Paste"></MenuItem>
+                </MenuItem>
+            </Menu>
+
+            <Canvas
+                DockPanel.Dock="Right">
+                <ToggleButton:CustomToggleButton
+                    Canvas.Right="10"
+                    VerticalContentAlignment="Center"
+                    Margin="5 10"
+                    IsChecked="{Binding IsChecked_ToggleTheme}"
+                    ToolTip="Theme: Light - Dark"
+                    OffThumbColor="DarkSlateGray"
+                    OnThumbColor="WhiteSmoke"
+                    OffBackground="#FFEEEEEE"
+                    OnBackground="gray">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ChangeTheme}" 
+                                                   CommandParameter="{Binding ElementName=mainWindow}">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ToggleButton:CustomToggleButton>
+            </Canvas>
+
+        </DockPanel>
+
+        <Border 
+            Grid.Row="2"
+            BorderThickness="2"
+            BorderBrush="SkyBlue"
+            Margin="2">
+
+            <!-- Lật toàn bộ Ribbon -->
+            <Border.LayoutTransform>
+                <ScaleTransform ScaleY="-1"/>
+            </Border.LayoutTransform>
+
+            <Ribbon 
+                ShowQuickAccessToolBarOnTop="False"
+                Margin="0" Padding="2"
+                Height="auto">
+
+                <Ribbon.ApplicationMenu>
+                    <RibbonApplicationMenu Visibility="Collapsed" />
+                </Ribbon.ApplicationMenu>
+
+                <!-- Lật ngược nội dung bên trong lại cho đúng chiều -->
+                <Ribbon.Resources>
+                    <Style TargetType="RibbonGroup">
+
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <Style TargetType="RibbonTabHeader">
+                        <Setter Property="Height" Value="20"/>
+                        <Setter Property="Padding" Value="6,2"/>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Ribbon.Resources>
+
+                <RibbonTab
+                    Header="Home">
+
+                    <RibbonGroup
+                        Header="File">
+
+                        <RibbonButton 
+                            Label="New"
+                            LargeImageSource="{StaticResource IconNewScheme}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            Label="Open"
+                            LargeImageSource="{StaticResource IconOpenScheme}">
+                        </RibbonButton>
+
+                        <RibbonButton
+                            Label="Save"
+                            LargeImageSource="{StaticResource IconSave}">
+                        </RibbonButton>
+
+                        <RibbonButton
+                            Label="Save As"
+                            LargeImageSource="{StaticResource IconSaveAs}">
+                        </RibbonButton>
+
+                    </RibbonGroup>
+
+                    <RibbonGroup
+                        Header="Edit">
+
+                        <RibbonButton
+                            Label="Undo"
+                            LargeImageSource="{StaticResource IconUndo}">
+                        </RibbonButton>
+
+                        <RibbonButton
+                            Label="Redo"
+                            LargeImageSource="{StaticResource IconRedo}">
+                        </RibbonButton>
+
+                        <RibbonButton
+                            Label="Copy"
+                            LargeImageSource="{StaticResource IconCopy}">
+                        </RibbonButton>
+
+                        <RibbonButton
+                            Label="Cut"
+                            LargeImageSource="{StaticResource IconCut}">
+                        </RibbonButton>
+
+                        <RibbonButton
+                            Label="Paste"
+                            LargeImageSource="{StaticResource IconPaste}">
+                        </RibbonButton>
+
+                    </RibbonGroup>
+
+                </RibbonTab>
+
+                <RibbonTab
+                    Header="Image Interaction">
+
+                    <RibbonGroup
+                        Header="Image Operation">
+                        <RibbonButton
+                            x:Name="RibbonButton_ImageImport"
+                            Label="Image Import"
+                            LargeImageSource="{StaticResource IconImread}"
+                            Command="{Binding ImageImportClick}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            x:Name="RibbonButton_ImageExport"
+                            Label="Image Export"
+                            LargeImageSource="{StaticResource IconImwrite}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            x:Name="RibbonButton_ResultImageShow"
+                            Label="Result Image Show"
+                            LargeImageSource="{StaticResource IconImshow}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            x:Name="RibbonButton_Test"
+                            Label="Image Test"
+                            LargeImageSource="{StaticResource IconTest}"
+                            Command="{Binding TestNodeClick}">
+                        </RibbonButton>
+
+                    </RibbonGroup>
+
+                    <RibbonGroup
+                        Header="Image Transformation">
+                        <RibbonButton 
+                            x:Name="RibbonButton_ImageResize"
+                            Label="Image Resize"
+                            LargeImageSource="{StaticResource IconResize}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            x:Name="RibbonButton_ImageRotate"
+                            Label="Image Rotate"
+                            LargeImageSource="{StaticResource IconRotate}">
+                        </RibbonButton>
+
+                    </RibbonGroup>
+
+                </RibbonTab>
+
+                <RibbonTab
+                    Header="Pre-Processing">
+
+                    <RibbonGroup
+                        Header="Image - Filter">
+
+                        <!--<RibbonButton 
+                            Label="Blur Filter"
+                            LargeImageSource="{StaticResource IconBlur}">
+                        </RibbonButton>-->
+
+                        <RibbonButton 
+                            Label="Gaussian Blur Filter"
+                            LargeImageSource="{StaticResource IconGaussianBlur}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            Label="Median Blur Filter"
+                            LargeImageSource="{StaticResource IconMedianBlur}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            Label="Bilateral Blur Filter"
+                            LargeImageSource="{StaticResource IconBilateralFilter}">
+                        </RibbonButton>
+
+                    </RibbonGroup>
+
+                    <RibbonGroup
+                        Header="Pre-Processing">
+
+                        <RibbonButton 
+                            Label="Convert Color"
+                            LargeImageSource="{StaticResource IconGrayscale}"
+                            Command="{Binding ConvertColorClick}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            Label="Threshold"
+                            LargeImageSource="{StaticResource IconThreshold}">
+                        </RibbonButton>
+                    </RibbonGroup>
+
+                </RibbonTab>
+
+            </Ribbon>
+
+        </Border>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="800"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto" MinWidth="200" MaxWidth="900"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox
+                Grid.Column="0"
+                Style="{StaticResource Style for GroupBox}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Icon -->
+                        <Image 
+                            Source="{StaticResource IconDiagram}" 
+                            Width="16" Height="16"
+                            Margin="0,0,6,0"/>
+                        <TextBlock 
+                            Text="Diagram Board" FontSize="16"
+                            Foreground="{DynamicResource Text}">
+                        </TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+
+
+                <Canvas 
+                    x:Name="Canvas_CanvasViewPort"
+                    ClipToBounds="True">
+
+                    <Canvas.Resources>
+                        <ResourceDictionary Source="/Resources/DataTemplates/ItemsControlDataTemplate.xaml">
+                            <!--<ResourceDictionary.MergedDictionaries>
+                                <ResourceDictionary Source="/Resources/DataTemplates/ItemsControlDataTemplate.xaml"></ResourceDictionary>
+                            </ResourceDictionary.MergedDictionaries>-->
+                        </ResourceDictionary>
+                    </Canvas.Resources>
+                    
+                    <Canvas 
+                        x:Name="MainCanvas"
+                        MouseUp="MainCanvas_MouseUp"
+                        MouseMove="MainCanvas_MouseMove"
+                        MouseDown="MainCanvas_MouseDown"
+                        MouseWheel="MainCanvas_MouseWheel"
+                        Width="{Binding CanvasWidth, UpdateSourceTrigger=PropertyChanged}"
+                        Height="{Binding CanvasHeight, UpdateSourceTrigger=PropertyChanged}"
+                        ClipToBounds="True"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+
+                        <Canvas.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform
+                                    x:Name="CanvasScale"
+                                    ScaleX="{Binding ZoomFactor, UpdateSourceTrigger=PropertyChanged}"
+                                    ScaleY="{Binding ZoomFactor, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TranslateTransform
+                                    x:Name="CanvasTranslate"
+                                    X="{Binding OffsetX}"
+                                    Y="{Binding OffsetY}"/>
+                            </TransformGroup>
+                        </Canvas.RenderTransform>
+
+                        <Canvas.Background>
+                            <DrawingBrush 
+                                TileMode="Tile"
+                                Viewport="0,0,100,100"
+                                ViewportUnits="Absolute">
+
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+
+                                        <!-- 🎨 MÀU NỀN -->
+                                        <GeometryDrawing Brush="Transparent">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,100,100"/>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+
+                                        <!-- 🔲 GRID -->
+                                        <GeometryDrawing Brush="Transparent">
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="{DynamicResource Grid}" Thickness="0.7">
+                                                    <Pen.DashStyle>
+                                                        <DashStyle Dashes="2.5"/>
+                                                    </Pen.DashStyle>
+                                                </Pen>
+                                            </GeometryDrawing.Pen>
+
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <!-- dọc -->
+                                                    <LineGeometry StartPoint="0,0" EndPoint="0,100"/>
+                                                    <!-- ngang -->
+                                                    <LineGeometry StartPoint="0,0" EndPoint="100,0"/>
+                                                </GeometryGroup>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+
+                            </DrawingBrush>
+                        </Canvas.Background>
+
+                        <!--CONNECTION-->
+                        <ItemsControl 
+                            x:Name="ConnectionsControl"
+                            ItemsSource="{Binding Connections}"
+                            Panel.ZIndex="0">
+
+                            <!--🔥 QUAN TRỌNG: dùng Canvas-->
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <!--🔥 ép tất cả Path về (0,0)-->
+                            <ItemsControl.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Canvas.Left" Value="0"/>
+                                    <Setter Property="Canvas.Top" Value="0"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Node:Node_ConnectionView>
+                                        <Node:Node_ConnectionView.Style>
+                                            <Style>
+
+                                            </Style>
+                                        </Node:Node_ConnectionView.Style>
+                                    </Node:Node_ConnectionView>
+
+                                    <!--<Path 
+                                        Stroke="{DynamicResource ConnectionColor}"
+                                        StrokeThickness="3"
+                                        SnapsToDevicePixels="True"
+                                        IsHitTestVisible="True">
+
+                                    <Path.Data>
+                                            <PathGeometry>
+                                                <PathFigure StartPoint="{Binding ConnectionModel.Start}">
+                                                    <BezierSegment 
+                                                        Point1="{Binding ConnectionModel.Control1}"
+                                                        Point2="{Binding ConnectionModel.Control2}"
+                                                        Point3="{Binding ConnectionModel.End}"/>
+                                                </PathFigure>
+                                            </PathGeometry>
+                                        </Path.Data>
+                                    </Path>-->
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!--NODE-->
+                        <ItemsControl 
+                            x:Name="NodesControl"
+                            ItemsSource="{Binding Nodes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Canvas.Left" Value="{Binding NodeModel.X}"/>
+                                    <Setter Property="Canvas.Top" Value="{Binding NodeModel.Y}"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+
+                            <!--<ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Node:NodeControl>
+                                        <Node:NodeControl.DataContext>
+                                            <NodeViewModel:Node_NodeViewModel></NodeViewModel:Node_NodeViewModel>
+                                        </Node:NodeControl.DataContext>
+                                    </Node:NodeControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>-->
+
+                        </ItemsControl>
+
+                        <!--<ItemsControl 
+                            x:Name="NodesControl_ImageImport"
+                            ItemsSource="{Binding ImageImportNodes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Canvas.Left" Value="{Binding NodeModel.X}"/>
+                                    <Setter Property="Canvas.Top" Value="{Binding NodeModel.Y}"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ImageImportNode:ImageImport_NodeView/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>-->
+
+                        <!--── Preview khi đang kéo dây ──────────────────────-->
+                        <Path x:Name="PreviewPath"
+                            Stroke="{DynamicResource PathData}"
+                            StrokeThickness="2"
+                            StrokeDashArray="6 3"
+                            IsHitTestVisible="False">
+
+                        </Path>
+
+                        <Rectangle 
+                            x:Name="SelectionBox"
+                            Stroke="DodgerBlue"
+                            StrokeThickness="1"
+                            Fill="#22007ACC"
+                            Visibility="Collapsed"/>
+                        
+                    </Canvas>
+
+                    <TextBlock
+                        x:Name="TextBlock_CursorCoordinate"
+                        Canvas.Bottom="3"
+                        Canvas.Right="3"
+                        Grid.Row="4"
+                        Height="25"
+                        Foreground="{DynamicResource CoordinateText}"
+                        Background="{DynamicResource WindowBackground}"
+                        FontSize="20"
+                        FontStyle="Normal"
+                        Margin="3"
+                        Padding="3">
+
+                    </TextBlock>
+
+                    <Slider
+                        x:Name="Slider_ZoomSlider"
+                        Canvas.Top="15"
+                        Canvas.Right="8"
+                        Orientation="Vertical"
+                        Width="auto"
+                        Height="300"
+                        Minimum="0.2"
+                        Maximum="3"
+                        SmallChange="0.1"
+                        LargeChange="0.5"
+                        TickFrequency="0.2"
+                        TickPlacement="TopLeft"
+                        Margin="2 30"
+                        Foreground="{DynamicResource SliderBrush}"
+                        Background="{DynamicResource WindowBackground}"
+                        Value="{Binding ZoomFactor, UpdateSourceTrigger=PropertyChanged}">
+
+                        <i:Interaction.Behaviors>
+                            <Behavior:ZoomSliderAdornerBehavior/>
+                        </i:Interaction.Behaviors>
+
+                    </Slider>
+
+                    <!--<Popup
+                        PlacementTarget="{Binding ElementName=ZoomSlider}"
+                        Placement="Right"
+                        HorizontalOffset="-40"
+                        VerticalOffset="15"
+                        AllowsTransparency="True"
+                        StaysOpen="True"
+                        IsOpen="True">
+                        <Border
+                            Background="{DynamicResource PopupBackground}"
+                            Padding="4"
+                            CornerRadius="5">
+
+                            <TextBlock
+                            Foreground="{DynamicResource PopupForeground}"
+                            Text="{Binding ZoomFactor,
+                                           StringFormat={}{0:F1}x}" />
+                        </Border>
+                    </Popup>-->
+                    
+                </Canvas>
+                
+            </GroupBox>
+
+            <GridSplitter
+                Grid.Column="1"
+                Margin="0 20 0 20"
+                BorderThickness="2"
+                BorderBrush="LightBlue"
+                VerticalAlignment="Stretch"
+                ResizeDirection="Columns"
+                ResizeBehavior="PreviousAndNext">
+
+            </GridSplitter>
+
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Auto"
+                Grid.Column="2">
+                <StackPanel>
+
+                    <StackPanel.Resources>
+                        <Style TargetType="Expander" BasedOn="{StaticResource MaterialDesignExpander}">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Text="{Binding}"
+                                            Foreground="WhiteSmoke"
+                                            FontWeight="Normal"
+                                            FontSize="20">
+
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Expander
+                        materialDesign:ExpanderAssist.VerticalHeaderPadding="10,2,25,5"
+                        ExpandDirection="Down"
+                        Background="{DynamicResource WindowBackground}"
+                        IsExpanded="{Binding SelectionService.HasSingleSelection, Mode=OneWay}">
+                        <Expander.HeaderTemplate>
+                            <DataTemplate>
+                                <Border Name="BoderHeader" Style="{StaticResource Border Style for Expander Header}">
+                                    <TextBlock 
+                                        Text="Properties"
+                                        Foreground="White"
+                                        FontSize="20"
+                                        FontWeight="Normal">
+                                        <TextBlock.LayoutTransform>
+                                            <RotateTransform
+                                                Angle="0" />
+                                        </TextBlock.LayoutTransform>
+                                    </TextBlock>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}" Value="True">
+                                        <Setter TargetName="BoderHeader" Property="Background" Value="DarkCyan"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </Expander.HeaderTemplate>
+
+                        <StackPanel
+                              Margin="8,10,8,10"
+                              Orientation="Vertical">
+
+                            <ContentControl
+                                Content="{Binding SelectedItem}"
+                                IsEnabled="True">
+
+                                <ContentControl.Resources>
+                                    <ResourceDictionary Source="/Resources/DataTemplates/PropertiesDataTemplate.xaml">
+
+                                    </ResourceDictionary>
+                                </ContentControl.Resources>
+
+                            </ContentControl>
+
+                        </StackPanel>
+                    </Expander>
+
+                </StackPanel>
+            </ScrollViewer>
+           
+
+        </Grid>
+
+    </Grid>
+
+</Window>
