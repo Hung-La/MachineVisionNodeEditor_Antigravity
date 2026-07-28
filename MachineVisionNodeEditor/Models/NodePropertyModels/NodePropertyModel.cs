@@ -1,14 +1,7 @@
-﻿using MachineVisionNodeEditor.Converters;
 using MachineVisionNodeEditor.ViewModels;
 using MachineVisionNodeEditor.Views.NodeProperties;
 using OpenCvSharp;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MachineVisionNodeEditor.Models.NodePropertyModels
 {
@@ -17,8 +10,6 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
         #region Fields
         private string _name;
         private string _description;
-        private Mat _sourceImage;
-        private Mat _destinationImage;
         private bool _gridEnabled;
         #endregion
 
@@ -61,30 +52,34 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
             set { SetField(ref _height, value); }
         }
 
-        public Mat SourceImage
+        public Dictionary<string, object> Inputs { get; } = new();
+
+        public Dictionary<string, object> Outputs { get; } = new();
+
+        /// <summary>
+        /// Typed accessor cho XAML binding — đọc/ghi Inputs["Image"] và tự raise PropertyChanged.
+        /// </summary>
+        public Mat InputImage
         {
-            get => _sourceImage;
+            get => Inputs.TryGetValue("Image", out var v) ? v as Mat : null;
             set
             {
-                SetField(ref _sourceImage, value);
-                var converter = new ResolutionConverter();
-                Width = (int)converter.Convert(
-                                               value,
-                                               typeof(int),
-                                               "Width",
-                                               CultureInfo.CurrentCulture);
-                Height = (int)converter.Convert(
-                                               value,
-                                               typeof(int),
-                                               "Height",
-                                               CultureInfo.CurrentCulture);
+                Inputs["Image"] = value;
+                OnPropertyChanged();
             }
         }
 
-        public Mat DestinationImage
+        /// <summary>
+        /// Typed accessor cho XAML binding — đọc/ghi Outputs["Image"] và tự raise PropertyChanged.
+        /// </summary>
+        public Mat OutputImage
         {
-            get => _destinationImage;
-            set { SetField(ref _destinationImage, value); }
+            get => Outputs.TryGetValue("Image", out var v) ? v as Mat : null;
+            set
+            {
+                Outputs["Image"] = value;
+                OnPropertyChanged();
+            }
         }
 
         public NodePropertyControl View

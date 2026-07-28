@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Commands;
+using MachineVisionNodeEditor.Commands;
 using MachineVisionNodeEditor.Extensions;
 using MachineVisionNodeEditor.Models.NodeModels;
 using MachineVisionNodeEditor.Models.NodeOperationModels;
@@ -89,9 +89,9 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
                 foreach(var item in images)
                 {
-                    NodePropertyModel.SourceImage = item;
+                    NodePropertyModel.InputImage = item;
                     OperationModel.Execute(NodePropertyModel);
-                    if (NodePropertyModel.DestinationImage != null)
+                    if (NodePropertyModel.OutputImage != null)
                     {
                         var convertColorWindow = new NodeWindow();
                         convertColorWindow.DataContext = this;

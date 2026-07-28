@@ -1,4 +1,4 @@
-﻿using MachineVisionAlgorithm.ConvertColor;
+using MachineVisionAlgorithm.ConvertColor;
 using MachineVisionNodeEditor.Models.NodePropertyModels;
 using OpenCvSharp;
 using System;
@@ -11,7 +11,9 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
     {
         public override void Execute(ConvertColor_NodePropertyModel property)
         {
-            property.DestinationImage = ConvertColor.Convert(property.SourceImage, (ColorConversionCodes)property.SelectedCode);
+            var sourceImage = property.Inputs.TryGetValue("Image", out var src) ? src as Mat : null;
+            if (sourceImage != null)
+                property.OutputImage = ConvertColor.Convert(sourceImage, (ColorConversionCodes)property.SelectedCode);
         }
     }
 }

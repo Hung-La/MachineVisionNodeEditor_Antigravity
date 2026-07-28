@@ -1,4 +1,4 @@
-﻿<local:NodeWindowControl 
+<local:NodeWindowControl 
         x:Class="MachineVisionNodeEditor.Views.Windows.NodeWindows.NodeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -46,7 +46,7 @@
             Grid.Row="1">
 
             <Viewer:ImageViewerControl
-                ViewImage="{Binding NodePropertyModel.DestinationImage}">
+                ViewImage="{Binding NodePropertyModel.OutputImage}">
             </Viewer:ImageViewerControl>
 
             <StatusBar
@@ -80,7 +80,7 @@
                         <TextBlock
                             Height="20"
                             FontSize="15"
-                            Text="{Binding NodePropertyModel.DestinationImage, 
+                            Text="{Binding NodePropertyModel.OutputImage, 
                             Converter={StaticResource ResolutionConverter},
                             ConverterParameter=Resolution}">
 

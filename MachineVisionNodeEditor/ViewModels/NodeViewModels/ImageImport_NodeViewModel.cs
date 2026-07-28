@@ -1,4 +1,4 @@
-﻿using MachineVisionAlgorithm.ImageInteraction;
+using MachineVisionAlgorithm.ImageInteraction;
 using MachineVisionNodeEditor.Commands;
 using MachineVisionNodeEditor.Interfaces.NodeInterfaces;
 using MachineVisionNodeEditor.Models.NodeModels;
@@ -97,13 +97,15 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                     {
                         if (NodePropertyModel.SelectedMode == null)
                         {
-                            NodePropertyModel.SourceImage = ImageImport.ReadImage(NodePropertyModel.FilePath);
-                            NodePropertyModel.DestinationImage = NodePropertyModel.SourceImage;
+                            var img = ImageImport.ReadImage(NodePropertyModel.FilePath);
+                            NodePropertyModel.InputImage = img;
+                            NodePropertyModel.OutputImage = img;
                         }
                         else
                         {
-                            NodePropertyModel.SourceImage = ImageImport.ReadImage(NodePropertyModel.FilePath, (ImreadModes)NodePropertyModel.SelectedMode);
-                            NodePropertyModel.DestinationImage = NodePropertyModel.SourceImage;
+                            var img = ImageImport.ReadImage(NodePropertyModel.FilePath, (ImreadModes)NodePropertyModel.SelectedMode);
+                            NodePropertyModel.InputImage = img;
+                            NodePropertyModel.OutputImage = img;
                         }
 
                     }
@@ -120,7 +122,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                 },
                     () =>
                 {
-                    if (NodePropertyModel.DestinationImage != null)
+                    if (NodePropertyModel.OutputImage != null)
                     {
                         var imageImportWindow = new NodeWindow();
                         imageImportWindow.DataContext = this;

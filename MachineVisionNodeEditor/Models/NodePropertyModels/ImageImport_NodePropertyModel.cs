@@ -1,6 +1,4 @@
-﻿using MachineVisionAlgorithm.ImageInteraction;
-using MachineVisionNodeEditor.Converters;
-using MachineVisionNodeEditor.ViewModels;
+using MachineVisionAlgorithm.ImageInteraction;
 using MachineVisionNodeEditor.Views.Windows.NodeWindows;
 using OpenCvSharp;
 using System;
@@ -31,7 +29,7 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
             set
             {
                 SetField(ref _filePath, value);
-                SourceImage = Cv2.ImRead(value);
+                InputImage = Cv2.ImRead(value);
                 //var converter = new ResolutionConverter();
                 //Width = (int)converter.Convert(
                 //                               FilePath,
@@ -58,11 +56,11 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
                 {
                     if (value == null)
                     {
-                        DestinationImage = ImageImport.ReadImage(FilePath);
+                        OutputImage = ImageImport.ReadImage(FilePath);
                     }
                     else
                     {
-                        DestinationImage = ImageImport.ReadImage(FilePath, (ImreadModes)value);
+                        OutputImage = ImageImport.ReadImage(FilePath, (ImreadModes)value);
                     }
 
                 }

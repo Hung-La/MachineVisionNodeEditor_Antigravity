@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Models.NodeModels;
+using MachineVisionNodeEditor.Models.NodeModels;
 using MachineVisionNodeEditor.ViewModels.NodeViewModels;
 using MachineVisionNodeEditor.Views.Windows;
 using OpenCvSharp;
@@ -14,12 +14,8 @@ namespace MachineVisionNodeEditor.Extensions
         {
             var registry = MainWindow.Instance.Window_MainWindowViewModel.NodeRegistry;
             var viewModel = (NodeControl_NodeViewModel)registry.GetViewModel(connection.FromPort.Owner);
-            if (viewModel.NodePropertyModel.DestinationImage != null)
-            {
-                return viewModel.NodePropertyModel.DestinationImage;
-            }
-
-            return null;
+            var mat = viewModel.NodePropertyModel.OutputImage;
+            return mat != null ? mat : null;
         }
     }
 }

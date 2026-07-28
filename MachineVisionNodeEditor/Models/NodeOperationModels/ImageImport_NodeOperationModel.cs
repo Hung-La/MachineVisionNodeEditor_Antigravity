@@ -1,4 +1,4 @@
-﻿using MachineVisionAlgorithm.ImageInteraction;
+using MachineVisionAlgorithm.ImageInteraction;
 using MachineVisionNodeEditor.Models.NodePropertyModels;
 using OpenCvSharp;
 using System;
@@ -15,7 +15,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
             if (string.IsNullOrWhiteSpace(propertyModel.FilePath))
                 return;
 
-            propertyModel.DestinationImage = ImageImport.ReadImage(propertyModel.FilePath, (ImreadModes)propertyModel.SelectedMode);
+            propertyModel.OutputImage = ImageImport.ReadImage(propertyModel.FilePath, (ImreadModes)propertyModel.SelectedMode);
 
         }
     }
