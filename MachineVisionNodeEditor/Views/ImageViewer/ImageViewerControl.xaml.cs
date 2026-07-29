@@ -34,7 +34,19 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
         }
 
         public static readonly DependencyProperty MyPropertyProperty =
-            DependencyProperty.Register(nameof(ViewImage), typeof(Mat), typeof(ImageViewerControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ViewImage), typeof(Mat), typeof(ImageViewerControl),
+                new PropertyMetadata(null, OnViewImageChanged));
+
+        private static void OnViewImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ImageViewerControl control)
+            {
+                control.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Loaded, new Action(() =>
+                {
+                    control.FitToScreen();
+                }));
+            }
+        }
 
         public bool IsGridVisible
         {
@@ -87,7 +99,39 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
         public ImageViewerControl()
         {
             InitializeComponent();
-            Loaded += (s, e) => UpdateGrid();
+            Loaded += (s, e) =>
+            {
+                UpdateGrid();
+                Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Loaded, new Action(() =>
+                {
+                    FitToScreen();
+                }));
+            };
+        }
+
+        public void FitToScreen()
+        {
+            if (ViewImage == null || ViewImage.IsDisposed || ViewImage.Width <= 0 || ViewImage.Height <= 0)
+                return;
+
+            double containerWidth = ActualWidth > 0 ? ActualWidth : 800;
+            double containerHeight = ActualHeight > 0 ? ActualHeight : 600;
+
+            double availW = Math.Max(containerWidth - 20, 50);
+            double availH = Math.Max(containerHeight - 20, 50);
+
+            double scaleX = availW / ViewImage.Width;
+            double scaleY = availH / ViewImage.Height;
+
+            double fitScale = Math.Min(scaleX, scaleY);
+            if (fitScale <= 0 || double.IsNaN(fitScale) || double.IsInfinity(fitScale))
+                fitScale = 1.0;
+
+            scale.ScaleX = fitScale;
+            scale.ScaleY = fitScale;
+
+            translate.X = 0;
+            translate.Y = 0;
         }
 
         public void UpdateGrid()
@@ -135,9 +179,19 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            isPanning = true;
-            start = e.GetPosition(this);
-            Image.CaptureMouse();
+            if (e.ChangedButton == MouseButton.Middle && e.ClickCount == 2)
+            {
+                FitToScreen();
+                e.Handled = true;
+                return;
+            }
+
+            if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Middle)
+            {
+                isPanning = true;
+                start = e.GetPosition(this);
+                Image.CaptureMouse();
+            }
         }
 
         private void Image_MouseMove(object sender, MouseEventArgs e)
@@ -164,8 +218,11 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            isPanning = false;
-            Image.ReleaseMouseCapture();
+            if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Middle)
+            {
+                isPanning = false;
+                Image.ReleaseMouseCapture();
+            }
         }
 
         private void Image_MouseWheel(object sender, MouseWheelEventArgs e)

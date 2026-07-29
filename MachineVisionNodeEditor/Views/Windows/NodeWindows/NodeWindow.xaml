@@ -56,11 +56,12 @@
 
                     <!-- Control 1: Grid ToggleButton -->
                     <ToggleButton x:Name="ToggleGridBtn" 
-                                  IsChecked="True" 
+                                  IsChecked="False" 
                                   Content="Grid" 
                                   FontSize="8" 
+                                  Foreground="WhiteSmoke"
                                   ToolTip="Toggle Grid (On/Off)" 
-                                  Padding="6,2" 
+                                  Padding="4,2" 
                                   VerticalAlignment="Center"/>
 
                     <!-- Control 2: Grid Spacing Slider (1-1000) -->

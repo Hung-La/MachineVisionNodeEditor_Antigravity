@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MachineVisionAlgorithm")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78315bbf62d2885df310a6a3af4f2903a6d25d55")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e9f12005034684988992a63b552a27a61ec7ad1")]
 [assembly: System.Reflection.AssemblyProductAttribute("MachineVisionAlgorithm")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MachineVisionAlgorithm")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
