@@ -1,3 +1,4 @@
+using MachineVisionNodeEditor.Models.NodeContextModels;
 using MachineVisionNodeEditor.ViewModels;
 using MachineVisionNodeEditor.Views.NodeProperties;
 using OpenCvSharp;
@@ -10,7 +11,6 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
         #region Fields
         private string _name;
         private string _description;
-        private bool _gridEnabled;
         #endregion
 
         #region Properties
@@ -31,13 +31,6 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
             }
         }
 
-
-        public bool GridEnabled
-        {
-            get => _gridEnabled;
-            set { SetField(ref _gridEnabled, value); }
-        }
-
         private int _width;
         public int Width
         {
@@ -52,19 +45,26 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
             set { SetField(ref _height, value); }
         }
 
-        public Dictionary<string, object> Inputs { get; } = new();
+        public NodeContext Context { get; } = new();
 
-        public Dictionary<string, object> Outputs { get; } = new();
+        public Dictionary<string, object> Inputs => Context.Inputs;
+
+        public Dictionary<string, object> Outputs => Context.Outputs;
 
         /// <summary>
         /// Typed accessor cho XAML binding — đọc/ghi Inputs["Image"] và tự raise PropertyChanged.
         /// </summary>
         public Mat InputImage
         {
-            get => Inputs.TryGetValue("Image", out var v) ? v as Mat : null;
+            get => Context.InputImage;
             set
             {
-                Inputs["Image"] = value;
+                Context.InputImage = value;
+                if (value != null && !value.IsDisposed && value.Width > 0 && value.Height > 0)
+                {
+                    Width = value.Width;
+                    Height = value.Height;
+                }
                 OnPropertyChanged();
             }
         }
@@ -74,10 +74,15 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
         /// </summary>
         public Mat OutputImage
         {
-            get => Outputs.TryGetValue("Image", out var v) ? v as Mat : null;
+            get => Context.OutputImage;
             set
             {
-                Outputs["Image"] = value;
+                Context.OutputImage = value;
+                if (value != null && !value.IsDisposed && value.Width > 0 && value.Height > 0)
+                {
+                    Width = value.Width;
+                    Height = value.Height;
+                }
                 OnPropertyChanged();
             }
         }

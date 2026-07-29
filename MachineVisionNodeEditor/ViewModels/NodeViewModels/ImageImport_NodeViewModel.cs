@@ -122,6 +122,14 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                 },
                     () =>
                 {
+                    if (NodePropertyModel.OutputImage == null && File.Exists(NodePropertyModel.FilePath))
+                    {
+                        var mode = NodePropertyModel.SelectedMode != null ? (ImreadModes)NodePropertyModel.SelectedMode : ImreadModes.Color;
+                        var img = ImageImport.ReadImage(NodePropertyModel.FilePath, mode);
+                        NodePropertyModel.InputImage = img;
+                        NodePropertyModel.OutputImage = img;
+                    }
+
                     if (NodePropertyModel.OutputImage != null)
                     {
                         var imageImportWindow = new NodeWindow();

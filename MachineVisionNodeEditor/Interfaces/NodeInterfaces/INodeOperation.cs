@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Models.NodePropertyModels;
+using MachineVisionNodeEditor.Models.NodePropertyModels;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Interfaces;
+using MachineVisionNodeEditor.Interfaces;
 using MachineVisionNodeEditor.Interfaces.NodeInterfaces;
 using MachineVisionNodeEditor.Models.NodeModels;
 using MachineVisionNodeEditor.Models.NodeOperationModels;

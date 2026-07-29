@@ -18,3 +18,23 @@ D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeE
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\ref\MachineVisionAlgorithm.dll
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\runtimes\win-x64\native\OpenCvSharpExtern.dll
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\runtimes\win-x64\native\opencv_videoio_ffmpeg4130_64.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\MachineVisionAlgorithm.exe
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\MachineVisionAlgorithm.deps.json
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\MachineVisionAlgorithm.runtimeconfig.json
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\MachineVisionAlgorithm.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\MachineVisionAlgorithm.pdb
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\OpenCvSharp.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\runtimes\win-x64\native\OpenCvSharpExtern.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\bin\Debug\net10.0\runtimes\win-x64\native\opencv_videoio_ffmpeg4130_64.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.csproj.AssemblyReference.cache
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.AssemblyInfoInputs.cache
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.AssemblyInfo.cs
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.csproj.CoreCompileInputs.cache
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.sourcelink.json
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineV.0C137DB7.Up2Date
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\refint\MachineVisionAlgorithm.dll
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.pdb
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\MachineVisionAlgorithm.genruntimeconfig.cache
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionAlgorithm\obj\Debug\net10.0\ref\MachineVisionAlgorithm.dll

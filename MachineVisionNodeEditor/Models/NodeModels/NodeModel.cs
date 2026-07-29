@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Interfaces;
+using MachineVisionNodeEditor.Interfaces;
 using MachineVisionNodeEditor.ViewModels;
 using MachineVisionNodeEditor.ViewModels.NodeViewModels;
 using MachineVisionNodeEditor.Views.Nodes;
@@ -18,6 +18,14 @@ namespace MachineVisionNodeEditor.Models.NodeModels
         Test,
         ImageImport,
         ConvertColor,
+        Threshold,
+        GaussianBlur,
+        MedianBlur,
+        BilateralFilter,
+        Canny,
+        Erode,
+        Dilate,
+        MorphologyEx
     }
     public abstract class NodeModel : BaseViewModel, ISelectable
     {
@@ -34,19 +42,33 @@ namespace MachineVisionNodeEditor.Models.NodeModels
         public double X
         {
             get => _x;
-            set { SetField(ref _x, Math.Clamp(value, 10, 14800)); }
+            set { SetField(ref _x, value); }
         }
 
         public double Y
         {
             get => _y;
-            set { SetField(ref _y, Math.Clamp(value, 10, 14800)); }
+            set { SetField(ref _y, value); }
         }
 
         public bool IsSelected
         {
             get => _isSelected;
             set { SetField(ref _isSelected, value); }
+        }
+
+        private bool _hasError;
+        public bool HasError
+        {
+            get => _hasError;
+            set { SetField(ref _hasError, value); }
+        }
+
+        private NodeExecutionState _executionState = NodeExecutionState.None;
+        public NodeExecutionState ExecutionState
+        {
+            get => _executionState;
+            set { SetField(ref _executionState, value); }
         }
 
         public ObservableCollection<Node_PortViewModel> InputPorts { get; } = new ObservableCollection<Node_PortViewModel>() { };//Type = PortType.Input };
@@ -125,5 +147,12 @@ namespace MachineVisionNodeEditor.Models.NodeModels
                 if (!hasFree) AddPort(PortType.Output);
             }
         }
+    }
+
+    public enum NodeExecutionState
+    {
+        None,
+        Success,
+        Failed
     }
 }

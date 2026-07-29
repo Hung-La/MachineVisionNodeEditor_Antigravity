@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.NodeViewModels"
                     xmlns:Property="clr-namespace:MachineVisionNodeEditor.Views.NodeProperties">
@@ -15,10 +15,40 @@
 
     </DataTemplate>
 
-    <DataTemplate
-        DataType="{x:Type ViewModel:ConvertColor_NodeViewModel}">
+    <DataTemplate DataType="{x:Type ViewModel:ConvertColor_NodeViewModel}">
         <Property:ConvertColor_PropertyView></Property:ConvertColor_PropertyView>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type ViewModel:Threshold_NodeViewModel}">
+        <Property:Threshold_PropertyView></Property:Threshold_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:GaussianBlur_NodeViewModel}">
+        <Property:GaussianBlur_PropertyView></Property:GaussianBlur_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:MedianBlur_NodeViewModel}">
+        <Property:MedianBlur_PropertyView></Property:MedianBlur_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:BilateralFilter_NodeViewModel}">
+        <Property:BilateralFilter_PropertyView></Property:BilateralFilter_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:Canny_NodeViewModel}">
+        <Property:Canny_PropertyView></Property:Canny_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:Erode_NodeViewModel}">
+        <Property:Erode_PropertyView></Property:Erode_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:Dilate_NodeViewModel}">
+        <Property:Dilate_PropertyView></Property:Dilate_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:MorphologyEx_NodeViewModel}">
+        <Property:MorphologyEx_PropertyView></Property:MorphologyEx_PropertyView>
+    </DataTemplate>
 
 </ResourceDictionary>

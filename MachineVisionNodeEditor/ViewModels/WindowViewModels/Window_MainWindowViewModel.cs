@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Builders;
+using MachineVisionNodeEditor.Builders;
 using MachineVisionNodeEditor.Commands;
 using MachineVisionNodeEditor.Factories;
 using MachineVisionNodeEditor.Interfaces;
@@ -11,6 +11,7 @@ using MachineVisionNodeEditor.Services.NodeServies;
 using MachineVisionNodeEditor.ViewModels.NodeViewModels;
 using MachineVisionNodeEditor.Views.Nodes;
 using MachineVisionNodeEditor.Views.Windows;
+using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,8 +21,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
-using static OpenCvSharp.ML.DTrees;
 
 namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
 {
@@ -32,9 +31,30 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         private Node_ConnectionViewModel _pendingConnection;
         private bool _isDraggingConnection;
 
+        private bool _isPipelineExecutedSuccess;
+        private string _pipelineExecutionStatusText = string.Empty;
+        private bool _isPipelineStatusVisible;
         #endregion
 
         #region Properties
+        public bool IsPipelineExecutedSuccess
+        {
+            get => _isPipelineExecutedSuccess;
+            set => SetField(ref _isPipelineExecutedSuccess, value);
+        }
+
+        public string PipelineExecutionStatusText
+        {
+            get => _pipelineExecutionStatusText;
+            set => SetField(ref _pipelineExecutionStatusText, value);
+        }
+
+        public bool IsPipelineStatusVisible
+        {
+            get => _isPipelineStatusVisible;
+            set => SetField(ref _isPipelineStatusVisible, value);
+        }
+
         public bool IsChecked_ToggleTheme { get => isChecked_ToggleTheme; set { isChecked_ToggleTheme = value; OnPropertyChanged(); } }
 
         public Node_ConnectionViewModel PendingConnection
@@ -46,6 +66,8 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ObservableCollection<Node_ConnectionViewModel> Connections { get; } = new();
 
         public ModelRegistry NodeRegistry { get; } = new();
+        public SelectionService SelectionService { get; } = new();
+        public UndoRedoService UndoRedoService { get; } = new();
 
         private double _canvasWidth = 15000;
 
@@ -76,7 +98,6 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
                     OnPropertyChanged(nameof(CanvasWidth));
                     OnPropertyChanged(nameof(CanvasHeight));
                 }
-
             }
         }
 
@@ -100,45 +121,12 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         {
             get
             {
-                var selectedItem = SelectionService.SelectedItem;
-                if (selectedItem == null) return null;
-                else
-                {
-                    
-                    switch (selectedItem)
-                    {
-                        //case ImageImport_NodeModel imageImport_NodeModel:
-                        //    {
-                        //        return Nodes.FirstOrDefault(n => n.NodeModel == imageImport_NodeModel);
-                        //    }
-                        //case ConvertColor_NodeModel convertColor_NodeModel:
-                        //    {
-                        //        return Nodes.FirstOrDefault(n => n.NodeModel == convertColor_NodeModel);
-                        //    }
-                        //case Test_NodeModel test_NodeModel:
-                        //    {
-                        //        return Nodes.FirstOrDefault(n => n.NodeModel == test_NodeModel);
-                        //    }
-                        case NodeModel nodeModel:
-                            {
-                                return Nodes.FirstOrDefault(n => n.NodeModel == nodeModel);
-                            }
-                        case ConnectionModel connectionModel:
-                            {
-                                return Connections.FirstOrDefault(c => c.ConnectionModel == connectionModel);
-                            }
-                        default: return null;
-                    }
-                }
-
+                var selection = SelectionService.SelectedItem;
+                if (selection == null) return null;
+                return NodeRegistry.GetViewModel(selection);
             }
         }
 
-        #endregion
-
-        #region Services
-        public SelectionService SelectionService { get; } = new SelectionService();
-        public UndoRedoService UndoRedoService { get; } = new UndoRedoService();
         #endregion
 
         #region Commands
@@ -146,87 +134,96 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ICommand ConvertColorClick { get; }
         public ICommand ImageImportClick { get; }
         public ICommand TestNodeClick { get; }
+        public ICommand ThresholdClick { get; }
+        public ICommand GaussianBlurClick { get; }
+        public ICommand MedianBlurClick { get; }
+        public ICommand BilateralFilterClick { get; }
+        public ICommand CannyClick { get; }
+        public ICommand ErodeClick { get; }
+        public ICommand DilateClick { get; }
+        public ICommand MorphologyExClick { get; }
 
-        public ICommand RunPipelineCommand { get; }
+        public ICommand PipelineExecuteCommand { get; }
+        public ICommand ExecutePipelineCommand { get; }
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
+        public ICommand NewPipelineCommand { get; }
 
         #endregion
 
         public Window_MainWindowViewModel()
         {
-            ChangeTheme = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            ChangeTheme = new RelayCommand<System.Windows.Window>((p) => { return true; }, (p) =>
             {
                 if (IsChecked_ToggleTheme)
                 {
-                    AppTheme.
-                    ChangeTheme(new Uri("Resources/Themes/DarkTheme.xaml", UriKind.Relative));
+                    AppTheme.ChangeTheme(new Uri("Resources/Themes/DarkTheme.xaml", UriKind.Relative));
                 }
                 else { AppTheme.ChangeTheme(new Uri("Resources/Themes/LightTheme.xaml", UriKind.Relative)); }
             });
 
             ConvertColorClick = new RelayCommand(
-                () =>
-                {
-                    if (Nodes.Count == 0)
-                    {
-                        return false;
-                    }
-                    else if (Nodes.Count > 0)
-                    {
-                        if (Nodes.Any(n => n is ImageImport_NodeViewModel))
-                        {
-                            return true;
-                        }
-                    }
+                () => Nodes.Count > 0 && Nodes.Any(n => n is ImageImport_NodeViewModel),
+                () => AddNode(NodeType.ConvertColor));
 
-                    return false;
+            TestNodeClick = new RelayCommand(() => true, () => AddNode(NodeType.Test));
+            ImageImportClick = new RelayCommand(() => true, () => AddNode(NodeType.ImageImport));
+            ThresholdClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.Threshold));
+            GaussianBlurClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.GaussianBlur));
+            MedianBlurClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.MedianBlur));
+            BilateralFilterClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.BilateralFilter));
+            CannyClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.Canny));
+            ErodeClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.Erode));
+            DilateClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.Dilate));
+            MorphologyExClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.MorphologyEx));
 
-                },
-                () =>
-                {
-                    AddNode(NodeType.ConvertColor);
-                });
+            UndoCommand = new RelayCommand(() => UndoRedoService.CanUndo, () => UndoRedoService.Undo());
+            RedoCommand = new RelayCommand(() => UndoRedoService.CanRedo, () => UndoRedoService.Redo());
+            NewPipelineCommand = new RelayCommand(() => true, () =>
+            {
+                Nodes.Clear();
+                Connections.Clear();
+                SelectionService.Clear();
+                IsPipelineStatusVisible = false;
+            });
 
-            TestNodeClick = new RelayCommand(
-                () =>
-                {
-                    return true;
-                },
-                () =>
-                {
-                    AddNode(NodeType.Test);
-                });
+            PipelineExecuteCommand = new RelayCommand(() => Nodes.Count > 0, () => ExecutePipeline());
+            ExecutePipelineCommand = PipelineExecuteCommand;
 
-            ImageImportClick = new RelayCommand(
-                () =>
-                {
-                    return true;
-                },
-                () =>
-                {
-                    AddNode(NodeType.ImageImport);
-                });
-
-            RunPipelineCommand = new RelayCommand(
-                () =>
-                {
-                    // Điều kiện để nút Run sáng lên: Phải có ít nhất 1 Node trên Canvas
-                    return Nodes.Count > 0;
-                },
-                () =>
-                {
-                    // TODO: Chỗ này chúng ta sẽ khởi tạo và gọi class VisionPipelineExecutor sau.
-                    // Tạm thời hiển thị thông báo để test nút nhấn đã binding thành công chưa.
-                    MessageBox.Show("Bắt đầu kích hoạt luồng Pipeline xử lý ảnh...", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                });
-
-            // Khi selection thay đổi → notify SelectedViewModel để Properties panel cập nhật
-            SelectionService.SelectedItems.CollectionChanged += (sender, e)
-                => OnPropertyChanged(nameof(SelectedItem));
-
-
-            // Khi Nodes và Connections thay đổi thì sẽ cập nhật NodeModel
+            SelectionService.SelectedItems.CollectionChanged += (sender, e) => OnPropertyChanged(nameof(SelectedItem));
             Nodes.CollectionChanged += Model_CollectionChanged;
             Connections.CollectionChanged += Model_CollectionChanged;
+        }
+
+        private System.Windows.Threading.DispatcherTimer? _statusTimer;
+
+        private void ExecutePipeline()
+        {
+            var executor = new VisionPipelineExecutor(Nodes, Connections);
+            var result = executor.Execute();
+
+            IsPipelineExecutedSuccess = result.Success;
+            IsPipelineStatusVisible = true;
+            PipelineExecutionStatusText = result.Success
+                ? $"Pipeline Executed Successfully ({result.ElapsedMs} ms)"
+                : $"Pipeline Execution Failed ({result.ElapsedMs} ms)";
+
+            _statusTimer?.Stop();
+            _statusTimer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            _statusTimer.Tick += (s, e) =>
+            {
+                IsPipelineStatusVisible = false;
+                foreach (var node in Nodes)
+                {
+                    node.NodeModel.ExecutionState = NodeExecutionState.None;
+                    node.NodeModel.HasError = false;
+                }
+                _statusTimer.Stop();
+            };
+            _statusTimer.Start();
         }
 
         private void Model_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -248,9 +245,8 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             }
         }
 
-        public Node_ConnectionViewModel? AddConnection(PortModel fromPort, PortModel toPort, Point startPoint, Point endPoint)
+        public Node_ConnectionViewModel? AddConnection(PortModel fromPort, PortModel toPort, System.Windows.Point startPoint, System.Windows.Point endPoint)
         {
-            // Không cho nối 2 lần cùng cặp port
             if (Connections.Any(c => c.ConnectionModel.FromPort == fromPort && c.ConnectionModel.ToPort == toPort))
                 return null;
 
@@ -260,7 +256,6 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             model.End = endPoint;
             var vm = new Node_ConnectionViewModel(model);
             vm.ConnectionModel.UpdateControls();
-            //Connections.Add(vm);
             UndoRedoService.Execute(new ConnectCommand(this, vm));
             return vm;
         }
@@ -285,24 +280,22 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             UndoRedoService.Execute(new AddNodeCommand(this, NodeFactory.Create(nodeModel)));
         }
 
-
-        public void MoveNode(Point oldPos, Point newPos)
+        public void MoveNode(System.Windows.Point oldPos, System.Windows.Point newPos)
         {
             var nodes = Nodes.Where(n => n.NodeModel.IsSelected == true).ToList();
             UndoRedoService.Execute(new MoveNodeCommand(this, nodes, oldPos, newPos));
-
         }
 
-        public void SelectInRect(Rect rect)
+        public void SelectInRect(System.Windows.Rect rect)
         {
-            var items = new List<(ISelectable, Point)>();
+            var items = new List<(ISelectable, System.Windows.Point)>();
 
             foreach (var n in Nodes)
-                items.Add((n.NodeModel, new Point(n.NodeModel.X, n.NodeModel.Y)));
+                items.Add((n.NodeModel, new System.Windows.Point(n.NodeModel.X, n.NodeModel.Y)));
 
             foreach (var c in Connections)
             {
-                var mid = new Point(
+                var mid = new System.Windows.Point(
                     (c.ConnectionModel.Start.X + c.ConnectionModel.End.X) / 2,
                     (c.ConnectionModel.Start.Y + c.ConnectionModel.End.Y) / 2);
                 items.Add((c.ConnectionModel, mid));
@@ -322,26 +315,17 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
                 switch (item)
                 {
                     case NodeModel nodeModel:
-                        selectedNodes.AddRange(
-                            Nodes.Where(n => n.NodeModel == nodeModel));
+                        selectedNodes.AddRange(Nodes.Where(n => n.NodeModel == nodeModel));
                         break;
 
                     case ConnectionModel connectionModel:
-                        selectedConnections.AddRange(
-                            Connections.Where(c => c.ConnectionModel == connectionModel));
+                        selectedConnections.AddRange(Connections.Where(c => c.ConnectionModel == connectionModel));
                         break;
                 }
             }
 
-            selectedConnections = selectedConnections
-                                    .Distinct()
-                                    .ToList();
+            selectedConnections = selectedConnections.Distinct().ToList();
 
-
-            //UndoRedoService.Execute(new DeleteNodeCommand(this, selectedNodes));
-            //UndoRedoService.Execute(new DisconnectCommand(this, selectedConnections, selectedNodes));
-
-            // ✅ Gộp 2 command thành 1, thực thi và push 1 lần duy nhất
             var deleteNodeCmd = new DeleteNodeCommand(this, selectedNodes);
             var disconnectCmd = new DisconnectCommand(this, selectedConnections, selectedNodes);
 
@@ -352,8 +336,7 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
 
         private void DeleteNode(NodeControl_NodeViewModel node)
         {
-            var removeConnections =
-                Connections
+            var removeConnections = Connections
                 .Where(c => c.ConnectionModel.FromPort.Owner == node.NodeModel || c.ConnectionModel.ToPort.Owner == node.NodeModel)
                 .ToList();
 
@@ -366,6 +349,3 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public void ClearAllSelections() => SelectionService.Clear();
     }
 }
-
-
-

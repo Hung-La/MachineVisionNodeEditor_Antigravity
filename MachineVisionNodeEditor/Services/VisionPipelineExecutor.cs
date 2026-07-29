@@ -1,6 +1,5 @@
 using MachineVisionNodeEditor.Extensions;
 using MachineVisionNodeEditor.Models.NodeModels;
-using MachineVisionNodeEditor.Registries;
 using MachineVisionNodeEditor.ViewModels.NodeViewModels;
 using OpenCvSharp;
 using System;
@@ -11,50 +10,46 @@ using System.Text;
 
 namespace MachineVisionNodeEditor.Services
 {
-    /// <summary>
-    /// Thực thi toàn bộ pipeline xử lý ảnh theo thứ tự topo (topological sort).
-    /// Duyệt từ các node nguồn (không có input) → các node xử lý → node cuối.
-    /// </summary>
     public class VisionPipelineExecutor
     {
-        private readonly IReadOnlyList<NodeControl_NodeViewModel> _nodes;
-        private readonly IReadOnlyList<Node_ConnectionViewModel> _connections;
-        private readonly ModelRegistry _registry;
+        private readonly IEnumerable<NodeControl_NodeViewModel> _nodes;
+        private readonly IEnumerable<Node_ConnectionViewModel> _connections;
 
-        public VisionPipelineExecutor(
-            IReadOnlyList<NodeControl_NodeViewModel> nodes,
-            IReadOnlyList<Node_ConnectionViewModel> connections,
-            ModelRegistry registry)
+        public VisionPipelineExecutor(IEnumerable<NodeControl_NodeViewModel> nodes, IEnumerable<Node_ConnectionViewModel> connections)
         {
             _nodes = nodes;
             _connections = connections;
-            _registry = registry;
         }
 
-        /// <summary>
-        /// Chạy toàn bộ pipeline. Trả về PipelineResult chứa thông tin kết quả.
-        /// </summary>
         public PipelineResult Execute()
         {
             var result = new PipelineResult();
             var stopwatch = Stopwatch.StartNew();
 
+            foreach (var node in _nodes)
+            {
+                node.NodeModel.HasError = false;
+                node.NodeModel.ExecutionState = NodeExecutionState.None;
+            }
+
             try
             {
-                // Bước 1: Sắp xếp topological
                 var sortedNodes = TopologicalSort();
                 result.TotalNodes = sortedNodes.Count;
 
-                // Bước 2: Thực thi từng node theo thứ tự
                 foreach (var nodeVm in sortedNodes)
                 {
                     try
                     {
                         ExecuteNode(nodeVm);
+                        nodeVm.NodeModel.ExecutionState = NodeExecutionState.Success;
+                        nodeVm.NodeModel.HasError = false;
                         result.ProcessedNodes++;
                     }
                     catch (Exception ex)
                     {
+                        nodeVm.NodeModel.ExecutionState = NodeExecutionState.Failed;
+                        nodeVm.NodeModel.HasError = true;
                         result.Errors.Add($"Lỗi tại node \"{nodeVm.NodeModel.Title}\": {ex.Message}");
                     }
                 }
@@ -72,104 +67,52 @@ namespace MachineVisionNodeEditor.Services
             return result;
         }
 
-        /// <summary>
-        /// Thực thi một node cụ thể: lấy ảnh từ node trước → xử lý → ghi kết quả.
-        /// </summary>
         private void ExecuteNode(NodeControl_NodeViewModel nodeVm)
         {
-            switch (nodeVm)
+            var inputConnection = _connections.FirstOrDefault(c => c.ConnectionModel.ToPort.Owner == nodeVm.NodeModel);
+            if (inputConnection != null)
             {
-                case ImageImport_NodeViewModel imageImportVm:
-                    ExecuteImageImport(imageImportVm);
-                    break;
-
-                case ConvertColor_NodeViewModel convertColorVm:
-                    ExecuteConvertColor(convertColorVm);
-                    break;
-
-                // Test node: không làm gì, chỉ pass-through
-                case Node_NodeViewModel testVm:
-                    ExecutePassThrough(testVm);
-                    break;
-
-                default:
-                    // Node không xác định — skip
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// ImageImport: Load ảnh từ file path đã cấu hình.
-        /// </summary>
-        private void ExecuteImageImport(ImageImport_NodeViewModel vm)
-        {
-            var prop = vm.NodePropertyModel;
-
-            // Nếu chưa có ảnh và có file path → load
-            if (prop.OutputImage == null && !string.IsNullOrWhiteSpace(prop.FilePath))
-            {
-                vm.OperationModel.Execute(prop);
-            }
-            // Nếu đã có OutputImage rồi (người dùng đã Browse trước đó) → giữ nguyên
-        }
-
-        /// <summary>
-        /// ConvertColor: Lấy ảnh từ node trước qua connection → chuyển đổi màu.
-        /// </summary>
-        private void ExecuteConvertColor(ConvertColor_NodeViewModel vm)
-        {
-            var prop = vm.NodePropertyModel;
-
-            // Lấy ảnh từ node trước (qua input port)
-            if (vm.NodeModel.InputPorts.Count > 0)
-            {
-                var inputPort = vm.NodeModel.InputPorts[0].PortModel;
-                foreach (var connection in inputPort.Connections)
+                var sourceNodeModel = inputConnection.ConnectionModel.FromPort.Owner;
+                var sourceNodeVM = _nodes.FirstOrDefault(n => n.NodeModel == sourceNodeModel);
+                if (sourceNodeVM != null && sourceNodeVM.NodePropertyModel.OutputImage != null)
                 {
-                    var sourceImage = ImageHelper.GetImageFromPreviousNode(connection);
-                    if (sourceImage != null)
-                    {
-                        prop.InputImage = sourceImage;
-                        break; // Chỉ lấy ảnh từ connection đầu tiên
-                    }
+                    nodeVm.NodePropertyModel.InputImage = sourceNodeVM.NodePropertyModel.OutputImage;
                 }
             }
 
-            // Thực thi chuyển đổi màu
-            if (prop.InputImage != null && prop.SelectedCode != null)
+            if (nodeVm is ConvertColor_NodeViewModel ccVM)
+                ccVM.OperationModel.Execute(ccVM.NodePropertyModel);
+            else if (nodeVm is ImageImport_NodeViewModel impVM)
             {
-                vm.OperationModel.Execute(prop);
+                if (impVM.NodePropertyModel.OutputImage == null && !string.IsNullOrWhiteSpace(impVM.NodePropertyModel.FilePath))
+                    impVM.OperationModel.Execute(impVM.NodePropertyModel);
+            }
+            else if (nodeVm is Threshold_NodeViewModel threshVM)
+                threshVM.OperationModel.Execute(threshVM.NodePropertyModel);
+            else if (nodeVm is GaussianBlur_NodeViewModel gbVM)
+                gbVM.OperationModel.Execute(gbVM.NodePropertyModel);
+            else if (nodeVm is MedianBlur_NodeViewModel mbVM)
+                mbVM.OperationModel.Execute(mbVM.NodePropertyModel);
+            else if (nodeVm is BilateralFilter_NodeViewModel bfVM)
+                bfVM.OperationModel.Execute(bfVM.NodePropertyModel);
+            else if (nodeVm is Canny_NodeViewModel cannyVM)
+                cannyVM.OperationModel.Execute(cannyVM.NodePropertyModel);
+            else if (nodeVm is Erode_NodeViewModel erodeVM)
+                erodeVM.OperationModel.Execute(erodeVM.NodePropertyModel);
+            else if (nodeVm is Dilate_NodeViewModel dilateVM)
+                dilateVM.OperationModel.Execute(dilateVM.NodePropertyModel);
+            else if (nodeVm is MorphologyEx_NodeViewModel morphVM)
+                morphVM.OperationModel.Execute(morphVM.NodePropertyModel);
+
+            if (nodeVm.NodePropertyModel.OutputImage != null)
+            {
+                nodeVm.NodePropertyModel.Width = nodeVm.NodePropertyModel.OutputImage.Width;
+                nodeVm.NodePropertyModel.Height = nodeVm.NodePropertyModel.OutputImage.Height;
             }
         }
 
-        /// <summary>
-        /// Pass-through: Chuyển ảnh từ input sang output mà không xử lý.
-        /// </summary>
-        private void ExecutePassThrough(Node_NodeViewModel vm)
-        {
-            if (vm.NodeModel.InputPorts.Count > 0)
-            {
-                var inputPort = vm.NodeModel.InputPorts[0].PortModel;
-                foreach (var connection in inputPort.Connections)
-                {
-                    var sourceImage = ImageHelper.GetImageFromPreviousNode(connection);
-                    if (sourceImage != null)
-                    {
-                        vm.NodePropertyModel.InputImage = sourceImage;
-                        vm.NodePropertyModel.OutputImage = sourceImage;
-                        break;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Topological Sort (Kahn's Algorithm) — sắp xếp node theo thứ tự phụ thuộc.
-        /// Node nguồn (không có input connection) được xử lý trước.
-        /// </summary>
         private List<NodeControl_NodeViewModel> TopologicalSort()
         {
-            // Xây dựng adjacency list và in-degree map
             var inDegree = new Dictionary<NodeControl_NodeViewModel, int>();
             var adjacency = new Dictionary<NodeControl_NodeViewModel, List<NodeControl_NodeViewModel>>();
 
@@ -179,7 +122,6 @@ namespace MachineVisionNodeEditor.Services
                 adjacency[node] = new List<NodeControl_NodeViewModel>();
             }
 
-            // Duyệt qua tất cả connections để xây dựng graph
             foreach (var conn in _connections)
             {
                 var fromPort = conn.ConnectionModel.FromPort;
@@ -198,7 +140,6 @@ namespace MachineVisionNodeEditor.Services
                 }
             }
 
-            // Kahn's Algorithm
             var queue = new Queue<NodeControl_NodeViewModel>();
 
             foreach (var kvp in inDegree)
@@ -222,28 +163,20 @@ namespace MachineVisionNodeEditor.Services
                 }
             }
 
-            // Nếu sorted.Count != _nodes.Count → có cycle (vòng lặp)
-            if (sorted.Count != _nodes.Count)
+            if (sorted.Count != _nodes.Count())
             {
-                throw new InvalidOperationException(
-                    "Pipeline chứa vòng lặp (cycle)! Vui lòng kiểm tra lại các kết nối.");
+                throw new InvalidOperationException("Pipeline chứa vòng lặp (cycle)! Vui lòng kiểm tra lại các kết nối.");
             }
 
             return sorted;
         }
 
-        /// <summary>
-        /// Tìm NodeControl_NodeViewModel tương ứng với NodeModel.
-        /// </summary>
         private NodeControl_NodeViewModel? FindNodeViewModel(NodeModel nodeModel)
         {
             return _nodes.FirstOrDefault(n => n.NodeModel == nodeModel);
         }
     }
 
-    /// <summary>
-    /// Kết quả sau khi chạy pipeline.
-    /// </summary>
     public class PipelineResult
     {
         public bool Success { get; set; }

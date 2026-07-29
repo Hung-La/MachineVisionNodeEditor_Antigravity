@@ -1,11 +1,5 @@
-﻿using MachineVisionNodeEditor.Interfaces.NodeInterfaces;
 using MachineVisionNodeEditor.Models.NodeModels;
-using MachineVisionNodeEditor.ViewModels.NodeViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MachineVisionNodeEditor.Builders
 {
@@ -35,7 +29,7 @@ namespace MachineVisionNodeEditor.Builders
             return this;
         }
 
-        public NodeBuilder SetDescription (string desciption)
+        public NodeBuilder SetDescription(string desciption)
         {
             _description = desciption;
             return this;
@@ -45,9 +39,18 @@ namespace MachineVisionNodeEditor.Builders
         {
             NodeModel model = _type switch
             {
-                NodeType.ImageImport => new ImageImport_NodeModel(), // ✅ đúng subtype
+                NodeType.ImageImport => new ImageImport_NodeModel(),
                 NodeType.ConvertColor => new ConvertColor_NodeModel(),
-                NodeType.Test => new Test_NodeModel()
+                NodeType.Test => new Test_NodeModel(),
+                NodeType.Threshold => new Threshold_NodeModel(),
+                NodeType.GaussianBlur => new GaussianBlur_NodeModel(),
+                NodeType.MedianBlur => new MedianBlur_NodeModel(),
+                NodeType.BilateralFilter => new BilateralFilter_NodeModel(),
+                NodeType.Canny => new Canny_NodeModel(),
+                NodeType.Erode => new Erode_NodeModel(),
+                NodeType.Dilate => new Dilate_NodeModel(),
+                NodeType.MorphologyEx => new MorphologyEx_NodeModel(),
+                _ => throw new NotImplementedException($"NodeType {_type} not handled in NodeBuilder")
             };
 
             model.Type = _type;

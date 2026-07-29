@@ -1,19 +1,27 @@
-﻿
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\App.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\DataTemplates\ItemsControlDataTemplate.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\DataTemplates\PropertiesDataTemplate.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\ValueConverters\WindowValueConverter.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\ImageViewer\ImageViewerControl.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConnectionPropertyView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConvertColor_PropertyView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageImport_PropertyView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\ConvertColor_NodeView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\ImageImport_NodeView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_ConnectionView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_NodeView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_PortView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\UserControls\UserControl_ControlBar.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\MainWindow.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\ImageImport_Window.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\NodeWindow.xaml;;
+﻿D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\GeneratedInternalTypeHelper.g.cs
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\App.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\DataTemplates\ItemsControlDataTemplate.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\DataTemplates\PropertiesDataTemplate.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\ValueConverters\WindowValueConverter.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\ImageViewer\ImageViewerControl.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\BilateralFilter_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Canny_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConnectionPropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConvertColor_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Dilate_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Erode_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\GaussianBlur_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageImport_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\MedianBlur_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\MorphologyEx_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Threshold_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\ConvertColor_NodeView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\ImageImport_NodeView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_ConnectionView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_NodeView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_PortView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\UserControls\UserControl_ControlBar.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\MainWindow.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\ImageImport_Window.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\NodeWindow.xaml;;
 

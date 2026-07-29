@@ -1,4 +1,4 @@
-﻿<local:NodePropertyControl x:Class="MachineVisionNodeEditor.Views.NodeProperties.ImageImport_PropertyView"
+<local:NodePropertyControl x:Class="MachineVisionNodeEditor.Views.NodeProperties.ImageImport_PropertyView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -50,7 +50,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -71,16 +70,6 @@
                         IsReadOnly="True"
                         Text="{Binding NodePropertyModel.Description, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBlock
-                        Grid.Row="2"
-                        Text="Grid Enabled"/>
-
-
-                    <CheckBox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="15 0"
-                        IsChecked="{Binding NodePropertyModel.GridEnabled}"/>
 
                 </Grid>
 

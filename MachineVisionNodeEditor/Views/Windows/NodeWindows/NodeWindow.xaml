@@ -20,17 +20,13 @@
     <local:NodeWindowControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="/Resources/MainResource.xaml"></ResourceDictionary>-->
                 <ResourceDictionary Source="/Resources/Styles/WindowStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/Resources/ValueConverters/WindowValueConverter.xaml"></ResourceDictionary>
-                <!--<ResourceDictionary Source="/Resources/DataTemplates/ItemsControlDataTemplate.xaml"></ResourceDictionary>-->
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </local:NodeWindowControl.Resources>
 
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -41,12 +37,14 @@
             Tag="{Binding ElementName=ImageWindow, Path=Title}">
         </UserControl:UserControl_ControlBar>
 
-
-        <Canvas
-            Grid.Row="1">
-
+        <Canvas Grid.Row="1">
             <Viewer:ImageViewerControl
-                ViewImage="{Binding NodePropertyModel.OutputImage}">
+                x:Name="ImageViewer"
+                ViewImage="{Binding NodePropertyModel.OutputImage}"
+                IsGridVisible="{Binding ElementName=ToggleGridBtn, Path=IsChecked}"
+                GridSpacing="{Binding ElementName=GridSpacingSlider, Path=Value}"
+                PenThickness="{Binding ElementName=GridThicknessSlider, Path=Value}"
+                PenBrush="{Binding ElementName=GridColorCombo, Path=SelectedItem.Brush}">
             </Viewer:ImageViewerControl>
 
             <StatusBar
@@ -54,45 +52,84 @@
                 Canvas.Bottom="5"
                 VerticalAlignment="Bottom">
 
-                <StackPanel
-                  Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
 
+                    <!-- Control 1: Grid ToggleButton -->
+                    <ToggleButton x:Name="ToggleGridBtn" 
+                                  IsChecked="True" 
+                                  Content="Grid" 
+                                  FontSize="8" 
+                                  ToolTip="Toggle Grid (On/Off)" 
+                                  Padding="6,2" 
+                                  VerticalAlignment="Center"/>
+
+                    <!-- Control 2: Grid Spacing Slider (1-1000) -->
+                    <Border Margin="4,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ElementName=GridSpacingSlider, Path=Value, StringFormat='Grid: {0:F0}px'}" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="14" Foreground="{DynamicResource Text}"/>
+                            <Slider x:Name="GridSpacingSlider" Minimum="1" Maximum="1000" Value="100" Width="100" VerticalAlignment="Center" TickFrequency="5" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Control 3: Grid Thickness Slider -->
+                    <Border Margin="4,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ElementName=GridThicknessSlider, Path=Value, StringFormat='Thickness: {0:F1}'}" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="14" Foreground="{DynamicResource Text}"/>
+                            <Slider x:Name="GridThicknessSlider" Minimum="0.5" Maximum="10" Value="1.5" Width="70" VerticalAlignment="Center" TickFrequency="0.5" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Control 4: Grid Color ComboBox -->
+                    <Border Margin="4,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Color: " VerticalAlignment="Center" FontSize="14" Margin="0,0,4,0" Foreground="{DynamicResource Text}"/>
+                            <ComboBox x:Name="GridColorCombo" Width="110" VerticalAlignment="Center">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Width="14" Height="14" Fill="{Binding Brush}" Stroke="Gray" StrokeThickness="0.5" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Control 5 (Existing 1): Pixel Coordinate -->
                     <Border
-                        Margin="10 2"
+                        Margin="4 2"
                         Padding="5"
-                        BorderThickness="2"
+                        BorderThickness="1.5"
                         BorderBrush="DimGray"
                         CornerRadius="3">
                         <TextBlock
                             x:Name="TextBlock_PixelCoordinate"
                             Height="20"
-                            FontSize="15">
-
+                            FontSize="15"
+                            Foreground="{DynamicResource Text}">
                         </TextBlock>
                     </Border>
 
+                    <!-- Control 6 (Existing 2): Resolution -->
                     <Border
-                        BorderThickness="2"
+                        BorderThickness="1.5"
                         BorderBrush="DimGray"
-                        Margin="10 2 "
+                        Margin="4 2"
                         Padding="5"
                         CornerRadius="3">
                         <TextBlock
                             Height="20"
                             FontSize="15"
+                            Foreground="{DynamicResource Text}"
                             Text="{Binding NodePropertyModel.OutputImage, 
                             Converter={StaticResource ResolutionConverter},
                             ConverterParameter=Resolution}">
-
                         </TextBlock>
                     </Border>
 
                 </StackPanel>
-
             </StatusBar>
-
-
         </Canvas>
-
     </Grid>
 </local:NodeWindowControl>

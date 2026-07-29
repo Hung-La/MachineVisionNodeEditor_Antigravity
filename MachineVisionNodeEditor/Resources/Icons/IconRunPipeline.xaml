@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconRunPipeline">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Background rounded badge (YouTube style rounded box) in light green -->
+                <GeometryDrawing Geometry="M 4,5 C 4,3 5.5,1.5 7.5,1.5 L 24.5,1.5 C 26.5,1.5 28,3 28,5 L 28,19 C 28,21 26.5,22.5 24.5,22.5 L 7.5,22.5 C 5.5,22.5 4,21 4,19 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#A6E3A1" Offset="0"/>
+                            <GradientStop Color="#66BB6A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+
+                <!-- YouTube-style Play Triangle with rounded corners in white -->
+                <GeometryDrawing Brush="#FFFFFF" Geometry="M 12.5,7.2 C 12.0,6.9 11.5,7.2 11.5,7.8 L 11.5,16.2 C 11.5,16.8 12.0,17.1 12.5,16.8 L 19.5,12.5 C 20.0,12.2 20.0,11.8 19.5,11.5 Z"/>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>
