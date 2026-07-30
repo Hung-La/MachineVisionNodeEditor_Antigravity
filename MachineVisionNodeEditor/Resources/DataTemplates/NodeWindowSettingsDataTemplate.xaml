@@ -1,238 +1,297 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+    <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.NodeViewModels"
                     xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/MaterialDesign/MainResource.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
     <!-- Shared Resources (Style/Brushes) for parameters -->
-    <Style x:Key="SettingLabelStyle" TargetType="TextBlock">
+    <Style x:Key="SettingCardStyle" TargetType="{x:Type materialDesign:Card}">
+        <Setter Property="Padding" Value="14"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="UniformCornerRadius" Value="8"/>
+        <Setter Property="Background" Value="{DynamicResource Card}"/>
+    </Style>
+
+    <Style x:Key="SettingLabelStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-        <Setter Property="Margin" Value="0,4,0,4"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0,6,0,4"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style x:Key="SettingComboStyle" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+    <Style x:Key="SettingTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-        <Setter Property="Margin" Value="0,0,0,12"/>
-        <Setter Property="Padding" Value="4,4"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="13"/>
     </Style>
 
-    <Style x:Key="SettingSliderStyle" TargetType="Slider" BasedOn="{StaticResource {x:Type Slider}}">
-        <Setter Property="Margin" Value="0,0,0,12"/>
+    <Style x:Key="SettingButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Padding" Value="12,4"/>
+        <Setter Property="FontSize" Value="13"/>
     </Style>
 
-    <Style x:Key="SettingCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+    <Style x:Key="SettingComboStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-        <Setter Property="Margin" Value="0,0,0,12"/>
+        <Setter Property="Margin" Value="0,4,0,12"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <Style x:Key="SettingSliderStyle" TargetType="{x:Type Slider}" BasedOn="{StaticResource {x:Type Slider}}">
+        <Setter Property="Margin" Value="0,4,0,12"/>
+    </Style>
+
+    <Style x:Key="SettingCheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
+        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+        <Setter Property="Margin" Value="0,8,0,12"/>
+        <Setter Property="FontSize" Value="13"/>
     </Style>
 
     <!-- 1. Image Import -->
     <DataTemplate DataType="{x:Type ViewModel:ImageImport_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Image Path"/>
-            <Grid Margin="0,0,0,12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" 
-                         VerticalAlignment="Center"
-                         Foreground="{DynamicResource Text}"
-                         Text="{Binding NodePropertyModel.FilePath, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Grid.Column="1" 
-                        Content="Browse" 
-                        Margin="8,0,0,0"
-                        VerticalAlignment="Center"
-                        Command="{Binding BrowseCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
-            </Grid>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Image Path"/>
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" 
+                             Style="{StaticResource SettingTextBoxStyle}"
+                             materialDesign:HintAssist.Hint="Select an image file..."
+                             Text="{Binding NodePropertyModel.FilePath, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Grid.Column="1" 
+                            Style="{StaticResource SettingButtonStyle}"
+                            Margin="8,0,0,0"
+                            Command="{Binding BrowseCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FolderOpen" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Browse" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Color Mode"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.ColorModes}"  
-                      SelectedItem="{Binding NodePropertyModel.SelectedMode}"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Color Mode"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Color Mode"
+                          ItemsSource="{Binding NodePropertyModel.ColorModes}"  
+                          SelectedItem="{Binding NodePropertyModel.SelectedMode}"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 2. Convert Color -->
     <DataTemplate DataType="{x:Type ViewModel:ConvertColor_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Color Mode"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.ColorCodes}"  
-                      SelectedItem="{Binding NodePropertyModel.SelectedCode}"/>
-        </StackPanel>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Color Mode"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Conversion Code"
+                          ItemsSource="{Binding NodePropertyModel.ColorCodes}"  
+                          SelectedItem="{Binding NodePropertyModel.SelectedCode}"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 3. Threshold -->
     <DataTemplate DataType="{x:Type ViewModel:Threshold_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Threshold Type"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.AvailableTypes}"
-                      SelectedItem="{Binding NodePropertyModel.SelectedType}"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Threshold Type"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Threshold Type"
+                          ItemsSource="{Binding NodePropertyModel.AvailableTypes}"
+                          SelectedItem="{Binding NodePropertyModel.SelectedType}"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.Thresh, StringFormat='Threshold Value: {0:F0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.Thresh}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Thresh, StringFormat='Threshold Value: {0:F0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.Thresh}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.MaxVal, StringFormat='Max Value: {0:F0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.MaxVal}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.MaxVal, StringFormat='Max Value: {0:F0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.MaxVal}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 4. Gaussian Blur -->
     <DataTemplate DataType="{x:Type ViewModel:GaussianBlur_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
-                    TickFrequency="2" IsSnapToTickEnabled="True"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
+                        TickFrequency="2" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.SigmaX, StringFormat='Sigma X: {0:F1}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="0" Maximum="20" Value="{Binding NodePropertyModel.SigmaX}" 
-                    TickFrequency="0.5" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.SigmaX, StringFormat='Sigma X: {0:F1}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="0" Maximum="20" Value="{Binding NodePropertyModel.SigmaX}" 
+                        TickFrequency="0.5" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 5. Median Blur -->
     <DataTemplate DataType="{x:Type ViewModel:MedianBlur_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
-                    TickFrequency="2" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
+                        TickFrequency="2" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 6. Bilateral Filter -->
     <DataTemplate DataType="{x:Type ViewModel:BilateralFilter_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.D, StringFormat='Diameter (d): {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="30" Value="{Binding NodePropertyModel.D}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.D, StringFormat='Diameter (d): {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="30" Value="{Binding NodePropertyModel.D}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.SigmaColor, StringFormat='Sigma Color: {0:F0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaColor}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.SigmaColor, StringFormat='Sigma Color: {0:F0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaColor}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.SigmaSpace, StringFormat='Sigma Space: {0:F0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaSpace}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.SigmaSpace, StringFormat='Sigma Space: {0:F0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaSpace}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 7. Canny -->
     <DataTemplate DataType="{x:Type ViewModel:Canny_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.Threshold1, StringFormat='Threshold 1 (Min): {0:F0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="0" Maximum="500" Value="{Binding NodePropertyModel.Threshold1}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Threshold1, StringFormat='Threshold 1 (Min): {0:F0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="0" Maximum="500" Value="{Binding NodePropertyModel.Threshold1}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.Threshold2, StringFormat='Threshold 2 (Max): {0:F0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="0" Maximum="500" Value="{Binding NodePropertyModel.Threshold2}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Threshold2, StringFormat='Threshold 2 (Max): {0:F0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="0" Maximum="500" Value="{Binding NodePropertyModel.Threshold2}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Aperture Size"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.ApertureSizes}"
-                      SelectedItem="{Binding NodePropertyModel.ApertureSize}"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Aperture Size"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Aperture Size"
+                          ItemsSource="{Binding NodePropertyModel.ApertureSizes}"
+                          SelectedItem="{Binding NodePropertyModel.ApertureSize}"/>
 
-            <CheckBox Style="{StaticResource SettingCheckBoxStyle}"
-                      Content="Use L2 Gradient" 
-                      IsChecked="{Binding NodePropertyModel.L2Gradient}"/>
-        </StackPanel>
+                <CheckBox Style="{StaticResource SettingCheckBoxStyle}"
+                          Content="Use L2 Gradient" 
+                          IsChecked="{Binding NodePropertyModel.L2Gradient}"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 8. Erode -->
     <DataTemplate DataType="{x:Type ViewModel:Erode_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Element Shape"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.Shapes}"
-                      SelectedItem="{Binding NodePropertyModel.Shape}"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Element Shape"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Shape"
+                          ItemsSource="{Binding NodePropertyModel.Shapes}"
+                          SelectedItem="{Binding NodePropertyModel.Shape}"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
-                    TickFrequency="2" IsSnapToTickEnabled="True"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
+                        TickFrequency="2" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.Iterations, StringFormat='Iterations: {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Iterations, StringFormat='Iterations: {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 9. Dilate -->
     <DataTemplate DataType="{x:Type ViewModel:Dilate_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Element Shape"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.Shapes}"
-                      SelectedItem="{Binding NodePropertyModel.Shape}"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Element Shape"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Shape"
+                          ItemsSource="{Binding NodePropertyModel.Shapes}"
+                          SelectedItem="{Binding NodePropertyModel.Shape}"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
-                    TickFrequency="2" IsSnapToTickEnabled="True"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
+                        TickFrequency="2" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.Iterations, StringFormat='Iterations: {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Iterations, StringFormat='Iterations: {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
     <!-- 10. MorphologyEx -->
     <DataTemplate DataType="{x:Type ViewModel:MorphologyEx_NodeViewModel}">
-        <StackPanel Margin="5">
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Morphology Operation"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.Operations}"
-                      SelectedItem="{Binding NodePropertyModel.Operation}"/>
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Morphology Operation"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Operation"
+                          ItemsSource="{Binding NodePropertyModel.Operations}"
+                          SelectedItem="{Binding NodePropertyModel.Operation}"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Element Shape"/>
-            <ComboBox Style="{StaticResource SettingComboStyle}"
-                      ItemsSource="{Binding NodePropertyModel.Shapes}"
-                      SelectedItem="{Binding NodePropertyModel.Shape}"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Element Shape"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Shape"
+                          ItemsSource="{Binding NodePropertyModel.Shapes}"
+                          SelectedItem="{Binding NodePropertyModel.Shape}"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
-                    TickFrequency="2" IsSnapToTickEnabled="True"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.KSize, StringFormat='Kernel Size (Odd): {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="31" Value="{Binding NodePropertyModel.KSize}" 
+                        TickFrequency="2" IsSnapToTickEnabled="True"/>
 
-            <TextBlock Style="{StaticResource SettingLabelStyle}" 
-                       Text="{Binding NodePropertyModel.Iterations, StringFormat='Iterations: {0}'}"/>
-            <Slider Style="{StaticResource SettingSliderStyle}" 
-                    Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Iterations, StringFormat='Iterations: {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
     </DataTemplate>
 
 </ResourceDictionary>

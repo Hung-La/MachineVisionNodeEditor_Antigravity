@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Extensions;
+using MachineVisionNodeEditor.Extensions;
 using MachineVisionNodeEditor.Interfaces;
 using MachineVisionNodeEditor.Interfaces.NodeInterfaces;
 using MachineVisionNodeEditor.Models.NodeModels;
@@ -114,8 +114,23 @@ namespace MachineVisionNodeEditor.Views.Nodes
                 double oldX = node.NodeModel.X;
                 double oldY = node.NodeModel.Y;
 
-                node.NodeModel.X += delta.X;
-                node.NodeModel.Y += delta.Y;
+                double targetX = oldX + delta.X;
+                double targetY = oldY + delta.Y;
+
+                // Kích thước của MainCanvas
+                double canvasWidth = _canvas.ActualWidth > 0 ? _canvas.ActualWidth : mainVM.CanvasWidth;
+                double canvasHeight = _canvas.ActualHeight > 0 ? _canvas.ActualHeight : mainVM.CanvasHeight;
+
+                // Kích thước của Node
+                double nodeWidth = node.NodeModel.View?.ActualWidth > 0 ? node.NodeModel.View.ActualWidth : 150;
+                double nodeHeight = node.NodeModel.View?.ActualHeight > 0 ? node.NodeModel.View.ActualHeight : 100;
+
+                double maxX = Math.Max(0, canvasWidth - nodeWidth);
+                double maxY = Math.Max(0, canvasHeight - nodeHeight);
+
+                // Giới hạn chỉ nằm trong MainCanvas
+                node.NodeModel.X = Math.Clamp(targetX, 0, maxX);
+                node.NodeModel.Y = Math.Clamp(targetY, 0, maxY);
 
                 // Delta thực sau Clamp
                 Vector actual = new Vector(
