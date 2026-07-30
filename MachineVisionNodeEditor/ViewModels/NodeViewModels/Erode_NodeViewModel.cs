@@ -38,7 +38,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodeModel.Title = "Erode";
             ShowImageCommand = new RelayCommand(
-                () => NodePropertyModel.OutputImage != null && !NodePropertyModel.OutputImage.IsDisposed && !NodePropertyModel.OutputImage.Empty(),
+                () => NodePropertyModel?.OutputImage != null && !NodePropertyModel.OutputImage.IsDisposed && !NodePropertyModel.OutputImage.Empty(),
                 () =>
                 {
                     var win = new NodeWindow { DataContext = this };

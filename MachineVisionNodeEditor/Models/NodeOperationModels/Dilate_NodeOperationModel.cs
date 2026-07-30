@@ -8,7 +8,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
     {
         public override void Execute(Dilate_NodePropertyModel property)
         {
-            var sourceImage = property.Inputs.TryGetValue("Image", out var src) ? src as Mat : null;
+            var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
             if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
                 property.OutputImage = Morphology.ApplyDilate(sourceImage, property.Shape, property.KSize, property.Iterations);
         }

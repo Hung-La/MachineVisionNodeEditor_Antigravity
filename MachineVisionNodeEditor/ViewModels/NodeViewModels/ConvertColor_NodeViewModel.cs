@@ -55,7 +55,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
             ShowImageCommand = new RelayCommand(() =>
             {
-                if (this.NodeModel.InputPorts[0].PortModel.Connections.Count == 0)
+                if (NodePropertyModel == null || this.NodeModel.InputPorts[0].PortModel.Connections.Count == 0)
                 {
                     return false;
                 }
@@ -76,6 +76,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
             },
             () =>
             {
+                if (NodePropertyModel == null) return;
                 List<Mat> images = new();
                 foreach (var item in this.NodeModel.InputPorts[0].PortModel.Connections)
                 {

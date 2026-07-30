@@ -40,7 +40,7 @@ namespace MachineVisionNodeEditor.Services
                 foreach (var nodeVm in sortedNodes)
                 {
                     try
-                    {
+                   {
                         ExecuteNode(nodeVm);
                         nodeVm.NodeModel.ExecutionState = NodeExecutionState.Success;
                         nodeVm.NodeModel.HasError = false;
@@ -74,35 +74,62 @@ namespace MachineVisionNodeEditor.Services
             {
                 var sourceNodeModel = inputConnection.ConnectionModel.FromPort.Owner;
                 var sourceNodeVM = _nodes.FirstOrDefault(n => n.NodeModel == sourceNodeModel);
-                if (sourceNodeVM != null && sourceNodeVM.NodePropertyModel.OutputImage != null)
+                if (sourceNodeVM != null)
                 {
+                    if (sourceNodeVM.NodePropertyModel.OutputImage == null || sourceNodeVM.NodePropertyModel.OutputImage.IsDisposed)
+                    {
+                        throw new InvalidOperationException($"Node nguồn \"{sourceNodeVM.NodeModel.Title}\" chưa tạo ra ảnh đầu ra hợp lệ.");
+                    }
                     nodeVm.NodePropertyModel.InputImage = sourceNodeVM.NodePropertyModel.OutputImage;
                 }
             }
 
-            if (nodeVm is ConvertColor_NodeViewModel ccVM)
-                ccVM.OperationModel.Execute(ccVM.NodePropertyModel);
-            else if (nodeVm is ImageImport_NodeViewModel impVM)
+            if (nodeVm is ImageImport_NodeViewModel impVM)
             {
-                if (impVM.NodePropertyModel.OutputImage == null && !string.IsNullOrWhiteSpace(impVM.NodePropertyModel.FilePath))
+                if (string.IsNullOrWhiteSpace(impVM.NodePropertyModel.FilePath))
+                {
+                    throw new InvalidOperationException("Đường dẫn ảnh đang trống. Vui lòng nhấp đúp vào node và chọn đường dẫn ảnh hợp lệ.");
+                }
+                if (!System.IO.File.Exists(impVM.NodePropertyModel.FilePath))
+                {
+                    throw new System.IO.FileNotFoundException($"Không tìm thấy tệp ảnh tại đường dẫn: {impVM.NodePropertyModel.FilePath}");
+                }
+                if (impVM.NodePropertyModel.OutputImage == null || impVM.NodePropertyModel.OutputImage.IsDisposed)
+                {
                     impVM.OperationModel.Execute(impVM.NodePropertyModel);
+                }
+                if (impVM.NodePropertyModel.OutputImage == null || impVM.NodePropertyModel.OutputImage.Empty())
+                {
+                    throw new InvalidOperationException("Không thể tải ảnh. Định dạng ảnh không hợp lệ hoặc tệp bị hỏng.");
+                }
             }
-            else if (nodeVm is Threshold_NodeViewModel threshVM)
-                threshVM.OperationModel.Execute(threshVM.NodePropertyModel);
-            else if (nodeVm is GaussianBlur_NodeViewModel gbVM)
-                gbVM.OperationModel.Execute(gbVM.NodePropertyModel);
-            else if (nodeVm is MedianBlur_NodeViewModel mbVM)
-                mbVM.OperationModel.Execute(mbVM.NodePropertyModel);
-            else if (nodeVm is BilateralFilter_NodeViewModel bfVM)
-                bfVM.OperationModel.Execute(bfVM.NodePropertyModel);
-            else if (nodeVm is Canny_NodeViewModel cannyVM)
-                cannyVM.OperationModel.Execute(cannyVM.NodePropertyModel);
-            else if (nodeVm is Erode_NodeViewModel erodeVM)
-                erodeVM.OperationModel.Execute(erodeVM.NodePropertyModel);
-            else if (nodeVm is Dilate_NodeViewModel dilateVM)
-                dilateVM.OperationModel.Execute(dilateVM.NodePropertyModel);
-            else if (nodeVm is MorphologyEx_NodeViewModel morphVM)
-                morphVM.OperationModel.Execute(morphVM.NodePropertyModel);
+            else
+            {
+                var inputImage = nodeVm.NodePropertyModel.InputImage;
+                if (inputImage == null || inputImage.IsDisposed || inputImage.Empty())
+                {
+                    throw new InvalidOperationException("Ảnh đầu vào trống hoặc không hợp lệ. Vui lòng kết nối node này với một node hợp lệ khác.");
+                }
+
+                if (nodeVm is ConvertColor_NodeViewModel ccVM)
+                    ccVM.OperationModel.Execute(ccVM.NodePropertyModel);
+                else if (nodeVm is Threshold_NodeViewModel threshVM)
+                    threshVM.OperationModel.Execute(threshVM.NodePropertyModel);
+                else if (nodeVm is GaussianBlur_NodeViewModel gbVM)
+                    gbVM.OperationModel.Execute(gbVM.NodePropertyModel);
+                else if (nodeVm is MedianBlur_NodeViewModel mbVM)
+                    mbVM.OperationModel.Execute(mbVM.NodePropertyModel);
+                else if (nodeVm is BilateralFilter_NodeViewModel bfVM)
+                    bfVM.OperationModel.Execute(bfVM.NodePropertyModel);
+                else if (nodeVm is Canny_NodeViewModel cannyVM)
+                    cannyVM.OperationModel.Execute(cannyVM.NodePropertyModel);
+                else if (nodeVm is Erode_NodeViewModel erodeVM)
+                    erodeVM.OperationModel.Execute(erodeVM.NodePropertyModel);
+                else if (nodeVm is Dilate_NodeViewModel dilateVM)
+                    dilateVM.OperationModel.Execute(dilateVM.NodePropertyModel);
+                else if (nodeVm is MorphologyEx_NodeViewModel morphVM)
+                    morphVM.OperationModel.Execute(morphVM.NodePropertyModel);
+            }
 
             if (nodeVm.NodePropertyModel.OutputImage != null)
             {

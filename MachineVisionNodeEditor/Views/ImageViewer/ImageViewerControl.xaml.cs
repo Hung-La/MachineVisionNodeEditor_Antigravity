@@ -107,6 +107,10 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
                     FitToScreen();
                 }));
             };
+            SizeChanged += (s, e) =>
+            {
+                FitToScreen();
+            };
         }
 
         public void FitToScreen()
@@ -127,11 +131,14 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
             if (fitScale <= 0 || double.IsNaN(fitScale) || double.IsInfinity(fitScale))
                 fitScale = 1.0;
 
+            scale.CenterX = 0;
+            scale.CenterY = 0;
+
             scale.ScaleX = fitScale;
             scale.ScaleY = fitScale;
 
-            translate.X = 0;
-            translate.Y = 0;
+            translate.X = (containerWidth - ViewImage.Width * fitScale) / 2.0;
+            translate.Y = (containerHeight - ViewImage.Height * fitScale) / 2.0;
         }
 
         public void UpdateGrid()
@@ -210,8 +217,8 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
             Point current = e.GetPosition(this);
             Vector delta = current - start;
 
-            translate.X = Math.Max(translate.X + delta.X, 0);
-            translate.Y = Math.Max(translate.Y + delta.Y, 0);
+            translate.X = translate.X + delta.X;
+            translate.Y = translate.Y + delta.Y;
 
             start = current;
         }
@@ -227,9 +234,22 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
 
         private void Image_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (ViewImage == null || ViewImage.IsDisposed) return;
+
             double zoom = e.Delta > 0 ? 1.1 : 0.9;
+            Point mousePos = e.GetPosition(this);
+
+            double mouseInImageX = (mousePos.X - translate.X) / scale.ScaleX;
+            double mouseInImageY = (mousePos.Y - translate.Y) / scale.ScaleY;
+
+            scale.CenterX = 0;
+            scale.CenterY = 0;
+
             scale.ScaleX *= zoom;
             scale.ScaleY *= zoom;
+
+            translate.X = mousePos.X - mouseInImageX * scale.ScaleX;
+            translate.Y = mousePos.Y - mouseInImageY * scale.ScaleY;
         }
     }
 }

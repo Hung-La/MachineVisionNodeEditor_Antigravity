@@ -12,111 +12,112 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="/Resources/MainResource.xaml"></ResourceDictionary>-->
                 <ResourceDictionary Source="/Resources/Styles/WindowStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/Resources/ValueConverters/WindowValueConverter.xaml"></ResourceDictionary>
-                <!--<ResourceDictionary Source="/Resources/DataTemplates/ItemsControlDataTemplate.xaml"></ResourceDictionary>-->
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border
-        BorderThickness="1.5"
-        BorderBrush="DimGray"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        ClipToBounds="True">
+    <Grid ClipToBounds="True">
+        <!-- Canvas does not constrain its children size during measure/arrange -->
+        <Canvas x:Name="ViewportCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border
+                x:Name="ImageBorder"
+                BorderThickness="1.5"
+                BorderBrush="DimGray"
+                ClipToBounds="True">
 
-        <Border.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform
-                    x:Name="scale"/>
-                <TranslateTransform
-                    x:Name="translate"/>
-            </TransformGroup>
-        </Border.RenderTransform>
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform
+                            x:Name="scale"/>
+                        <TranslateTransform
+                            x:Name="translate"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
 
-        <Canvas
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Width="{Binding NodePropertyModel.Width}"
-            Height="{Binding NodePropertyModel.Height}"
-            RenderTransformOrigin="0,0"
-            MouseDown="Image_MouseDown"
-            MouseMove="Image_MouseMove"
-            MouseUp="Image_MouseUp"
-            MouseWheel="Image_MouseWheel"
-            ClipToBounds="True">
+                <Canvas
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Width="{Binding NodePropertyModel.Width}"
+                    Height="{Binding NodePropertyModel.Height}"
+                    RenderTransformOrigin="0,0"
+                    MouseDown="Image_MouseDown"
+                    MouseMove="Image_MouseMove"
+                    MouseUp="Image_MouseUp"
+                    MouseWheel="Image_MouseWheel"
+                    ClipToBounds="True">
 
-            <Image
-                Panel.ZIndex="0"
-                x:Name="Image"
-                Source="{Binding ElementName=ViewerControl, Path=ViewImage, 
-                Converter={StaticResource MatToBitmapSourceConverter}}"
-                Stretch="None">
+                    <Image
+                        Panel.ZIndex="0"
+                        x:Name="Image"
+                        Source="{Binding ElementName=ViewerControl, Path=ViewImage, 
+                        Converter={StaticResource MatToBitmapSourceConverter}}"
+                        Stretch="None">
 
-            </Image>
+                    </Image>
 
-            <Canvas 
-                x:Name="OverlayCanvas"
-                Width="{Binding ElementName=ViewerControl, Path=ViewImage,
-                Converter={StaticResource ResolutionConverter},
-                ConverterParameter=Width}"
-                
-                Height="{Binding ElementName=ViewerControl, Path=ViewImage,
-                Converter={StaticResource ResolutionConverter},
-                ConverterParameter=Height}"
+                    <Canvas 
+                        x:Name="OverlayCanvas"
+                        Width="{Binding ElementName=ViewerControl, Path=ViewImage,
+                        Converter={StaticResource ResolutionConverter},
+                        ConverterParameter=Width}"
+                        
+                        Height="{Binding ElementName=ViewerControl, Path=ViewImage,
+                        Converter={StaticResource ResolutionConverter},
+                        ConverterParameter=Height}"
 
-                Panel.ZIndex="2">
-                
-                <Canvas.Background>
-                    <DrawingBrush 
-                                TileMode="Tile"
-                                Viewport="0,0,100,100"
-                                ViewportUnits="Absolute">
+                        Panel.ZIndex="2">
+                        
+                        <Canvas.Background>
+                            <DrawingBrush 
+                                        TileMode="Tile"
+                                        Viewport="0,0,100,100"
+                                        ViewportUnits="Absolute">
 
-                        <DrawingBrush.Drawing>
-                            <DrawingGroup>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
 
-                                <!-- 🎨 MÀU NỀN -->
-                                <GeometryDrawing Brush="Transparent">
-                                    <GeometryDrawing.Geometry>
-                                        <RectangleGeometry Rect="0,0,100,100"/>
-                                    </GeometryDrawing.Geometry>
-                                </GeometryDrawing>
+                                        <!-- 🎨 MÀU NỀN -->
+                                        <GeometryDrawing Brush="Transparent">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,100,100"/>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
 
-                                <!-- 🔲 GRID -->
-                                <GeometryDrawing Brush="Transparent">
-                                    <GeometryDrawing.Pen>
-                                        <Pen 
-                                            Brush="{Binding ElementName=ViewerControl, Path=PenBrush}"  
-                                            Thickness="{Binding ElementName=ViewerControl,Path=PenThickness}">
-                                            <Pen.DashStyle>
-                                                <DashStyle Dashes="1.5"/>
-                                            </Pen.DashStyle>
-                                        </Pen>
-                                    </GeometryDrawing.Pen>
+                                        <!-- 🔲 GRID -->
+                                        <GeometryDrawing Brush="Transparent">
+                                            <GeometryDrawing.Pen>
+                                                <Pen 
+                                                    Brush="{Binding ElementName=ViewerControl, Path=PenBrush}"  
+                                                    Thickness="{Binding ElementName=ViewerControl,Path=PenThickness}">
+                                                    <Pen.DashStyle>
+                                                        <DashStyle Dashes="1.5"/>
+                                                    </Pen.DashStyle>
+                                                </Pen>
+                                            </GeometryDrawing.Pen>
 
-                                    <GeometryDrawing.Geometry>
-                                        <GeometryGroup>
-                                            <!-- dọc -->
-                                            <LineGeometry StartPoint="0,0" EndPoint="0,100"/>
-                                            <!-- ngang -->
-                                            <LineGeometry StartPoint="0,0" EndPoint="100,0"/>
-                                        </GeometryGroup>
-                                    </GeometryDrawing.Geometry>
-                                </GeometryDrawing>
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <!-- dọc -->
+                                                    <LineGeometry StartPoint="0,0" EndPoint="0,100"/>
+                                                    <!-- ngang -->
+                                                    <LineGeometry StartPoint="0,0" EndPoint="100,0"/>
+                                                </GeometryGroup>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
 
-                            </DrawingGroup>
-                        </DrawingBrush.Drawing>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
 
-                    </DrawingBrush>
-                </Canvas.Background>
-            </Canvas>
+                            </DrawingBrush>
+                        </Canvas.Background>
+                    </Canvas>
 
+                </Canvas>
+
+            </Border>
         </Canvas>
-
-    </Border>
+    </Grid>
     
 </UserControl>

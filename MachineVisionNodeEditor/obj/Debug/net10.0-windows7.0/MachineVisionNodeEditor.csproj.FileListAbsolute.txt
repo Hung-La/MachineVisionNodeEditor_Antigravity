@@ -202,3 +202,4 @@ D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mach
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\MedianBlur_PropertyView.baml
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\MorphologyEx_PropertyView.baml
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\Threshold_PropertyView.baml
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Resources\DataTemplates\NodeWindowSettingsDataTemplate.baml

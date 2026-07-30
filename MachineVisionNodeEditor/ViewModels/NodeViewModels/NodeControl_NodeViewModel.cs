@@ -80,6 +80,32 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodePropertyModel = new TPropertyModel();
             OperationModel = CreateOperationModel();
+
+            NodePropertyModel.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName != nameof(NodePropertyModel.Name) &&
+                    e.PropertyName != nameof(NodePropertyModel.Description) &&
+                    e.PropertyName != nameof(NodePropertyModel.Width) &&
+                    e.PropertyName != nameof(NodePropertyModel.Height) &&
+                    e.PropertyName != nameof(NodePropertyModel.OutputImage))
+                {
+                    try
+                    {
+                        if (this is ImageImport_NodeViewModel ||
+                            (NodePropertyModel.InputImage != null && !NodePropertyModel.InputImage.IsDisposed && !NodePropertyModel.InputImage.Empty()))
+                        {
+                            if (OperationModel is INodeOperation<TPropertyModel> genericOp)
+                            {
+                                genericOp.Execute(NodePropertyModel);
+                            }
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        System.Console.WriteLine($"Error auto-executing node: {ex.Message}");
+                    }
+                }
+            };
         }
 
         protected abstract TOperationModel CreateOperationModel();

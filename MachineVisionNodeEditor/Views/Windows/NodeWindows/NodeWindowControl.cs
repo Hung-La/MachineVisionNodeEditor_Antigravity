@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -15,7 +15,7 @@ namespace MachineVisionNodeEditor.Views.Windows.NodeWindows
 
         protected void NodeWindowControl_Loaded(object sender, RoutedEventArgs e)
         {
-            FitImage();
+            FitToScreen();
         }
 
         protected void NodeWindowControl_KeyDown(object sender, KeyEventArgs e)
@@ -24,9 +24,22 @@ namespace MachineVisionNodeEditor.Views.Windows.NodeWindows
             {
                 this.Close();
             }
+            else if (e.Key == Key.F5 && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow == null)
+                {
+                    mainWindow = MainWindow.Instance;
+                }
+                var mainVM = mainWindow?.Window_MainWindowViewModel;
+                if (mainVM != null && mainVM.PipelineExecuteCommand.CanExecute(null))
+                {
+                    mainVM.PipelineExecuteCommand.Execute(null);
+                }
+            }
         }
 
-        private void FitImage()
+        private void FitToScreen()
         {
 
             //if (Image.Source == null)

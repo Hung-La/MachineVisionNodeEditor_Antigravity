@@ -1,4 +1,4 @@
-﻿using MachineVisionNodeEditor.Adorners;
+using MachineVisionNodeEditor.Adorners;
 using MachineVisionNodeEditor.Builders;
 using MachineVisionNodeEditor.Extensions;
 using MachineVisionNodeEditor.Models.NodeModels;
@@ -252,6 +252,13 @@ namespace MachineVisionNodeEditor.Views.Windows
                 Window_MainWindowViewModel.UndoRedoService.Redo();
             }
 
+            if (e.Key == Key.F5 && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (Window_MainWindowViewModel.PipelineExecuteCommand.CanExecute(null))
+                {
+                    Window_MainWindowViewModel.PipelineExecuteCommand.Execute(null);
+                }
+            }
         }
 
         private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)

@@ -1,3 +1,4 @@
+using MachineVisionNodeEditor.Collections;
 using MachineVisionNodeEditor.Models.NodeContextModels;
 using MachineVisionNodeEditor.ViewModels;
 using MachineVisionNodeEditor.Views.NodeProperties;
@@ -46,10 +47,6 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
         }
 
         public NodeContext Context { get; } = new();
-
-        public Dictionary<string, object> Inputs => Context.Inputs;
-
-        public Dictionary<string, object> Outputs => Context.Outputs;
 
         /// <summary>
         /// Typed accessor cho XAML binding — đọc/ghi Inputs["Image"] và tự raise PropertyChanged.

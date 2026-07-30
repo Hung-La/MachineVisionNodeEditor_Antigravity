@@ -72,7 +72,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodeModel.Title = "Image Import";
 
-            BrowseCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            BrowseCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 string filePath = @"C:\";
                 DirectoryInfo Folder = new DirectoryInfo(filePath);
@@ -118,10 +118,12 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
             ShowImageCommand = new RelayCommand(() => 
                 {
-                    return File.Exists(NodePropertyModel.FilePath);
+                    return NodePropertyModel != null && File.Exists(NodePropertyModel.FilePath);
                 },
                     () =>
                 {
+                    if (NodePropertyModel == null) return;
+
                     if (NodePropertyModel.OutputImage == null && File.Exists(NodePropertyModel.FilePath))
                     {
                         var mode = NodePropertyModel.SelectedMode != null ? (ImreadModes)NodePropertyModel.SelectedMode : ImreadModes.Color;

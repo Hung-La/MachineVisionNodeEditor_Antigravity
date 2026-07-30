@@ -390,16 +390,45 @@
                         Canvas.Left="20"
                         Panel.ZIndex="100"
                         Background="#EE1E1E2E"
-                        BorderBrush="#FF89B4FA"
                         BorderThickness="1.5"
                         CornerRadius="8"
                         Padding="12,8"
                         Visibility="{Binding IsPipelineStatusVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="#FF89B4FA"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsPipelineExecutedSuccess}" Value="True">
+                                        <Setter Property="BorderBrush" Value="#FFA6E3A1"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsPipelineExecutedSuccess}" Value="False">
+                                        <Setter Property="BorderBrush" Value="#FFF38BA8"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="12" Color="DimGray" Opacity="0.5" ShadowDepth="3"/>
                         </Border.Effect>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="ClockCheckOutline" Width="20" Height="20" Foreground="#FF89B4FA" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center">
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="ClockCheckOutline"/>
+                                        <Setter Property="Foreground" Value="#FF89B4FA"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPipelineExecutedSuccess}" Value="True">
+                                                <Setter Property="Kind" Value="CheckCircle"/>
+                                                <Setter Property="Foreground" Value="#FFA6E3A1"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsPipelineExecutedSuccess}" Value="False">
+                                                <Setter Property="Kind" Value="CloseCircle"/>
+                                                <Setter Property="Foreground" Value="#FFF38BA8"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
                             <TextBlock
                                 Text="{Binding PipelineExecutionStatusText}"
                                 Foreground="#FFA6ADC8"
