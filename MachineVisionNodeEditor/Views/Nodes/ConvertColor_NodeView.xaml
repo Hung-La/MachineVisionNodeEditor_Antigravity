@@ -109,10 +109,6 @@
                     <Grid.Resources>
 
                         <ResourceDictionary>
-                            <ResourceDictionary.MergedDictionaries>
-                                <ResourceDictionary Source="/Resources/MaterialDesign/MainResource.xaml"></ResourceDictionary>
-                            </ResourceDictionary.MergedDictionaries>
-
                             <Style TargetType="TextBox" x:Key="TextBoxStyle" BasedOn="{StaticResource MaterialDesignTextBoxBase}">
                                 <EventSetter
                                     Event="KeyDown"

@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\**" />
     <Compile Remove="ViewModels\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\**" />
     <EmbeddedResource Remove="ViewModels\NewFolder\**" />
+    <None Remove="Pages\**" />
     <None Remove="ViewModels\NewFolder\**" />
+    <Page Remove="Pages\**" />
     <Page Remove="ViewModels\NewFolder\**" />
   </ItemGroup>
 
@@ -20,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\" />
     <Folder Include="Views\Pages\" />
   </ItemGroup>
 

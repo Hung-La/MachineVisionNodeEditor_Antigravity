@@ -162,10 +162,10 @@
                     <ToggleButton x:Name="ToggleGridBtn" 
                                   IsChecked="False" 
                                   Content="Grid" 
-                                  FontSize="11" 
+                                  FontSize="9" 
                                   Foreground="WhiteSmoke"
                                   ToolTip="Toggle Grid (On/Off)" 
-                                  Padding="6,2" 
+                                  Padding="4,2" 
                                   VerticalAlignment="Center"/>
 
                     <Border Margin="6,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">

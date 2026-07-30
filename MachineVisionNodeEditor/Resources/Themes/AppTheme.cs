@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,16 +18,20 @@ namespace MachineVisionNodeEditor.Resources.Themes
             {
                 var dictToRemove = App.Current.Resources.MergedDictionaries
                                     .FirstOrDefault(d => d.Source != null &&
-                                    d.Source.OriginalString == "Resources/Themes/DarkTheme.xaml");
-                App.Current.Resources.MergedDictionaries.Remove(dictToRemove);
+                                    d.Source.OriginalString.EndsWith("DarkTheme.xaml", StringComparison.OrdinalIgnoreCase));
+                if (dictToRemove != null)
+                {
+                    App.Current.Resources.MergedDictionaries.Remove(dictToRemove);
+                }
 
                 dictToRemove = App.Current.Resources.MergedDictionaries
                                     .FirstOrDefault(d => d.Source != null &&
-                                    d.Source.OriginalString == "Resources/Themes/LightTheme.xaml");
-                App.Current.Resources.MergedDictionaries.Remove(dictToRemove);
+                                    d.Source.OriginalString.EndsWith("LightTheme.xaml", StringComparison.OrdinalIgnoreCase));
+                if (dictToRemove != null)
+                {
+                    App.Current.Resources.MergedDictionaries.Remove(dictToRemove);
+                }
             }
-
-            App.Current.Resources.Clear();
 
             App.Current.Resources.MergedDictionaries.Add(Theme);
         }

@@ -3,10 +3,6 @@
                     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <!--<ResourceDictionary Source="/Resources/MainResource.xaml"></ResourceDictionary>-->
-        <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="BlueGrey" SecondaryColor="LightGreen" />
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-        
         <ResourceDictionary Source="/Resources/Icons/IconTest.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconNewScheme.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconOpenScheme.xaml"></ResourceDictionary>
