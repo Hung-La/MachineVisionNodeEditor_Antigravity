@@ -31,6 +31,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <UserControl:UserControl_ControlBar
@@ -75,90 +76,6 @@
                     PenBrush="{Binding ElementName=GridColorCombo, Path=SelectedItem.Brush}">
                 </Viewer:ImageViewerControl>
 
-                <StatusBar
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,5,5">
-
-                    <StackPanel Orientation="Horizontal">
-
-                        <!-- Control 1: Grid ToggleButton -->
-                        <ToggleButton x:Name="ToggleGridBtn" 
-                                      IsChecked="False" 
-                                      Content="Grid" 
-                                      FontSize="8" 
-                                      Foreground="WhiteSmoke"
-                                      ToolTip="Toggle Grid (On/Off)" 
-                                      Padding="4,2" 
-                                      VerticalAlignment="Center"/>
-
-                        <!-- Control 2: Grid Spacing Slider (1-1000) -->
-                        <Border Margin="4,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding ElementName=GridSpacingSlider, Path=Value, StringFormat='Grid: {0:F0}px'}" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="14" Foreground="{DynamicResource Text}"/>
-                                <Slider x:Name="GridSpacingSlider" Minimum="1" Maximum="1000" Value="100" Width="100" VerticalAlignment="Center" TickFrequency="5" IsSnapToTickEnabled="True"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Control 3: Grid Thickness Slider -->
-                        <Border Margin="4,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding ElementName=GridThicknessSlider, Path=Value, StringFormat='Thickness: {0:F1}'}" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="14" Foreground="{DynamicResource Text}"/>
-                                <Slider x:Name="GridThicknessSlider" Minimum="0.5" Maximum="10" Value="1.5" Width="70" VerticalAlignment="Center" TickFrequency="0.5" IsSnapToTickEnabled="True"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Control 4: Grid Color ComboBox -->
-                        <Border Margin="4,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="Color: " VerticalAlignment="Center" FontSize="14" Margin="0,0,4,0" Foreground="{DynamicResource Text}"/>
-                                <ComboBox x:Name="GridColorCombo" Width="110" VerticalAlignment="Center">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Rectangle Width="14" Height="14" Fill="{Binding Brush}" Stroke="Gray" StrokeThickness="0.5" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Control 5 (Existing 1): Pixel Coordinate -->
-                        <Border
-                            Margin="4 2"
-                            Padding="5"
-                            BorderThickness="1.5"
-                            BorderBrush="DimGray"
-                            CornerRadius="3">
-                            <TextBlock
-                                x:Name="TextBlock_PixelCoordinate"
-                                Height="20"
-                                FontSize="15"
-                                Foreground="{DynamicResource Text}">
-                            </TextBlock>
-                        </Border>
-
-                        <!-- Control 6 (Existing 2): Resolution -->
-                        <Border
-                            BorderThickness="1.5"
-                            BorderBrush="DimGray"
-                            Margin="4 2"
-                            Padding="5"
-                            CornerRadius="3">
-                            <TextBlock
-                                Height="20"
-                                FontSize="15"
-                                Foreground="{DynamicResource Text}"
-                                Text="{Binding NodePropertyModel.OutputImage, 
-                                Converter={StaticResource ResolutionConverter},
-                                ConverterParameter=Resolution}">
-                            </TextBlock>
-                        </Border>
-
-                    </StackPanel>
-                </StatusBar>
             </Grid>
 
             <GridSplitter
@@ -166,7 +83,7 @@
                 Width="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="DimGray">
+                Background="LightBlue">
                 <GridSplitter.Style>
                     <Style TargetType="GridSplitter">
                         <Style.Triggers>
@@ -205,7 +122,7 @@
                     </Grid.RowDefinitions>
 
                     <Border 
-                        Background="#FF252538" 
+                        Background="#FF455A64" 
                         Padding="10,8" 
                         BorderBrush="DimGray" 
                         BorderThickness="0,0,0,1">
@@ -229,5 +146,76 @@
                 </Grid>
             </Border>
         </Grid>
+
+        <!-- Trải rộng StatusBar hết chiều rộng của NodeWindow -->
+        <StatusBar
+            Grid.Row="2"
+            Background="{DynamicResource WindowBackground}"
+            BorderBrush="DimGray"
+            BorderThickness="0,1,0,0"
+            Padding="8,3">
+
+            <DockPanel LastChildFill="False" Width="{Binding RelativeSource={RelativeSource AncestorType=StatusBar}, Path=ActualWidth}">
+                
+                <!-- Cấu hình Grid bên trái -->
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <ToggleButton x:Name="ToggleGridBtn" 
+                                  IsChecked="False" 
+                                  Content="Grid" 
+                                  FontSize="11" 
+                                  Foreground="WhiteSmoke"
+                                  ToolTip="Toggle Grid (On/Off)" 
+                                  Padding="6,2" 
+                                  VerticalAlignment="Center"/>
+
+                    <Border Margin="6,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ElementName=GridSpacingSlider, Path=Value, StringFormat='Grid: {0:F0}px'}" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="12" Foreground="{DynamicResource Text}"/>
+                            <Slider x:Name="GridSpacingSlider" Minimum="1" Maximum="1000" Value="100" Width="90" VerticalAlignment="Center" TickFrequency="5" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="6,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ElementName=GridThicknessSlider, Path=Value, StringFormat='Thickness: {0:F1}'}" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="12" Foreground="{DynamicResource Text}"/>
+                            <Slider x:Name="GridThicknessSlider" Minimum="0.5" Maximum="10" Value="1.5" Width="70" VerticalAlignment="Center" TickFrequency="0.5" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="6,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Color: " VerticalAlignment="Center" FontSize="12" Margin="0,0,4,0" Foreground="{DynamicResource Text}"/>
+                            <ComboBox x:Name="GridColorCombo" Width="100" VerticalAlignment="Center">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Width="12" Height="12" Fill="{Binding Brush}" Stroke="Gray" StrokeThickness="0.5" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="12"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- Tọa độ và độ phân giải bên phải -->
+                <StackPanel DockPanel.Dock="Right" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center"
+                            Margin="0 0 30 0 ">
+                    
+                    <Border Margin="6,2" Padding="5" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
+                        <TextBlock x:Name="TextBlock_PixelCoordinate" Height="20" FontSize="13" Foreground="{DynamicResource Text}"/>
+                    </Border>
+
+                    <Border BorderThickness="1.5" BorderBrush="DimGray" Margin="6,2" Padding="5" CornerRadius="3">
+                        <TextBlock Height="20" FontSize="13" Foreground="{DynamicResource Text}"
+                                   Text="{Binding NodePropertyModel.OutputImage, Converter={StaticResource ResolutionConverter}, ConverterParameter=Resolution}"/>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+        </StatusBar>
+
     </Grid>
 </local:NodeWindowControl>

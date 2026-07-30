@@ -31,6 +31,9 @@
         <ResourceDictionary Source="/Resources/Icons/IconRotate.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconCanny.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconRunPipeline.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconErode.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconDilate.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconMorphologyEx.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="MenuItem" x:Key="MenuItemStyle" BasedOn="{StaticResource MaterialDesignMenuItem}"> <!--BasedOn="{StaticResource MaterialDesignMenuItem}"-->

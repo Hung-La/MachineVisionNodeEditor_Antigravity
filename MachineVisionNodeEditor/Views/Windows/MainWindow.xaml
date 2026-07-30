@@ -214,7 +214,9 @@
                             x:Name="RibbonButton_RunPipeline"
                             Label="Pipeline Execute"
                             LargeImageSource="{StaticResource IconRunPipeline}"
-                            Command="{Binding PipelineExecuteCommand}">
+                            Command="{Binding PipelineExecuteCommand}"
+                            ToolTip="Ctrl + F5"
+                            ToolTipFooterDescription="Pipeline Execute">
                         </RibbonButton>
 
                     </RibbonGroup>
@@ -326,17 +328,20 @@
 
                         <RibbonButton 
                             Label="Erode"
-                            Command="{Binding ErodeClick}">
+                            Command="{Binding ErodeClick}"
+                            LargeImageSource="{StaticResource IconErode}">
                         </RibbonButton>
 
                         <RibbonButton 
                             Label="Dilate"
-                            Command="{Binding DilateClick}">
+                            Command="{Binding DilateClick}"
+                            LargeImageSource="{StaticResource IconDilate}">
                         </RibbonButton>
 
                         <RibbonButton 
                             Label="MorphologyEx"
-                            Command="{Binding MorphologyExClick}">
+                            Command="{Binding MorphologyExClick}"
+                            LargeImageSource="{StaticResource IconMorphologyEx}">
                         </RibbonButton>
 
                     </RibbonGroup>
