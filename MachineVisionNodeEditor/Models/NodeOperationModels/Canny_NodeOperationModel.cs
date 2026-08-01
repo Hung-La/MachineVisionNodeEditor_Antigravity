@@ -10,7 +10,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
         {
             var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
             if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
-                property.OutputImage = Filter.ApplyCanny(sourceImage, property.Threshold1, property.Threshold2, property.ApertureSize, property.L2Gradient);
+                property.Context.OutputImage = Filter.ApplyCanny(sourceImage, property.Threshold1, property.Threshold2, property.ApertureSize, property.L2Gradient);
         }
     }
 }

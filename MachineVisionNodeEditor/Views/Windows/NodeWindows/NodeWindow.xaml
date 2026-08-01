@@ -69,7 +69,7 @@
             <Grid Grid.Column="0">
                 <Viewer:ImageViewerControl
                     x:Name="ImageViewer"
-                    ViewImage="{Binding NodePropertyModel.OutputImage}"
+                    ViewImage="{Binding NodePropertyModel.Context.OutputImage}"
                     IsGridVisible="{Binding ElementName=ToggleGridBtn, Path=IsChecked}"
                     GridSpacing="{Binding ElementName=GridSpacingSlider, Path=Value}"
                     PenThickness="{Binding ElementName=GridThicknessSlider, Path=Value}"
@@ -127,7 +127,7 @@
                         BorderBrush="DimGray" 
                         BorderThickness="0,0,0,1">
                         <TextBlock 
-                            Text="Parameter Setting" 
+                            Text="{Binding NodeModel.Title, StringFormat={}{0} Setting}" 
                             FontSize="16" 
                             FontWeight="Bold" 
                             Foreground="White"/>
@@ -184,7 +184,7 @@
 
                     <Border Margin="6,2" Padding="6,2" BorderThickness="1.5" BorderBrush="DimGray" CornerRadius="3">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="Color: " VerticalAlignment="Center" FontSize="12" Margin="0,0,4,0" Foreground="{DynamicResource Text}"/>
+                            <TextBox Text="Color: " VerticalAlignment="Center" FontSize="12" Margin="0,0,4,0" Foreground="{DynamicResource Text}"/>
                             <ComboBox x:Name="GridColorCombo" Width="100" VerticalAlignment="Center">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -211,7 +211,7 @@
 
                     <Border BorderThickness="1.5" BorderBrush="DimGray" Margin="6,2" Padding="5" CornerRadius="3">
                         <TextBlock Height="20" FontSize="13" Foreground="{DynamicResource Text}"
-                                   Text="{Binding NodePropertyModel.OutputImage, Converter={StaticResource ResolutionConverter}, ConverterParameter=Resolution}"/>
+                                   Text="{Binding NodePropertyModel.Context.OutputImage, Converter={StaticResource ResolutionConverter}, ConverterParameter=Resolution}"/>
                     </Border>
                 </StackPanel>
             </DockPanel>

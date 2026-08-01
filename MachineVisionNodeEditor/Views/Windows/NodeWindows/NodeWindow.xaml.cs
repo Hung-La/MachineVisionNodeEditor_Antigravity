@@ -45,5 +45,11 @@ namespace MachineVisionNodeEditor.Views.Windows.NodeWindows
             GridColorCombo.ItemsSource = colors;
             GridColorCombo.SelectedIndex = 0;
         }
+
+        public NodeWindow(object dataContext, OpenCvSharp.Mat image) : this()
+        {
+            DataContext = dataContext;
+            ImageViewer.ViewImage = image;
+        }
     }
 }

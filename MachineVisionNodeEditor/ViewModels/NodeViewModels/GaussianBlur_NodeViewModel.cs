@@ -9,7 +9,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 {
     public class GaussianBlur_NodeViewModel : NodeControl_NodeViewModel<GaussianBlur_NodeModel, GaussianBlur_NodePropertyModel, GaussianBlur_NodeOperationModel>
     {
-        public ICommand ShowImageCommand { get; private set; }
+        public override ICommand ShowImageCommand { get; protected set; }
 
         public GaussianBlur_NodeViewModel() : base()
         {
@@ -38,12 +38,8 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodeModel.Title = "Gaussian Blur";
             ShowImageCommand = new RelayCommand(
-                () => NodePropertyModel?.OutputImage != null && !NodePropertyModel.OutputImage.IsDisposed && !NodePropertyModel.OutputImage.Empty(),
-                () =>
-                {
-                    var win = new NodeWindow { DataContext = this };
-                    win.Show();
-                });
+                () => NodePropertyModel?.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.IsDisposed && !NodePropertyModel.Context.OutputImage.Empty(),
+                () => ShowNodeImages());
         }
 
         private void EnsureInitialPorts()

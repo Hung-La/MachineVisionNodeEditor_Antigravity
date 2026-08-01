@@ -22,7 +22,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         ConvertColor_NodeOperationModel>
     {
         #region Commands
-        public ICommand ShowImageCommand { get; private set; }
+        public override ICommand ShowImageCommand { get; protected set; }
 
         #endregion
 
@@ -53,55 +53,9 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodeModel.Title = "Convert Color";
 
-            ShowImageCommand = new RelayCommand(() =>
-            {
-                if (NodePropertyModel == null || this.NodeModel.InputPorts[0].PortModel.Connections.Count == 0)
-                {
-                    return false;
-                }
-                foreach (var item in this.NodeModel.InputPorts[0].PortModel.Connections)
-                {
-                    if (ImageHelper.GetImageFromPreviousNode(item) != null)
-                    {
-                        if(NodePropertyModel.SelectedCode != null)
-                        {
-                            return true;
-                        }
-
-                    }
-
-                }
-                return false;
-
-            },
-            () =>
-            {
-                if (NodePropertyModel == null) return;
-                List<Mat> images = new();
-                foreach (var item in this.NodeModel.InputPorts[0].PortModel.Connections)
-                {
-                    var image = ImageHelper.GetImageFromPreviousNode(item);
-                    if (image != null)
-                    {
-                        images.Add(image);
-                    }
-                   
-                }
-
-                foreach(var item in images)
-                {
-                    NodePropertyModel.InputImage = item;
-                    OperationModel.Execute(NodePropertyModel);
-                    if (NodePropertyModel.OutputImage != null)
-                    {
-                        var convertColorWindow = new NodeWindow();
-                        convertColorWindow.DataContext = this;
-                        convertColorWindow.Show();
-                    }
-                }
-
-
-            });
+            ShowImageCommand = new RelayCommand(
+                () => NodePropertyModel?.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.IsDisposed && !NodePropertyModel.Context.OutputImage.Empty(),
+                () => ShowNodeImages());
         }
 
         private void EnsureInitialPorts()

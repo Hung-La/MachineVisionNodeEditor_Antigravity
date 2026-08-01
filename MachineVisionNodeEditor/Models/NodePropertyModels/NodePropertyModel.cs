@@ -48,42 +48,6 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
 
         public NodeContext Context { get; } = new();
 
-        /// <summary>
-        /// Typed accessor cho XAML binding — đọc/ghi Inputs["Image"] và tự raise PropertyChanged.
-        /// </summary>
-        public Mat InputImage
-        {
-            get => Context.InputImage;
-            set
-            {
-                Context.InputImage = value;
-                if (value != null && !value.IsDisposed && value.Width > 0 && value.Height > 0)
-                {
-                    Width = value.Width;
-                    Height = value.Height;
-                }
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Typed accessor cho XAML binding — đọc/ghi Outputs["Image"] và tự raise PropertyChanged.
-        /// </summary>
-        public Mat OutputImage
-        {
-            get => Context.OutputImage;
-            set
-            {
-                Context.OutputImage = value;
-                if (value != null && !value.IsDisposed && value.Width > 0 && value.Height > 0)
-                {
-                    Width = value.Width;
-                    Height = value.Height;
-                }
-                OnPropertyChanged();
-            }
-        }
-
         public NodePropertyControl View
         {
             set; get;

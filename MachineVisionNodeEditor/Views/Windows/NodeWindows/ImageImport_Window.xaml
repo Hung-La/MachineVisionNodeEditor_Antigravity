@@ -116,7 +116,7 @@
 
                         <Image
                             x:Name="Image"
-                            Source="{Binding NodePropertyModel.OutputImage,
+                            Source="{Binding NodePropertyModel.Context.OutputImage,
                             Converter={StaticResource MatToBitmapSourceConverter}}"
                             Stretch="None"
                             RenderTransformOrigin="0,0"

@@ -10,7 +10,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
         {
             var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
             if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
-                property.OutputImage = Threshold.ApplyThreshold(sourceImage, property.Thresh, property.MaxVal, property.SelectedType);
+                property.Context.OutputImage = Threshold.ApplyThreshold(sourceImage, property.Thresh, property.MaxVal, property.SelectedType);
         }
     }
 }

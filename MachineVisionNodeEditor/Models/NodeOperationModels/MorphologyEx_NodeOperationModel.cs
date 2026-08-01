@@ -10,7 +10,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
         {
             var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
             if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
-                property.OutputImage = Morphology.ApplyMorphologyEx(sourceImage, property.Operation, property.Shape, property.KSize, property.Iterations);
+                property.Context.OutputImage = Morphology.ApplyMorphologyEx(sourceImage, property.Operation, property.Shape, property.KSize, property.Iterations);
         }
     }
 }

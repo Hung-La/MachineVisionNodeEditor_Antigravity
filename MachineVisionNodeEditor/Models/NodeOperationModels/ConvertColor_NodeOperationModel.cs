@@ -13,7 +13,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
         {
             var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
             if (sourceImage != null)
-                property.OutputImage = ConvertColor.Convert(sourceImage, (ColorConversionCodes)property.SelectedCode);
+                property.Context.OutputImage = ConvertColor.Convert(sourceImage, (ColorConversionCodes)property.SelectedCode);
         }
     }
 }

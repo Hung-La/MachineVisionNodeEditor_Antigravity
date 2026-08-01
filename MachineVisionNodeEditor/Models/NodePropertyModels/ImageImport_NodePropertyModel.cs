@@ -29,7 +29,7 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
             set
             {
                 SetField(ref _filePath, value);
-                InputImage = Cv2.ImRead(value);
+                Context.InputImage = Cv2.ImRead(value);
                 //var converter = new ResolutionConverter();
                 //Width = (int)converter.Convert(
                 //                               FilePath,
@@ -56,11 +56,11 @@ namespace MachineVisionNodeEditor.Models.NodePropertyModels
                 {
                     if (value == null)
                     {
-                        OutputImage = ImageImport.ReadImage(FilePath);
+                        Context.OutputImage = ImageImport.ReadImage(FilePath);
                     }
                     else
                     {
-                        OutputImage = ImageImport.ReadImage(FilePath, (ImreadModes)value);
+                        Context.OutputImage = ImageImport.ReadImage(FilePath, (ImreadModes)value);
                     }
 
                 }

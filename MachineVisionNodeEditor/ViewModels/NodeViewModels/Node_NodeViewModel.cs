@@ -1,4 +1,5 @@
-﻿using MachineVisionNodeEditor.Interfaces.NodeInterfaces;
+﻿using MachineVisionNodeEditor.Commands;
+using MachineVisionNodeEditor.Interfaces.NodeInterfaces;
 using MachineVisionNodeEditor.Models.NodeModels;
 using MachineVisionNodeEditor.Models.NodeOperationModels;
 using MachineVisionNodeEditor.Models.NodePropertyModels;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 {
@@ -16,7 +18,9 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
         //public NodeModel NodeModel { get => _nodeModel; set { _nodeModel = value; OnPropertyChanged(); } }
 
-        public Node_NodeViewModel(Test_NodeModel nodeModel) : base (nodeModel)
+        public override ICommand ShowImageCommand { get; protected set; }
+
+        public Node_NodeViewModel(Test_NodeModel nodeModel) : base(nodeModel)
         {
             NodeModel = nodeModel;
             Initialize();
@@ -30,7 +34,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
             EnsureInitialPorts();
         }
 
-        public Node_NodeViewModel() : base ()
+        public Node_NodeViewModel() : base()
         {
             Initialize();
             EnsureInitialPorts();

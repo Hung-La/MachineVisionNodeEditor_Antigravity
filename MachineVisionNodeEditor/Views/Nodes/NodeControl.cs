@@ -29,7 +29,7 @@ namespace MachineVisionNodeEditor.Views.Nodes
 
         public NodeControl()
         {
-            
+            MouseDown += Header_MouseDown;
         }
 
         protected void NodeControl_Loaded(object sender, RoutedEventArgs e)
@@ -71,7 +71,7 @@ namespace MachineVisionNodeEditor.Views.Nodes
 
                     if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
                     {
-                        if (vm is ImageImport_NodeViewModel viewModel)
+                        if (vm is NodeControl_NodeViewModel viewModel)
                         {
                             if (viewModel.ShowImageCommand.CanExecute(viewModel.NodePropertyModel))
                             {

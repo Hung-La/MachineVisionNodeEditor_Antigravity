@@ -14,8 +14,19 @@ namespace MachineVisionNodeEditor.Extensions
         {
             var registry = MainWindow.Instance.Window_MainWindowViewModel.NodeRegistry;
             var viewModel = (NodeControl_NodeViewModel)registry.GetViewModel(connection.FromPort.Owner);
-            var mat = viewModel.NodePropertyModel.OutputImage;
+            var mat = viewModel.NodePropertyModel.Context.OutputImage;
             return mat != null ? mat : null;
+        }
+
+        public static List<Mat> GetImagesFromPreviousNode(ConnectionModel connection)
+        {
+            var registry = MainWindow.Instance.Window_MainWindowViewModel.NodeRegistry;
+            var viewModel = (NodeControl_NodeViewModel)registry.GetViewModel(connection.FromPort.Owner);
+            var outputs = viewModel.NodePropertyModel.Context.OutputImages;
+            if (outputs != null && outputs.Count > 0)
+                return outputs;
+            var mat = viewModel.NodePropertyModel.Context.OutputImage;
+            return mat != null ? new List<Mat> { mat } : new List<Mat>();
         }
     }
 }

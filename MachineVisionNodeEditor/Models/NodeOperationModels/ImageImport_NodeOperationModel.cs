@@ -15,8 +15,14 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
             if (string.IsNullOrWhiteSpace(propertyModel.FilePath))
                 return;
 
-            propertyModel.OutputImage = ImageImport.ReadImage(propertyModel.FilePath, (ImreadModes)propertyModel.SelectedMode);
-
+            var mode = propertyModel.SelectedMode != null ? (ImreadModes)propertyModel.SelectedMode : ImreadModes.Color;
+            var img = ImageImport.ReadImage(propertyModel.FilePath, mode);
+            propertyModel.Context.InputImage = img;
+            propertyModel.Context.OutputImage = img;
+            if (img != null)
+            {
+                propertyModel.Context.OutputImages = new List<Mat> { img };
+            }
         }
     }
 }

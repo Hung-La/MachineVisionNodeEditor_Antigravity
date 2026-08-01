@@ -42,9 +42,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
         #region Commands
         public ICommand BrowseCommand { get; private set; }
-        public ICommand ShowImageCommand { get; private set; }
-
-
+        public override ICommand ShowImageCommand { get; protected set; }
 
         #endregion
 
@@ -95,19 +93,14 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
                     if (File.Exists(NodePropertyModel.FilePath))
                     {
-                        if (NodePropertyModel.SelectedMode == null)
+                        var mode = NodePropertyModel.SelectedMode != null ? (ImreadModes)NodePropertyModel.SelectedMode : ImreadModes.Color;
+                        var img = ImageImport.ReadImage(NodePropertyModel.FilePath, mode);
+                        NodePropertyModel.Context.InputImage = img;
+                        NodePropertyModel.Context.OutputImage = img;
+                        if (img != null)
                         {
-                            var img = ImageImport.ReadImage(NodePropertyModel.FilePath);
-                            NodePropertyModel.InputImage = img;
-                            NodePropertyModel.OutputImage = img;
+                            NodePropertyModel.Context.OutputImages = new List<Mat> { img };
                         }
-                        else
-                        {
-                            var img = ImageImport.ReadImage(NodePropertyModel.FilePath, (ImreadModes)NodePropertyModel.SelectedMode);
-                            NodePropertyModel.InputImage = img;
-                            NodePropertyModel.OutputImage = img;
-                        }
-
                     }
                 }
                 catch (Exception ex)
@@ -124,21 +117,19 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                 {
                     if (NodePropertyModel == null) return;
 
-                    if (NodePropertyModel.OutputImage == null && File.Exists(NodePropertyModel.FilePath))
+                    if (NodePropertyModel.Context.OutputImage == null && File.Exists(NodePropertyModel.FilePath))
                     {
                         var mode = NodePropertyModel.SelectedMode != null ? (ImreadModes)NodePropertyModel.SelectedMode : ImreadModes.Color;
                         var img = ImageImport.ReadImage(NodePropertyModel.FilePath, mode);
-                        NodePropertyModel.InputImage = img;
-                        NodePropertyModel.OutputImage = img;
+                        NodePropertyModel.Context.InputImage = img;
+                        NodePropertyModel.Context.OutputImage = img;
+                        if (img != null)
+                        {
+                            NodePropertyModel.Context.OutputImages = new List<Mat> { img };
+                        }
                     }
 
-                    if (NodePropertyModel.OutputImage != null)
-                    {
-                        var imageImportWindow = new NodeWindow();
-                        imageImportWindow.DataContext = this;
-                        imageImportWindow.Show();
-                    }
-
+                    ShowNodeImages();
                 });
 
             EnsureInitialPorts();

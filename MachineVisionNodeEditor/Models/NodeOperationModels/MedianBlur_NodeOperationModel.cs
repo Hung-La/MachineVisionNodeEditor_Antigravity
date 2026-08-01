@@ -10,7 +10,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
         {
             var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
             if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
-                property.OutputImage = Filter.ApplyMedianBlur(sourceImage, property.KSize);
+                property.Context.OutputImage = Filter.ApplyMedianBlur(sourceImage, property.KSize);
         }
     }
 }

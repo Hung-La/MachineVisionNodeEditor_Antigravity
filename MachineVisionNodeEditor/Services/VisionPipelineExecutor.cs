@@ -69,21 +69,6 @@ namespace MachineVisionNodeEditor.Services
 
         private void ExecuteNode(NodeControl_NodeViewModel nodeVm)
         {
-            var inputConnection = _connections.FirstOrDefault(c => c.ConnectionModel.ToPort.Owner == nodeVm.NodeModel);
-            if (inputConnection != null)
-            {
-                var sourceNodeModel = inputConnection.ConnectionModel.FromPort.Owner;
-                var sourceNodeVM = _nodes.FirstOrDefault(n => n.NodeModel == sourceNodeModel);
-                if (sourceNodeVM != null)
-                {
-                    if (sourceNodeVM.NodePropertyModel.OutputImage == null || sourceNodeVM.NodePropertyModel.OutputImage.IsDisposed)
-                    {
-                        throw new InvalidOperationException($"Node nguồn \"{sourceNodeVM.NodeModel.Title}\" chưa tạo ra ảnh đầu ra hợp lệ.");
-                    }
-                    nodeVm.NodePropertyModel.InputImage = sourceNodeVM.NodePropertyModel.OutputImage;
-                }
-            }
-
             if (nodeVm is ImageImport_NodeViewModel impVM)
             {
                 if (string.IsNullOrWhiteSpace(impVM.NodePropertyModel.FilePath))
@@ -94,48 +79,100 @@ namespace MachineVisionNodeEditor.Services
                 {
                     throw new System.IO.FileNotFoundException($"Không tìm thấy tệp ảnh tại đường dẫn: {impVM.NodePropertyModel.FilePath}");
                 }
-                if (impVM.NodePropertyModel.OutputImage == null || impVM.NodePropertyModel.OutputImage.IsDisposed)
-                {
-                    impVM.OperationModel.Execute(impVM.NodePropertyModel);
-                }
-                if (impVM.NodePropertyModel.OutputImage == null || impVM.NodePropertyModel.OutputImage.Empty())
+                
+                impVM.OperationModel.Execute(impVM.NodePropertyModel);
+                
+                if (impVM.NodePropertyModel.Context.OutputImage == null || impVM.NodePropertyModel.Context.OutputImage.Empty())
                 {
                     throw new InvalidOperationException("Không thể tải ảnh. Định dạng ảnh không hợp lệ hoặc tệp bị hỏng.");
                 }
+                impVM.NodePropertyModel.Context.OutputImages = new List<Mat> { impVM.NodePropertyModel.Context.OutputImage };
             }
             else
             {
-                var inputImage = nodeVm.NodePropertyModel.InputImage;
-                if (inputImage == null || inputImage.IsDisposed || inputImage.Empty())
+                var incomingConnections = _connections.Where(c => c.ConnectionModel.ToPort.Owner == nodeVm.NodeModel).ToList();
+                var inputImages = new List<Mat>();
+
+                foreach (var conn in incomingConnections)
+                {
+                    var sourceNodeModel = conn.ConnectionModel.FromPort.Owner;
+                    var sourceNodeVM = _nodes.FirstOrDefault(n => n.NodeModel == sourceNodeModel);
+                    if (sourceNodeVM != null)
+                    {
+                        var srcOutputs = sourceNodeVM.NodePropertyModel.Context.OutputImages;
+                        if (srcOutputs != null && srcOutputs.Count > 0)
+                        {
+                            foreach (var img in srcOutputs)
+                            {
+                                if (img != null && !img.IsDisposed && !img.Empty())
+                                {
+                                    inputImages.Add(img);
+                                }
+                            }
+                        }
+                        else if (sourceNodeVM.NodePropertyModel.Context.OutputImage != null &&
+                                 !sourceNodeVM.NodePropertyModel.Context.OutputImage.IsDisposed &&
+                                 !sourceNodeVM.NodePropertyModel.Context.OutputImage.Empty())
+                        {
+                            inputImages.Add(sourceNodeVM.NodePropertyModel.Context.OutputImage);
+                        }
+                    }
+                }
+
+                if (inputImages.Count == 0)
                 {
                     throw new InvalidOperationException("Ảnh đầu vào trống hoặc không hợp lệ. Vui lòng kết nối node này với một node hợp lệ khác.");
                 }
 
-                if (nodeVm is ConvertColor_NodeViewModel ccVM)
-                    ccVM.OperationModel.Execute(ccVM.NodePropertyModel);
-                else if (nodeVm is Threshold_NodeViewModel threshVM)
-                    threshVM.OperationModel.Execute(threshVM.NodePropertyModel);
-                else if (nodeVm is GaussianBlur_NodeViewModel gbVM)
-                    gbVM.OperationModel.Execute(gbVM.NodePropertyModel);
-                else if (nodeVm is MedianBlur_NodeViewModel mbVM)
-                    mbVM.OperationModel.Execute(mbVM.NodePropertyModel);
-                else if (nodeVm is BilateralFilter_NodeViewModel bfVM)
-                    bfVM.OperationModel.Execute(bfVM.NodePropertyModel);
-                else if (nodeVm is Canny_NodeViewModel cannyVM)
-                    cannyVM.OperationModel.Execute(cannyVM.NodePropertyModel);
-                else if (nodeVm is Erode_NodeViewModel erodeVM)
-                    erodeVM.OperationModel.Execute(erodeVM.NodePropertyModel);
-                else if (nodeVm is Dilate_NodeViewModel dilateVM)
-                    dilateVM.OperationModel.Execute(dilateVM.NodePropertyModel);
-                else if (nodeVm is MorphologyEx_NodeViewModel morphVM)
-                    morphVM.OperationModel.Execute(morphVM.NodePropertyModel);
+                nodeVm.NodePropertyModel.Context.InputImages = inputImages;
+                nodeVm.NodePropertyModel.Context.InputImage = inputImages[0];
+
+                var outputImages = new List<Mat>();
+
+                foreach (var inputImg in inputImages)
+                {
+                    nodeVm.NodePropertyModel.Context.InputImage = inputImg;
+                    ExecuteSingleNodeOperation(nodeVm);
+                    if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
+                    {
+                        outputImages.Add(nodeVm.NodePropertyModel.Context.OutputImage);
+                    }
+                }
+
+                nodeVm.NodePropertyModel.Context.OutputImages = outputImages;
+                if (outputImages.Count > 0)
+                {
+                    nodeVm.NodePropertyModel.Context.OutputImage = outputImages[0];
+                }
             }
 
-            if (nodeVm.NodePropertyModel.OutputImage != null)
+            if (nodeVm.NodePropertyModel.Context.OutputImage != null)
             {
-                nodeVm.NodePropertyModel.Width = nodeVm.NodePropertyModel.OutputImage.Width;
-                nodeVm.NodePropertyModel.Height = nodeVm.NodePropertyModel.OutputImage.Height;
+                nodeVm.NodePropertyModel.Width = nodeVm.NodePropertyModel.Context.OutputImage.Width;
+                nodeVm.NodePropertyModel.Height = nodeVm.NodePropertyModel.Context.OutputImage.Height;
             }
+        }
+
+        private void ExecuteSingleNodeOperation(NodeControl_NodeViewModel nodeVm)
+        {
+            if (nodeVm is ConvertColor_NodeViewModel ccVM)
+                ccVM.OperationModel.Execute(ccVM.NodePropertyModel);
+            else if (nodeVm is Threshold_NodeViewModel threshVM)
+                threshVM.OperationModel.Execute(threshVM.NodePropertyModel);
+            else if (nodeVm is GaussianBlur_NodeViewModel gbVM)
+                gbVM.OperationModel.Execute(gbVM.NodePropertyModel);
+            else if (nodeVm is MedianBlur_NodeViewModel mbVM)
+                mbVM.OperationModel.Execute(mbVM.NodePropertyModel);
+            else if (nodeVm is BilateralFilter_NodeViewModel bfVM)
+                bfVM.OperationModel.Execute(bfVM.NodePropertyModel);
+            else if (nodeVm is Canny_NodeViewModel cannyVM)
+                cannyVM.OperationModel.Execute(cannyVM.NodePropertyModel);
+            else if (nodeVm is Erode_NodeViewModel erodeVM)
+                erodeVM.OperationModel.Execute(erodeVM.NodePropertyModel);
+            else if (nodeVm is Dilate_NodeViewModel dilateVM)
+                dilateVM.OperationModel.Execute(dilateVM.NodePropertyModel);
+            else if (nodeVm is MorphologyEx_NodeViewModel morphVM)
+                morphVM.OperationModel.Execute(morphVM.NodePropertyModel);
         }
 
         private List<NodeControl_NodeViewModel> TopologicalSort()
