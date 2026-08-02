@@ -14,6 +14,7 @@ FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mac
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Erode_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\FindContours_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\GaussianBlur_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageCrop_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageImport_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageResize_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageRotate_PropertyView.xaml;;

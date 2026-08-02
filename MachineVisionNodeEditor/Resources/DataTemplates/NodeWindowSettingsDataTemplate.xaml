@@ -371,6 +371,33 @@
         </materialDesign:Card>
     </DataTemplate>
 
+    <!-- Image Crop -->
+    <DataTemplate DataType="{x:Type ViewModel:ImageCrop_NodeViewModel}">
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Crop X"/>
+                <TextBox Style="{StaticResource SettingTextBoxStyle}"
+                         Margin="0,0,0,12"
+                         Text="{Binding NodePropertyModel.CropX, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Crop Y"/>
+                <TextBox Style="{StaticResource SettingTextBoxStyle}"
+                         Margin="0,0,0,12"
+                         Text="{Binding NodePropertyModel.CropY, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Crop Width"/>
+                <TextBox Style="{StaticResource SettingTextBoxStyle}"
+                         Margin="0,0,0,12"
+                         Text="{Binding NodePropertyModel.CropWidth, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Crop Height"/>
+                <TextBox Style="{StaticResource SettingTextBoxStyle}"
+                         Margin="0,0,0,12"
+                         Text="{Binding NodePropertyModel.CropHeight, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </materialDesign:Card>
+    </DataTemplate>
+
     <!-- 13. Find Contours -->
     <DataTemplate DataType="{x:Type ViewModel:FindContours_NodeViewModel}">
         <materialDesign:Card Style="{StaticResource SettingCardStyle}">

@@ -139,6 +139,11 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
 
             translate.X = (containerWidth - ViewImage.Width * fitScale) / 2.0;
             translate.Y = (containerHeight - ViewImage.Height * fitScale) / 2.0;
+
+            if (_activeCropModel != null)
+            {
+                CropRoiOverlay.ZoomScale = fitScale;
+            }
         }
 
         public void UpdateGrid()
@@ -250,6 +255,63 @@ namespace MachineVisionNodeEditor.Views.ImageViewer
 
             translate.X = mousePos.X - mouseInImageX * scale.ScaleX;
             translate.Y = mousePos.Y - mouseInImageY * scale.ScaleY;
+
+            if (_activeCropModel != null)
+            {
+                CropRoiOverlay.ZoomScale = scale.ScaleX;
+            }
+        }
+
+        private Models.NodePropertyModels.ImageCrop_NodePropertyModel? _activeCropModel;
+
+        public void EnableCropMode(Models.NodePropertyModels.ImageCrop_NodePropertyModel? cropModel)
+        {
+            _activeCropModel = cropModel;
+            if (cropModel == null || ViewImage == null || ViewImage.IsDisposed || ViewImage.Width <= 0 || ViewImage.Height <= 0)
+            {
+                CropRoiOverlay.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            CropRoiOverlay.ImageWidth = ViewImage.Width;
+            CropRoiOverlay.ImageHeight = ViewImage.Height;
+            CropRoiOverlay.ZoomScale = scale.ScaleX;
+
+            BindingOperations.ClearBinding(CropRoiOverlay, CropRoiControl.CropXProperty);
+            BindingOperations.ClearBinding(CropRoiOverlay, CropRoiControl.CropYProperty);
+            BindingOperations.ClearBinding(CropRoiOverlay, CropRoiControl.CropWidthProperty);
+            BindingOperations.ClearBinding(CropRoiOverlay, CropRoiControl.CropHeightProperty);
+
+            CropRoiOverlay.SetBinding(CropRoiControl.CropXProperty, new Binding(nameof(Models.NodePropertyModels.ImageCrop_NodePropertyModel.CropX))
+            {
+                Source = cropModel,
+                Mode = BindingMode.TwoWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
+
+            CropRoiOverlay.SetBinding(CropRoiControl.CropYProperty, new Binding(nameof(Models.NodePropertyModels.ImageCrop_NodePropertyModel.CropY))
+            {
+                Source = cropModel,
+                Mode = BindingMode.TwoWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
+
+            CropRoiOverlay.SetBinding(CropRoiControl.CropWidthProperty, new Binding(nameof(Models.NodePropertyModels.ImageCrop_NodePropertyModel.CropWidth))
+            {
+                Source = cropModel,
+                Mode = BindingMode.TwoWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
+
+            CropRoiOverlay.SetBinding(CropRoiControl.CropHeightProperty, new Binding(nameof(Models.NodePropertyModels.ImageCrop_NodePropertyModel.CropHeight))
+            {
+                Source = cropModel,
+                Mode = BindingMode.TwoWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
+
+            CropRoiOverlay.Visibility = Visibility.Visible;
+            CropRoiOverlay.UpdateLayoutGeometry();
         }
     }
 }

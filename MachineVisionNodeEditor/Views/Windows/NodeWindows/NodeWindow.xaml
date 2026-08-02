@@ -234,6 +234,29 @@
                             </ComboBox>
                         </StackPanel>
                     </Border>
+
+                    <!-- Crop Preview Toggle Button (Visible only for ImageCrop Node) -->
+                    <ToggleButton x:Name="ToggleCropModeBtn" 
+                                  IsChecked="False" 
+                                  Content="Preview Crop Result" 
+                                  FontSize="11" 
+                                  Foreground="WhiteSmoke"
+                                  ToolTip="Toggle between Crop Selection Mode (Input Image + Adorner) and Cropped Result Preview" 
+                                  Padding="6,2" 
+                                  Margin="8,2"
+                                  VerticalAlignment="Center"
+                                  Click="ToggleCropModeBtn_Click">
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=NodeModel.Type}" Value="ImageCrop">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
                 </StackPanel>
 
                 <!-- Tọa độ và độ phân giải bên phải -->

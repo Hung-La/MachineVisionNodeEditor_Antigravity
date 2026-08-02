@@ -177,6 +177,8 @@ namespace MachineVisionNodeEditor.Services
                 rotateVM.OperationModel.Execute(rotateVM.NodePropertyModel);
             else if (nodeVm is ImageResize_NodeViewModel resizeVM)
                 resizeVM.OperationModel.Execute(resizeVM.NodePropertyModel);
+            else if (nodeVm is ImageCrop_NodeViewModel cropVM)
+                cropVM.OperationModel.Execute(cropVM.NodePropertyModel);
             else if (nodeVm is FindContours_NodeViewModel fcVM)
                 fcVM.OperationModel.Execute(fcVM.NodePropertyModel);
             else if (nodeVm is DrawContours_NodeViewModel dcVM)

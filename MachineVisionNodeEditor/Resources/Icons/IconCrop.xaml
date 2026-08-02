@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconCrop">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!-- 🖼️ Main image -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M4,4 L16,4 L16,16 L4,16 Z"/>
+
+                <!-- 📄 Inner background -->
+                <GeometryDrawing
+                    Brush="White"
+                    Geometry="M5,5 L15,5 L15,15 L5,15 Z"/>
+
+                <!-- ⛰️ Landscape -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsThird}"
+                    Geometry="M6,13 L9,9 L11,11 L14,7 L14.5,13 Z"/>
+
+                <!-- ☀️ Sun -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsFourth}"
+                    Geometry="M12,7 A0.8,0.8 0 1 1 11.9,7 Z"/>
+
+                <!-- ✂️ Crop overlay lines -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsSecond}"
+                    Geometry="M2,6 L18,6 L18,8 L2,8 Z"/>
+
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsSecond}"
+                    Geometry="M12,2 L14,2 L14,18 L12,18 Z"/>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

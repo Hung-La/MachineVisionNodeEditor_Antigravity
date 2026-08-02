@@ -33,5 +33,23 @@ namespace MachineVisionAlgorithm.ImageTransform
             }
             return dst;
         }
+
+        public static Mat ApplyCrop(Mat src, int x, int y, int width, int height)
+        {
+            if (src == null || src.IsDisposed || src.Empty()) return new Mat();
+
+            int imgW = src.Width;
+            int imgH = src.Height;
+
+            int cropX = Math.Clamp(x, 0, imgW - 1);
+            int cropY = Math.Clamp(y, 0, imgH - 1);
+            int cropW = Math.Min(width, imgW - cropX);
+            int cropH = Math.Min(height, imgH - cropY);
+
+            if (cropW <= 0 || cropH <= 0) return new Mat();
+
+            Rect roi = new Rect(cropX, cropY, cropW, cropH);
+            return new Mat(src, roi).Clone();
+        }
     }
 }

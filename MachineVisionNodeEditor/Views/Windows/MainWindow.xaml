@@ -258,11 +258,12 @@
 
                     <RibbonGroup
                         Header="Image Transformation">
+
                         <RibbonButton 
-                            x:Name="RibbonButton_ImageResize"
-                            Label="Image Resize"
-                            Command="{Binding ImageResizeClick}"
-                            LargeImageSource="{StaticResource IconResize}">
+                            x:Name="RibbonButton_ImageCrop"
+                            Label="Image Crop"
+                            Command="{Binding ImageCropClick}"
+                            LargeImageSource="{StaticResource IconCrop}">
                         </RibbonButton>
 
                         <RibbonButton 
@@ -271,6 +272,14 @@
                             Command="{Binding ImageRotateClick}"
                             LargeImageSource="{StaticResource IconRotate}">
                         </RibbonButton>
+
+                        <RibbonButton 
+                            x:Name="RibbonButton_ImageResize"
+                            Label="Image Resize"
+                            Command="{Binding ImageResizeClick}"
+                            LargeImageSource="{StaticResource IconResize}">
+                        </RibbonButton>
+
 
                     </RibbonGroup>
 

@@ -59,6 +59,10 @@
         <Property:ImageResize_PropertyView></Property:ImageResize_PropertyView>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type ViewModel:ImageCrop_NodeViewModel}">
+        <Property:ImageCrop_PropertyView></Property:ImageCrop_PropertyView>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type ViewModel:FindContours_NodeViewModel}">
         <Property:FindContours_PropertyView></Property:FindContours_PropertyView>
     </DataTemplate>

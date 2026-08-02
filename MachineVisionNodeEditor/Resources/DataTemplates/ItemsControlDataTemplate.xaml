@@ -57,6 +57,10 @@
         <NodeView:Node_NodeView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type NodeViewModel:ImageCrop_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type NodeViewModel:FindContours_NodeViewModel}">
         <NodeView:Node_NodeView/>
     </DataTemplate>

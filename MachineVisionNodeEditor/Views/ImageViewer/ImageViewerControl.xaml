@@ -61,6 +61,11 @@
 
                     </Image>
 
+                    <local:CropRoiControl
+                        x:Name="CropRoiOverlay"
+                        Panel.ZIndex="3"
+                        Visibility="Collapsed"/>
+
                     <Canvas 
                         x:Name="OverlayCanvas"
                         Width="{Binding ElementName=ViewerControl, Path=ViewImage,

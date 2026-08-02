@@ -92,11 +92,36 @@ namespace MachineVisionNodeEditor.Views.Windows.NodeWindows
             }
         }
 
+        private void ToggleCropModeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateImage();
+        }
+
         private void UpdateImage()
         {
             if (_vm?.NodePropertyModel?.Context == null) return;
 
             var context = _vm.NodePropertyModel.Context;
+
+            if (_vm is ViewModels.NodeViewModels.ImageCrop_NodeViewModel cropVm)
+            {
+                bool isPreviewMode = ToggleCropModeBtn.IsChecked == true;
+                if (!isPreviewMode && context.InputImage != null && !context.InputImage.IsDisposed && !context.InputImage.Empty())
+                {
+                    ImageViewer.ViewImage = context.InputImage;
+                    ImageViewer.EnableCropMode(cropVm.NodePropertyModel as Models.NodePropertyModels.ImageCrop_NodePropertyModel);
+                    return;
+                }
+                else
+                {
+                    ImageViewer.EnableCropMode(null);
+                }
+            }
+            else
+            {
+                ImageViewer.EnableCropMode(null);
+            }
+
             var outputs = context.OutputImages;
 
             if (outputs != null && ImageIndex >= 0 && ImageIndex < outputs.Count)

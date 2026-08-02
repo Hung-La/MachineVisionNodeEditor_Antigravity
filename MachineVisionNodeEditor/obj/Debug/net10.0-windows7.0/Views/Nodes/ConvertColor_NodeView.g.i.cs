@@ -94,7 +94,8 @@ namespace MachineVisionNodeEditor.Views.Nodes {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;component/views/nodes/convertcolor_nodeview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;V1.0.0.0;component/views/nodes/convertcolor_nodeview.xam" +
+                    "l", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Nodes\ConvertColor_NodeView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

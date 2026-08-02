@@ -1,0 +1,92 @@
+<UserControl x:Class="MachineVisionNodeEditor.Views.ImageViewer.CropRoiControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="RoiControl">
+    <UserControl.Resources>
+        <!-- Style for Resize Thumbs -->
+        <Style x:Key="ResizeThumbStyle" TargetType="Thumb">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Height" Value="10"/>
+            <Setter Property="Background" Value="#00E5FF"/>
+            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle Fill="{TemplateBinding Background}" 
+                                   Stroke="{TemplateBinding BorderBrush}" 
+                                   StrokeThickness="{TemplateBinding BorderThickness}" 
+                                   RadiusX="2" RadiusY="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style for Move Thumb -->
+        <Style x:Key="MoveThumbStyle" TargetType="Thumb">
+            <Setter Property="Background" Value="#1000E5FF"/>
+            <Setter Property="Cursor" Value="SizeAll"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle Fill="{TemplateBinding Background}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Canvas x:Name="RootCanvas" IsHitTestVisible="True">
+
+        <!-- Dark Dimming Overlay Outside Crop Box -->
+        <Path x:Name="DimmingPath" Fill="#66000000" IsHitTestVisible="False"/>
+
+        <!-- Crop Box Container -->
+        <Canvas x:Name="CropBoxCanvas">
+
+            <!-- Move Thumb (Center drag region) -->
+            <Thumb x:Name="ThumbMove" Style="{StaticResource MoveThumbStyle}" DragDelta="ThumbMove_DragDelta"/>
+
+            <!-- Crop Box Dashed Border -->
+            <Rectangle x:Name="CropBorder" 
+                       Stroke="#00E5FF" 
+                       StrokeThickness="2" 
+                       StrokeDashArray="4 2" 
+                       IsHitTestVisible="False"/>
+
+            <!-- Rule of Thirds Grid Lines -->
+            <Path x:Name="GridLines" Stroke="#8000E5FF" StrokeThickness="0.8" StrokeDashArray="2 2" IsHitTestVisible="False"/>
+
+            <!-- Floating Info Badge -->
+            <Border x:Name="InfoBadge" 
+                    Background="#CC1E1E1E" 
+                    BorderBrush="#00E5FF" 
+                    BorderThickness="1" 
+                    CornerRadius="3" 
+                    Padding="5,2" 
+                    IsHitTestVisible="False">
+                <TextBlock x:Name="InfoText" 
+                           Foreground="White" 
+                           FontSize="18" 
+                           FontWeight="SemiBold" 
+                           Text="X: 0, Y: 0 | 200 x 200"/>
+            </Border>
+
+            <!-- 8 Resize Thumbs -->
+            <Thumb x:Name="ThumbTL" Style="{StaticResource ResizeThumbStyle}" Cursor="SizeNWSE" DragDelta="ThumbTL_DragDelta"/>
+            <Thumb x:Name="ThumbT"  Style="{StaticResource ResizeThumbStyle}" Cursor="SizeNS"   DragDelta="ThumbT_DragDelta"/>
+            <Thumb x:Name="ThumbTR" Style="{StaticResource ResizeThumbStyle}" Cursor="SizeNESW" DragDelta="ThumbTR_DragDelta"/>
+            <Thumb x:Name="ThumbR"  Style="{StaticResource ResizeThumbStyle}" Cursor="SizeWE"   DragDelta="ThumbR_DragDelta"/>
+            <Thumb x:Name="ThumbBR" Style="{StaticResource ResizeThumbStyle}" Cursor="SizeNWSE" DragDelta="ThumbBR_DragDelta"/>
+            <Thumb x:Name="ThumbB"  Style="{StaticResource ResizeThumbStyle}" Cursor="SizeNS"   DragDelta="ThumbB_DragDelta"/>
+            <Thumb x:Name="ThumbBL" Style="{StaticResource ResizeThumbStyle}" Cursor="SizeNESW" DragDelta="ThumbBL_DragDelta"/>
+            <Thumb x:Name="ThumbL"  Style="{StaticResource ResizeThumbStyle}" Cursor="SizeWE"   DragDelta="ThumbL_DragDelta"/>
+
+        </Canvas>
+
+    </Canvas>
+</UserControl>

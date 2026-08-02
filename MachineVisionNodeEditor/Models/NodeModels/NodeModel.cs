@@ -28,6 +28,7 @@ namespace MachineVisionNodeEditor.Models.NodeModels
         MorphologyEx,
         ImageRotate,
         ImageResize,
+        ImageCrop,
         FindContours,
         DrawContours
     }

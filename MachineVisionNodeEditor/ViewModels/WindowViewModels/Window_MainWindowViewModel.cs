@@ -144,6 +144,7 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ICommand MorphologyExClick { get; }
         public ICommand ImageRotateClick { get; }
         public ICommand ImageResizeClick { get; }
+        public ICommand ImageCropClick { get; }
         public ICommand FindContoursClick { get; }
         public ICommand DrawContoursClick { get; }
 
@@ -182,6 +183,7 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             MorphologyExClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.MorphologyEx));
             ImageRotateClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageRotate));
             ImageResizeClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageResize));
+            ImageCropClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageCrop));
             FindContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.FindContours));
             DrawContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.DrawContours));
 

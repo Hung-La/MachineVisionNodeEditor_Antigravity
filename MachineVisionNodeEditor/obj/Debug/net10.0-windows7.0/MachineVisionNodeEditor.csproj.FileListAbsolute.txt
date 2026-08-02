@@ -216,3 +216,8 @@ D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mach
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Resources\Icons\IconDrawContours.baml
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\DrawContours_PropertyView.g.cs
 D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\DrawContours_PropertyView.baml
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Resources\Icons\IconCrop.baml
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\ImageCrop_PropertyView.g.cs
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\NodeProperties\ImageCrop_PropertyView.baml
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\ImageViewer\CropRoiControl.baml
+D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\Views\ImageViewer\CropRoiControl.g.cs

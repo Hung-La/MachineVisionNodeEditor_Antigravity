@@ -25,6 +25,7 @@
         <ResourceDictionary Source="/Resources/Icons/IconBilateralFilter.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconResize.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconRotate.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconCrop.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconCanny.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconRunPipeline.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconErode.xaml"></ResourceDictionary>
