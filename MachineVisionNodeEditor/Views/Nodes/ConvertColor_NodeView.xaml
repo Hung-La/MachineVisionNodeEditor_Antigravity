@@ -7,7 +7,8 @@
              xmlns:ViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.NodeViewModels"
              d:DataContext="{d:DesignInstance Type=ViewModel:ConvertColor_NodeViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="160">
+             d:DesignHeight="150" d:DesignWidth="160"
+             MinWidth="125" MaxWidth="225">
 
     <local:NodeControl.Resources>
             <!--<ResourceDictionary>

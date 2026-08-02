@@ -25,7 +25,11 @@ namespace MachineVisionNodeEditor.Models.NodeModels
         Canny,
         Erode,
         Dilate,
-        MorphologyEx
+        MorphologyEx,
+        ImageRotate,
+        ImageResize,
+        FindContours,
+        DrawContours
     }
     public abstract class NodeModel : BaseViewModel, ISelectable
     {

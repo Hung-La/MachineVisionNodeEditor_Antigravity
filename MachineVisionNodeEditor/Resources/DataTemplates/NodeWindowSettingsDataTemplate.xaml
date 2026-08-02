@@ -7,6 +7,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Resources/MaterialDesign/MainResource.xaml"/>
+        <ResourceDictionary Source="/Resources/ValueConverters/WindowValueConverter.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Shared Resources (Style/Brushes) for parameters -->
@@ -290,6 +291,193 @@
                 <Slider Style="{StaticResource SettingSliderStyle}" 
                         Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Iterations}" 
                         TickFrequency="1" IsSnapToTickEnabled="True"/>
+            </StackPanel>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <!-- 11. Image Rotate -->
+    <DataTemplate DataType="{x:Type ViewModel:ImageRotate_NodeViewModel}">
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Angle, StringFormat='Angle (°): {0:F1}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="-360" Maximum="360" Value="{Binding NodePropertyModel.Angle}" 
+                        TickFrequency="15" IsSnapToTickEnabled="False"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Scale, StringFormat='Scale: {0:F2}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="0.1" Maximum="5.0" Value="{Binding NodePropertyModel.Scale}" 
+                        TickFrequency="0.1" IsSnapToTickEnabled="False"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Interpolation"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Interpolation"
+                          ItemsSource="{Binding NodePropertyModel.Interpolations}"
+                          SelectedItem="{Binding NodePropertyModel.Interpolation}"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Border Mode"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Border Mode"
+                          ItemsSource="{Binding NodePropertyModel.BorderModes}"
+                          SelectedItem="{Binding NodePropertyModel.BorderMode}"/>
+            </StackPanel>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <!-- 12. Image Resize -->
+    <DataTemplate DataType="{x:Type ViewModel:ImageResize_NodeViewModel}">
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <CheckBox Style="{StaticResource SettingCheckBoxStyle}"
+                          Content="Resize by Scale Factor (fx, fy)" 
+                          IsChecked="{Binding NodePropertyModel.UseScaleFactor}"/>
+
+                <!-- Absolute Size Controls -->
+                <StackPanel Visibility="{Binding NodePropertyModel.UseScaleFactor, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Invert}">
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Target Width"/>
+                    <TextBox Style="{StaticResource SettingTextBoxStyle}"
+                             Margin="0,0,0,12"
+                             Text="{Binding NodePropertyModel.TargetWidth, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Target Height"/>
+                    <TextBox Style="{StaticResource SettingTextBoxStyle}"
+                             Margin="0,0,0,12"
+                             Text="{Binding NodePropertyModel.TargetHeight, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!-- Scale Factor Controls -->
+                <StackPanel Visibility="{Binding NodePropertyModel.UseScaleFactor, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.ScaleX, StringFormat='Scale X (fx): {0:F2}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0.05" Maximum="10.0" Value="{Binding NodePropertyModel.ScaleX}" 
+                            TickFrequency="0.1" IsSnapToTickEnabled="False"/>
+
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.ScaleY, StringFormat='Scale Y (fy): {0:F2}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0.05" Maximum="10.0" Value="{Binding NodePropertyModel.ScaleY}" 
+                            TickFrequency="0.1" IsSnapToTickEnabled="False"/>
+                </StackPanel>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Interpolation"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Interpolation"
+                          ItemsSource="{Binding NodePropertyModel.Interpolations}"
+                          SelectedItem="{Binding NodePropertyModel.Interpolation}"/>
+            </StackPanel>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <!-- 13. Find Contours -->
+    <DataTemplate DataType="{x:Type ViewModel:FindContours_NodeViewModel}">
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Retrieval Mode"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Retrieval Mode"
+                          ItemsSource="{Binding NodePropertyModel.Modes}"
+                          SelectedItem="{Binding NodePropertyModel.Mode}"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Approximation Method"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Approximation Method"
+                          ItemsSource="{Binding NodePropertyModel.Methods}"
+                          SelectedItem="{Binding NodePropertyModel.Method}"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Thickness, StringFormat='Line Thickness: {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Thickness}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.ContourCount, StringFormat='Contours Found: {0}'}" 
+                           FontWeight="Bold"/>
+            </StackPanel>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <!-- 14. Draw Contours -->
+    <DataTemplate DataType="{x:Type ViewModel:DrawContours_NodeViewModel}">
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <!-- Area Min -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.AreaMin, StringFormat='Min Area (AreaMin): {0:F0}'}"/>
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Slider Grid.Column="0" Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="{Binding NodePropertyModel.AreaMax}" Value="{Binding NodePropertyModel.AreaMin}" 
+                            TickFrequency="50" IsSnapToTickEnabled="False"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource SettingTextBoxStyle}" 
+                             Text="{Binding NodePropertyModel.AreaMin, UpdateSourceTrigger=PropertyChanged}" 
+                             Margin="8,0,0,0"/>
+                </Grid>
+
+                <!-- Area Max -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.AreaMax, StringFormat='Max Area (AreaMax): {0:F0}'}"/>
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Slider Grid.Column="0" Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="8000" Value="{Binding NodePropertyModel.AreaMax}" 
+                            TickFrequency="100" IsSnapToTickEnabled="False"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource SettingTextBoxStyle}" 
+                             Text="{Binding NodePropertyModel.AreaMax, UpdateSourceTrigger=PropertyChanged}" 
+                             Margin="8,0,0,0"/>
+                </Grid>
+
+                <!-- Contour Color -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Contour Color"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Contour Color"
+                          ItemsSource="{Binding NodePropertyModel.AvailableColors}"
+                          SelectedItem="{Binding NodePropertyModel.SelectedColor}"/>
+
+                <!-- Custom RGB Sliders -->
+                <StackPanel Margin="0,0,0,12">
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.CustomR, StringFormat='Red (R): {0}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomR}" 
+                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.CustomG, StringFormat='Green (G): {0}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomG}" 
+                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.CustomB, StringFormat='Blue (B): {0}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomB}" 
+                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+                </StackPanel>
+
+                <!-- Thickness -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Thickness, StringFormat='Line Thickness: {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Thickness}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                <!-- Contours Count Status -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.DrawnContours, StringFormat='Drawn Contours: {0}'}" 
+                           FontWeight="Bold"/>
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.TotalContours, StringFormat='Total Detected Contours: {0}'}" 
+                           FontSize="11" Foreground="Gray"/>
             </StackPanel>
         </materialDesign:Card>
     </DataTemplate>

@@ -21,6 +21,10 @@ namespace MachineVisionNodeEditor.Factories
                 NodeType.Erode => new Erode_NodeViewModel(),
                 NodeType.Dilate => new Dilate_NodeViewModel(),
                 NodeType.MorphologyEx => new MorphologyEx_NodeViewModel(),
+                NodeType.ImageRotate => new ImageRotate_NodeViewModel(),
+                NodeType.ImageResize => new ImageResize_NodeViewModel(),
+                NodeType.FindContours => new FindContours_NodeViewModel(),
+                NodeType.DrawContours => new DrawContours_NodeViewModel(),
                 _ => throw new NotImplementedException()
             };
         }
@@ -40,6 +44,10 @@ namespace MachineVisionNodeEditor.Factories
                 NodeType.Erode => new Erode_NodeViewModel(nodeModel),
                 NodeType.Dilate => new Dilate_NodeViewModel(nodeModel),
                 NodeType.MorphologyEx => new MorphologyEx_NodeViewModel(nodeModel),
+                NodeType.ImageRotate => new ImageRotate_NodeViewModel(nodeModel),
+                NodeType.ImageResize => new ImageResize_NodeViewModel(nodeModel),
+                NodeType.FindContours => new FindContours_NodeViewModel(nodeModel),
+                NodeType.DrawContours => new DrawContours_NodeViewModel(nodeModel),
                 _ => throw new NotImplementedException($"NodeType {nodeModel.Type} not handled")
             };
         }

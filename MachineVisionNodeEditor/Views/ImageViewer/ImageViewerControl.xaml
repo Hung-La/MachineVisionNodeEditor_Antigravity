@@ -39,8 +39,12 @@
                 <Canvas
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Width="{Binding NodePropertyModel.Width}"
-                    Height="{Binding NodePropertyModel.Height}"
+                    Width="{Binding ElementName=ViewerControl, Path=ViewImage,
+                    Converter={StaticResource ResolutionConverter},
+                    ConverterParameter=Width}"
+                    Height="{Binding ElementName=ViewerControl, Path=ViewImage,
+                    Converter={StaticResource ResolutionConverter},
+                    ConverterParameter=Height}"
                     RenderTransformOrigin="0,0"
                     MouseDown="Image_MouseDown"
                     MouseMove="Image_MouseMove"

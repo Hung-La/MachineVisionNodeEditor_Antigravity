@@ -1,0 +1,52 @@
+using MachineVisionNodeEditor.Commands;
+using MachineVisionNodeEditor.Models.NodeModels;
+using MachineVisionNodeEditor.Models.NodeOperationModels;
+using MachineVisionNodeEditor.Models.NodePropertyModels;
+using System.Windows.Input;
+
+namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
+{
+    public class FindContours_NodeViewModel : NodeControl_NodeViewModel<FindContours_NodeModel, FindContours_NodePropertyModel, FindContours_NodeOperationModel>
+    {
+        public override ICommand ShowImageCommand { get; protected set; }
+
+        public FindContours_NodeViewModel() : base()
+        {
+            Initialize();
+            EnsureInitialPorts();
+        }
+
+        public FindContours_NodeViewModel(FindContours_NodeModel model) : base(model)
+        {
+            Initialize();
+            EnsureInitialPorts();
+        }
+
+        public FindContours_NodeViewModel(NodeModel nodeModel) : base(nodeModel is FindContours_NodeModel vm ? vm : new FindContours_NodeModel
+        {
+            X = nodeModel.X,
+            Y = nodeModel.Y,
+            Type = NodeType.FindContours
+        })
+        {
+            Initialize();
+            EnsureInitialPorts();
+        }
+
+        private void Initialize()
+        {
+            NodeModel.Title = "Find Contours";
+            ShowImageCommand = new RelayCommand(
+                () => NodePropertyModel?.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.IsDisposed && !NodePropertyModel.Context.OutputImage.Empty(),
+                () => ShowNodeImages());
+        }
+
+        private void EnsureInitialPorts()
+        {
+            if (NodeModel.InputPorts.Count == 0) NodeModel.AddPort(PortType.Input);
+            if (NodeModel.OutputPorts.Count == 0) NodeModel.AddPort(PortType.Output);
+        }
+
+        protected override FindContours_NodeOperationModel CreateOperationModel() => new FindContours_NodeOperationModel();
+    }
+}

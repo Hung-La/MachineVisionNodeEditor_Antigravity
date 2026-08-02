@@ -128,6 +128,7 @@
                 <TextBox
                         Grid.Column="1"
                         Margin="10 5"
+                        MaxWidth="400"
                         Text="{Binding NodePropertyModel.FilePath, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Button

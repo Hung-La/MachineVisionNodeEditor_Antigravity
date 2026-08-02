@@ -6,6 +6,7 @@ using MachineVisionNodeEditor.Models.NodeOperationModels;
 using MachineVisionNodeEditor.Models.NodePropertyModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,8 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
             get; protected set;
         }
 
+        public virtual ICommand? ApplySettingCommand { get; protected set; }
+
         public void ShowNodeImages()
         {
             if (NodePropertyModel == null) return;
@@ -50,7 +53,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                     var img = outputs[i];
                     if (img != null && !img.IsDisposed && !img.Empty())
                     {
-                        var win = new Views.Windows.NodeWindows.NodeWindow(this, img);
+                        var win = new Views.Windows.NodeWindows.NodeWindow(this, img, i);
                         win.Title = $"{NodeModel.Title} - Image {i + 1}";
                         win.Show();
                     }
@@ -60,7 +63,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                      !NodePropertyModel.Context.OutputImage.IsDisposed &&
                      !NodePropertyModel.Context.OutputImage.Empty())
             {
-                var win = new Views.Windows.NodeWindows.NodeWindow { DataContext = this };
+                var win = new Views.Windows.NodeWindows.NodeWindow(this, NodePropertyModel.Context.OutputImage, 0);
                 win.Show();
             }
         }
@@ -115,6 +118,7 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodePropertyModel = new TPropertyModel();
             OperationModel = CreateOperationModel();
+            ApplySettingCommand = new RelayCommand(() => true, () => ExecuteNodeOperation());
 
             NodePropertyModel.PropertyChanged += (sender, e) =>
             {
@@ -123,54 +127,77 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                     e.PropertyName != nameof(NodePropertyModel.Width) &&
                     e.PropertyName != nameof(NodePropertyModel.Height))
                 {
-                    try
+                    ExecuteNodeOperation();
+                }
+            };
+        }
+
+        private bool _isExecuting;
+
+        public void ExecuteNodeOperation()
+        {
+            if (_isExecuting) return;
+
+            try
+            {
+                _isExecuting = true;
+
+                var inputImgs = NodePropertyModel.Context.InputImages;
+                if (this is ImageImport_NodeViewModel)
+                {
+                    if (OperationModel is INodeOperation<TPropertyModel> genericOp)
                     {
-                        var inputImgs = NodePropertyModel.Context.InputImages;
-                        if (this is ImageImport_NodeViewModel)
+                        genericOp.Execute(NodePropertyModel);
+                        if (NodePropertyModel.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.Empty())
                         {
+                            NodePropertyModel.Context.OutputImages = new List<OpenCvSharp.Mat> { NodePropertyModel.Context.OutputImage };
+                        }
+                    }
+                }
+                else if (inputImgs != null && inputImgs.Count > 1)
+                {
+                    var newOutputs = new List<OpenCvSharp.Mat>();
+                    foreach (var inputImg in inputImgs)
+                    {
+                        if (inputImg != null && !inputImg.IsDisposed && !inputImg.Empty())
+                        {
+                            NodePropertyModel.Context.InputImage = inputImg;
                             if (OperationModel is INodeOperation<TPropertyModel> genericOp)
                             {
                                 genericOp.Execute(NodePropertyModel);
-                            }
-                        }
-                        else if (inputImgs != null && inputImgs.Count > 1)
-                        {
-                            var newOutputs = new List<OpenCvSharp.Mat>();
-                            foreach (var inputImg in inputImgs)
-                            {
-                                if (inputImg != null && !inputImg.IsDisposed && !inputImg.Empty())
-                                {
-                                    NodePropertyModel.Context.InputImage = inputImg;
-                                    if (OperationModel is INodeOperation<TPropertyModel> genericOp)
-                                    {
-                                        genericOp.Execute(NodePropertyModel);
-                                        if (NodePropertyModel.Context.OutputImage != null)
-                                            newOutputs.Add(NodePropertyModel.Context.OutputImage);
-                                    }
-                                }
-                            }
-                            NodePropertyModel.Context.OutputImages = newOutputs;
-                            if (newOutputs.Count > 0)
-                                NodePropertyModel.Context.OutputImage = newOutputs[0];
-                        }
-                        else
-                        {
-                            var inputImg = NodePropertyModel.Context.InputImage;
-                            if (inputImg != null && !inputImg.IsDisposed && !inputImg.Empty())
-                            {
-                                if (OperationModel is INodeOperation<TPropertyModel> genericOp)
-                                {
-                                    genericOp.Execute(NodePropertyModel);
-                                }
+                                if (NodePropertyModel.Context.OutputImage != null)
+                                    newOutputs.Add(NodePropertyModel.Context.OutputImage);
                             }
                         }
                     }
-                    catch (System.Exception ex)
+                    NodePropertyModel.Context.OutputImages = newOutputs;
+                    if (newOutputs.Count > 0)
+                        NodePropertyModel.Context.OutputImage = newOutputs[0];
+                }
+                else
+                {
+                    var inputImg = NodePropertyModel.Context.InputImage;
+                    if (inputImg != null && !inputImg.IsDisposed && !inputImg.Empty())
                     {
-                        System.Console.WriteLine($"Error auto-executing node: {ex.Message}");
+                        if (OperationModel is INodeOperation<TPropertyModel> genericOp)
+                        {
+                            genericOp.Execute(NodePropertyModel);
+                            if (NodePropertyModel.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.Empty())
+                            {
+                                NodePropertyModel.Context.OutputImages = new List<OpenCvSharp.Mat> { NodePropertyModel.Context.OutputImage };
+                            }
+                        }
                     }
                 }
-            };
+            }
+            catch (System.Exception ex)
+            {
+                System.Console.WriteLine($"Error executing node operation: {ex.Message}");
+            }
+            finally
+            {
+                _isExecuting = false;
+            }
         }
 
         protected abstract TOperationModel CreateOperationModel();

@@ -117,11 +117,27 @@
                 </Border.Style>
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Header -->
+                    <TextBlock
+                        Grid.Row="0"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Text}"
+                        Text="{Binding NodeModel.Title}"
+                        Margin="10 5"/>
+                    <Separator 
+                        Grid.Row="1"
+                        Margin="0 5"/>
+
                     <Border 
+                        Grid.Row="2"
                         Background="#FF455A64" 
                         Padding="10,8" 
                         BorderBrush="DimGray" 
@@ -134,7 +150,7 @@
                     </Border>
 
                     <ScrollViewer 
-                        Grid.Row="1"
+                        Grid.Row="3"
                         VerticalScrollBarVisibility="Auto" 
                         Padding="10">
                         <ContentControl Content="{Binding}">
@@ -143,6 +159,27 @@
                             </ContentControl.Resources>
                         </ContentControl>
                     </ScrollViewer>
+
+                    <Border 
+                        Grid.Row="4"
+                        Padding="12,10" 
+                        Background="{DynamicResource WindowBackground}" 
+                        BorderBrush="DimGray" 
+                        BorderThickness="0,1,0,0">
+                        <Button 
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding ApplySettingCommand}"
+                            Height="36"
+                            HorizontalAlignment="Stretch"
+                            Background="#FF26A69A"
+                            BorderBrush="#FF26A69A"
+                            materialDesign:ButtonAssist.CornerRadius="6">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <materialDesign:PackIcon Kind="CheckBold" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Apply Settings" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
                 </Grid>
             </Border>
         </Grid>
@@ -211,7 +248,7 @@
 
                     <Border BorderThickness="1.5" BorderBrush="DimGray" Margin="6,2" Padding="5" CornerRadius="3">
                         <TextBlock Height="20" FontSize="13" Foreground="{DynamicResource Text}"
-                                   Text="{Binding NodePropertyModel.Context.OutputImage, Converter={StaticResource ResolutionConverter}, ConverterParameter=Resolution}"/>
+                                   Text="{Binding ElementName=ImageViewer, Path=ViewImage, Converter={StaticResource ResolutionConverter}, ConverterParameter=Resolution}"/>
                     </Border>
                 </StackPanel>
             </DockPanel>

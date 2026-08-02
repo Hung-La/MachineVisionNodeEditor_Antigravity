@@ -100,6 +100,8 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                         if (img != null)
                         {
                             NodePropertyModel.Context.OutputImages = new List<Mat> { img };
+                            NodePropertyModel.Width = img.Width;
+                            NodePropertyModel.Height = img.Height;
                         }
                     }
                 }
@@ -126,6 +128,8 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
                         if (img != null)
                         {
                             NodePropertyModel.Context.OutputImages = new List<Mat> { img };
+                            NodePropertyModel.Width = img.Width;
+                            NodePropertyModel.Height = img.Height;
                         }
                     }
 

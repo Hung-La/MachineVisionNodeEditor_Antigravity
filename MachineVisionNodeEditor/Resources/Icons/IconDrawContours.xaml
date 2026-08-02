@@ -1,0 +1,26 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="IconDrawContours">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Frame -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M2,2 L14,2 L14,14 L2,14 Z"/>
+
+                <!-- Background -->
+                <GeometryDrawing
+                    Brush="#FF212121"
+                    Geometry="M3,3 L13,3 L13,13 L3,13 Z"/>
+
+                <!-- Contour stroke vector drawing -->
+                <GeometryDrawing
+                    Brush="#FFFF3D00"
+                    Geometry="M4,4 L12,4 L12,12 L4,12 Z M6,6 L10,6 L10,10 L6,10 Z"/>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

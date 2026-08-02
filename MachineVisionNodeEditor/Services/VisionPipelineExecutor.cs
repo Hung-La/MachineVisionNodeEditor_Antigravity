@@ -40,7 +40,7 @@ namespace MachineVisionNodeEditor.Services
                 foreach (var nodeVm in sortedNodes)
                 {
                     try
-                   {
+                    {
                         ExecuteNode(nodeVm);
                         nodeVm.NodeModel.ExecutionState = NodeExecutionState.Success;
                         nodeVm.NodeModel.HasError = false;
@@ -173,6 +173,14 @@ namespace MachineVisionNodeEditor.Services
                 dilateVM.OperationModel.Execute(dilateVM.NodePropertyModel);
             else if (nodeVm is MorphologyEx_NodeViewModel morphVM)
                 morphVM.OperationModel.Execute(morphVM.NodePropertyModel);
+            else if (nodeVm is ImageRotate_NodeViewModel rotateVM)
+                rotateVM.OperationModel.Execute(rotateVM.NodePropertyModel);
+            else if (nodeVm is ImageResize_NodeViewModel resizeVM)
+                resizeVM.OperationModel.Execute(resizeVM.NodePropertyModel);
+            else if (nodeVm is FindContours_NodeViewModel fcVM)
+                fcVM.OperationModel.Execute(fcVM.NodePropertyModel);
+            else if (nodeVm is DrawContours_NodeViewModel dcVM)
+                dcVM.OperationModel.Execute(dcVM.NodePropertyModel);
         }
 
         private List<NodeControl_NodeViewModel> TopologicalSort()

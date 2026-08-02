@@ -247,12 +247,12 @@
                             LargeImageSource="{StaticResource IconImshow}">
                         </RibbonButton>
 
-                        <RibbonButton 
+                        <!--<RibbonButton 
                             x:Name="RibbonButton_Test"
                             Label="Image Test"
                             LargeImageSource="{StaticResource IconTest}"
                             Command="{Binding TestNodeClick}">
-                        </RibbonButton>
+                        </RibbonButton>-->
 
                     </RibbonGroup>
 
@@ -261,12 +261,14 @@
                         <RibbonButton 
                             x:Name="RibbonButton_ImageResize"
                             Label="Image Resize"
+                            Command="{Binding ImageResizeClick}"
                             LargeImageSource="{StaticResource IconResize}">
                         </RibbonButton>
 
                         <RibbonButton 
                             x:Name="RibbonButton_ImageRotate"
                             Label="Image Rotate"
+                            Command="{Binding ImageRotateClick}"
                             LargeImageSource="{StaticResource IconRotate}">
                         </RibbonButton>
 
@@ -346,6 +348,32 @@
 
                     </RibbonGroup>
 
+                </RibbonTab>
+
+                <RibbonTab
+                    Header="Image Processing">
+                    <RibbonGroup
+                        Header="Contour Algorithm">
+
+                        <RibbonButton 
+                            Label="Find Contours"
+                            Command="{Binding FindContoursClick}"
+                            LargeImageSource="{StaticResource IconFindContours}">
+                        </RibbonButton>
+
+                        <RibbonButton 
+                            Label="Draw Contours"
+                            Command="{Binding DrawContoursClick}"
+                            LargeImageSource="{StaticResource IconDrawContours}">
+                        </RibbonButton>
+
+                    </RibbonGroup>
+
+                    <RibbonGroup
+                        Header="Hough Transform">
+                        
+                    </RibbonGroup>
+                    
                 </RibbonTab>
 
             </Ribbon>

@@ -10,7 +10,8 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=ViewModel:ImageImport_NodeViewModel}"
              d:DesignHeight="150" d:DesignWidth="250"
-             Loaded="NodeControl_Loaded">
+             Loaded="NodeControl_Loaded"
+             MinWidth="125" MaxWidth="225">
 
     <!--<UserControl.DataContext>
         <ViewModel:ImageImport_NodeViewModel></ViewModel:ImageImport_NodeViewModel>

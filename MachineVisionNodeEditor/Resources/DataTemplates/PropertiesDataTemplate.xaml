@@ -51,4 +51,20 @@
         <Property:MorphologyEx_PropertyView></Property:MorphologyEx_PropertyView>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type ViewModel:ImageRotate_NodeViewModel}">
+        <Property:ImageRotate_PropertyView></Property:ImageRotate_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:ImageResize_NodeViewModel}">
+        <Property:ImageResize_PropertyView></Property:ImageResize_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:FindContours_NodeViewModel}">
+        <Property:FindContours_PropertyView></Property:FindContours_PropertyView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModel:DrawContours_NodeViewModel}">
+        <Property:DrawContours_PropertyView></Property:DrawContours_PropertyView>
+    </DataTemplate>
+
 </ResourceDictionary>

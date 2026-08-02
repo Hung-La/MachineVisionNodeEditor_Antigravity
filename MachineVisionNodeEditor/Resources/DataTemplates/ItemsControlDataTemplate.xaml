@@ -49,6 +49,22 @@
         <NodeView:Node_NodeView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type NodeViewModel:ImageRotate_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:ImageResize_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:FindContours_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:DrawContours_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type NodeViewModel:Node_ConnectionViewModel}">
         <NodeView:Node_ConnectionView></NodeView:Node_ConnectionView>
     </DataTemplate>

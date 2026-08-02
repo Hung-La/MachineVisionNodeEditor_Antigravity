@@ -142,6 +142,10 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ICommand ErodeClick { get; }
         public ICommand DilateClick { get; }
         public ICommand MorphologyExClick { get; }
+        public ICommand ImageRotateClick { get; }
+        public ICommand ImageResizeClick { get; }
+        public ICommand FindContoursClick { get; }
+        public ICommand DrawContoursClick { get; }
 
         public ICommand PipelineExecuteCommand { get; }
         public ICommand ExecutePipelineCommand { get; }
@@ -176,6 +180,10 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             ErodeClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.Erode));
             DilateClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.Dilate));
             MorphologyExClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.MorphologyEx));
+            ImageRotateClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageRotate));
+            ImageResizeClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageResize));
+            FindContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.FindContours));
+            DrawContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.DrawContours));
 
             UndoCommand = new RelayCommand(() => UndoRedoService.CanUndo, () => UndoRedoService.Undo());
             RedoCommand = new RelayCommand(() => UndoRedoService.CanRedo, () => UndoRedoService.Redo());
