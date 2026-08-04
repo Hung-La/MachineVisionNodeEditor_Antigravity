@@ -427,7 +427,7 @@
         </materialDesign:Card>
     </DataTemplate>
 
-    <!-- 14. Draw Contours -->
+    <!-- 14. Filter Contours -->
     <DataTemplate DataType="{x:Type ViewModel:FilterContours_NodeViewModel}">
         <materialDesign:Card Style="{StaticResource SettingCardStyle}">
             <StackPanel>
@@ -505,6 +505,58 @@
                 <TextBlock Style="{StaticResource SettingLabelStyle}" 
                            Text="{Binding NodePropertyModel.TotalContours, StringFormat='Total Detected Contours: {0}'}" 
                            FontSize="11" Foreground="Gray"/>
+            </StackPanel>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <!-- 15. Draw Contours -->
+    <DataTemplate DataType="{x:Type ViewModel:DrawContours_NodeViewModel}">
+        <materialDesign:Card Style="{StaticResource SettingCardStyle}">
+            <StackPanel>
+                <!-- Contour Color -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" Text="Contour Color"/>
+                <ComboBox Style="{StaticResource SettingComboStyle}"
+                          materialDesign:HintAssist.Hint="Select Contour Color"
+                          ItemsSource="{Binding NodePropertyModel.AvailableColors}"
+                          SelectedItem="{Binding NodePropertyModel.SelectedColor}"/>
+
+                <!-- Custom RGB Sliders -->
+                <StackPanel Margin="0,0,0,12">
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.CustomR, StringFormat='Red (R): {0}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomR}" 
+                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.CustomG, StringFormat='Green (G): {0}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomG}" 
+                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                               Text="{Binding NodePropertyModel.CustomB, StringFormat='Blue (B): {0}'}"/>
+                    <Slider Style="{StaticResource SettingSliderStyle}" 
+                            Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomB}" 
+                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+                </StackPanel>
+
+                <!-- Thickness -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.Thickness, StringFormat='Line Thickness: {0}'}"/>
+                <Slider Style="{StaticResource SettingSliderStyle}" 
+                        Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Thickness}" 
+                        TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                <!-- Show Text CheckBox -->
+                <CheckBox Style="{StaticResource SettingCheckBoxStyle}"
+                          Content="Show Contour Labels (#1, #2...)" 
+                          IsChecked="{Binding NodePropertyModel.ShowText}"/>
+
+                <!-- Total Contours Status -->
+                <TextBlock Style="{StaticResource SettingLabelStyle}" 
+                           Text="{Binding NodePropertyModel.TotalContours, StringFormat='Total Contours: {0}'}" 
+                           FontWeight="Bold"/>
             </StackPanel>
         </materialDesign:Card>
     </DataTemplate>
