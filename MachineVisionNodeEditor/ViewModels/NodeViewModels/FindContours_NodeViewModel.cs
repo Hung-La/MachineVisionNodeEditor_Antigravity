@@ -44,7 +44,10 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         private void EnsureInitialPorts()
         {
             if (NodeModel.InputPorts.Count == 0) NodeModel.AddPort(PortType.Input);
-            if (NodeModel.OutputPorts.Count == 0) NodeModel.AddPort(PortType.Output);
+            while (NodeModel.OutputPorts.Count < 2)
+            {
+                NodeModel.AddPort(PortType.Output);
+            }
         }
 
         protected override FindContours_NodeOperationModel CreateOperationModel() => new FindContours_NodeOperationModel();

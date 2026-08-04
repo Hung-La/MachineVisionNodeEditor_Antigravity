@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodeoperationmodels\\filtercontours_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodeoperationmodels\\filtercontours_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodecontextmodels\\nodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodecontextmodels\\nodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\services\\visionpipelineexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\services\\visionpipelineexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodeoperationmodels\\drawcontours_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodeoperationmodels\\drawcontours_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodeoperationmodels\\filtercontours_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodeoperationmodels\\filtercontours_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodepropertymodels\\filtercontours_nodepropertymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodepropertymodels\\filtercontours_nodepropertymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\viewmodels\\nodeviewmodels\\nodecontrol_nodeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\viewmodels\\nodeviewmodels\\nodecontrol_nodeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodecontextmodels\\nodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodecontextmodels\\nodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodemodels\\filtercontours_nodemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodeoperationmodels\\bilateralfilter_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodeoperationmodels\\bilateralfilter_nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodepropertymodels\\filtercontours_nodepropertymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodepropertymodels\\filtercontours_nodepropertymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodemodels\\drawcontours_nodemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,20 +63,12 @@
       "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodepropertymodels\\drawcontours_nodepropertymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\services\\visionpipelineexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\services\\visionpipelineexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\models\\nodeoperationmodels\\nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\models\\nodeoperationmodels\\nodeoperationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\interfaces\\nodeinterfaces\\inodeoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\interfaces\\nodeinterfaces\\inodeoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\viewmodels\\nodeviewmodels\\nodecontrol_nodeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|solutionrelative:machinevisionnodeeditor\\viewmodels\\nodeviewmodels\\nodecontrol_nodeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5BB0514-1147-47C4-ECB6-D433E91E71A5}|MachineVisionNodeEditor\\MachineVisionNodeEditor.csproj|d:\\dropbox\\wpf library\\node editor\\machine vision node editor - antigravity\\machinevisionnodeeditor\\machinevisionnodeeditor\\views\\imageviewer\\imageviewercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -494,7 +494,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -502,20 +502,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DrawContours_NodeOperationModel.cs",
-              "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs",
-              "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs",
-              "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs",
-              "RelativeToolTip": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-03T15:19:49.48Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Erode_NodeOperationModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\Erode_NodeOperationModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\Erode_NodeOperationModel.cs",
@@ -528,33 +515,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 0,
               "Title": "VisionPipelineExecutor.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Services\\VisionPipelineExecutor.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Services\\VisionPipelineExecutor.cs",
               "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Services\\VisionPipelineExecutor.cs",
               "RelativeToolTip": "MachineVisionNodeEditor\\Services\\VisionPipelineExecutor.cs",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAvwLwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAwwG4AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-29T18:47:25.078Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "FilterContours_NodeOperationModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\FilterContours_NodeOperationModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\FilterContours_NodeOperationModel.cs",
               "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\FilterContours_NodeOperationModel.cs",
               "RelativeToolTip": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\FilterContours_NodeOperationModel.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-02T13:17:28.28Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "INodeOperation.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Interfaces\\NodeInterfaces\\INodeOperation.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Interfaces\\NodeInterfaces\\INodeOperation.cs",
@@ -567,7 +554,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "NodeOperationModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\NodeOperationModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\NodeOperationModel.cs",
@@ -580,20 +567,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "FilterContours_NodePropertyModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodePropertyModels\\FilterContours_NodePropertyModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodePropertyModels\\FilterContours_NodePropertyModel.cs",
               "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodePropertyModels\\FilterContours_NodePropertyModel.cs",
               "RelativeToolTip": "MachineVisionNodeEditor\\Models\\NodePropertyModels\\FilterContours_NodePropertyModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAEkAAAAAAAAAAAApwFkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-03T11:00:33.021Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "DrawContours_NodePropertyModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodePropertyModels\\DrawContours_NodePropertyModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodePropertyModels\\DrawContours_NodePropertyModel.cs",
@@ -618,7 +605,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "ImageTransform.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionAlgorithm\\ImageTransform\\ImageTransform.cs",
               "RelativeDocumentMoniker": "MachineVisionAlgorithm\\ImageTransform\\ImageTransform.cs",
@@ -631,7 +618,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "DrawContours_NodeModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeModels\\DrawContours_NodeModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeModels\\DrawContours_NodeModel.cs",
@@ -645,6 +632,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "NodeControl_NodeViewModel.cs",
+              "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
+              "RelativeDocumentMoniker": "MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
+              "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
+              "RelativeToolTip": "MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAApwIMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-29T18:08:59.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DrawContours_NodeOperationModel.cs",
+              "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs",
+              "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs",
+              "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs*",
+              "RelativeToolTip": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\DrawContours_NodeOperationModel.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-03T15:19:49.48Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "BilateralFilter_NodeOperationModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeOperationModels\\BilateralFilter_NodeOperationModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeOperationModels\\BilateralFilter_NodeOperationModel.cs",
@@ -657,7 +670,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "FilterContours_NodeModel.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeModels\\FilterContours_NodeModel.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeModels\\FilterContours_NodeModel.cs",
@@ -666,19 +679,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-03T13:53:53.721Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "NodeControl_NodeViewModel.cs",
-              "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
-              "RelativeDocumentMoniker": "MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
-              "ToolTip": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
-              "RelativeToolTip": "MachineVisionNodeEditor\\ViewModels\\NodeViewModels\\NodeControl_NodeViewModel.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAnwJUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-29T18:08:59.809Z",
               "EditorCaption": ""
             },
             {
@@ -1926,7 +1926,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "DrawContours.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionAlgorithm\\Contours\\DrawContours.cs",
               "RelativeDocumentMoniker": "MachineVisionAlgorithm\\Contours\\DrawContours.cs",
@@ -1939,7 +1939,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "FindContours.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionAlgorithm\\Contours\\FindContours.cs",
               "RelativeDocumentMoniker": "MachineVisionAlgorithm\\Contours\\FindContours.cs",
@@ -1952,7 +1952,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "FilterContours.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionAlgorithm\\Contours\\FilterContours.cs",
               "RelativeDocumentMoniker": "MachineVisionAlgorithm\\Contours\\FilterContours.cs",
@@ -1986,7 +1986,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "NodeContext.cs",
               "DocumentMoniker": "D:\\Dropbox\\WPF Library\\Node Editor\\Machine Vision Node Editor - Antigravity\\MachineVisionNodeEditor\\MachineVisionNodeEditor\\Models\\NodeContextModels\\NodeContext.cs",
               "RelativeDocumentMoniker": "MachineVisionNodeEditor\\Models\\NodeContextModels\\NodeContext.cs",

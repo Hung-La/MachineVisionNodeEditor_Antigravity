@@ -1,4 +1,4 @@
-﻿
+﻿D:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\obj\Debug\net10.0-windows7.0\GeneratedInternalTypeHelper.g.cs
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\App.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\DataTemplates\ItemsControlDataTemplate.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Resources\DataTemplates\NodeWindowSettingsDataTemplate.xaml;;
@@ -10,6 +10,7 @@ FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mac
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConnectionPropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConvertColor_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Dilate_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\DrawContours_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Erode_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\FilterContours_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\FindContours_PropertyView.xaml;;
@@ -31,5 +32,4 @@ FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mac
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\MainWindow.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\ImageImport_Window.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\NodeWindow.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\DrawContours_PropertyView.xaml;;
 

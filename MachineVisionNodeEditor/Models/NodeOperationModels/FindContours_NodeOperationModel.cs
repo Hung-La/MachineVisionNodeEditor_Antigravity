@@ -8,7 +8,7 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
     {
         public override void Execute(FindContours_NodePropertyModel property)
         {
-            var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
+            var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : property.Context.InputImage;
             if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
             {
                 property.Context.OutputImage = FindContours.ApplyFindContours(
@@ -21,6 +21,12 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
                     out _);
 
                 property.ContourCount = contours != null ? contours.Length : 0;
+                property.Context.Set<Point[][]>("Contours", contours);
+            }
+            else
+            {
+                property.Context.OutputImage = null;
+                property.Context.Set<Point[][]>("Contours", null);
             }
         }
     }

@@ -4,8 +4,8 @@ namespace MachineVisionNodeEditor.Models.NodeModels
     {
         public FilterContours_NodeModel()
         {
-            Type = NodeType.DrawContours;
-            Title = "Draw Contours";
+            Type = NodeType.FilterContours;
+            Title = "Filter Contours";
         }
     }
 }

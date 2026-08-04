@@ -1,4 +1,4 @@
-﻿using MachineVisionAlgorithm.Contours;
+using MachineVisionAlgorithm.Contours;
 using MachineVisionNodeEditor.Commands;
 using MachineVisionNodeEditor.Models.NodeModels;
 using MachineVisionNodeEditor.Models.NodeOperationModels;
@@ -49,9 +49,8 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
         private void EnsureInitialPorts()
         {
-            if (NodeModel.InputPorts.Count == 0)
+            while (NodeModel.InputPorts.Count < 2)
             {
-                NodeModel.AddPort(PortType.Input);
                 NodeModel.AddPort(PortType.Input);
             }
             if (NodeModel.OutputPorts.Count == 0) NodeModel.AddPort(PortType.Output);

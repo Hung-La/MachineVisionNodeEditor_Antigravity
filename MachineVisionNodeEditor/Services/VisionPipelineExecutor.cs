@@ -91,13 +91,29 @@ namespace MachineVisionNodeEditor.Services
             else
             {
                 var incomingConnections = _connections.Where(c => c.ConnectionModel.ToPort.Owner == nodeVm.NodeModel).ToList();
+                if (incomingConnections.Count == 0)
+                {
+                    throw new InvalidOperationException($"Node \"{nodeVm.NodeModel.Title}\" chưa được kết nối đầu vào.");
+                }
+
                 var inputImages = new List<Mat>();
 
                 foreach (var conn in incomingConnections)
                 {
                     var sourceNodeModel = conn.ConnectionModel.FromPort.Owner;
                     var sourceNodeVM = _nodes.FirstOrDefault(n => n.NodeModel == sourceNodeModel);
-                    if (sourceNodeVM != null)
+                    if (sourceNodeVM == null) continue;
+
+                    int fromPortIndex = sourceNodeModel.OutputPorts.Select(p => p.PortModel).ToList().IndexOf(conn.ConnectionModel.FromPort);
+                    int toPortIndex = nodeVm.NodeModel.InputPorts.Select(p => p.PortModel).ToList().IndexOf(conn.ConnectionModel.ToPort);
+
+                    if ((sourceNodeVM is FindContours_NodeViewModel || sourceNodeVM is FilterContours_NodeViewModel) && fromPortIndex == 1)
+                    {
+                        var contours = sourceNodeVM.NodePropertyModel.Context.GetOutput<Point[][]>("Contours")
+                                    ?? sourceNodeVM.NodePropertyModel.Context.Get<Point[][]>("Contours");
+                        nodeVm.NodePropertyModel.Context.SetInput<Point[][]>("Contours", contours);
+                    }
+                    else
                     {
                         var srcOutputs = sourceNodeVM.NodePropertyModel.Context.OutputImages;
                         if (srcOutputs != null && srcOutputs.Count > 0)
@@ -105,9 +121,7 @@ namespace MachineVisionNodeEditor.Services
                             foreach (var img in srcOutputs)
                             {
                                 if (img != null && !img.IsDisposed && !img.Empty())
-                                {
                                     inputImages.Add(img);
-                                }
                             }
                         }
                         else if (sourceNodeVM.NodePropertyModel.Context.OutputImage != null &&
@@ -119,30 +133,63 @@ namespace MachineVisionNodeEditor.Services
                     }
                 }
 
-                if (inputImages.Count == 0)
+                if (nodeVm is DrawContours_NodeViewModel)
                 {
-                    throw new InvalidOperationException("Ảnh đầu vào trống hoặc không hợp lệ. Vui lòng kết nối node này với một node hợp lệ khác.");
-                }
-
-                nodeVm.NodePropertyModel.Context.InputImages = inputImages;
-                nodeVm.NodePropertyModel.Context.InputImage = inputImages[0];
-
-                var outputImages = new List<Mat>();
-
-                foreach (var inputImg in inputImages)
-                {
-                    nodeVm.NodePropertyModel.Context.InputImage = inputImg;
+                    if (inputImages.Count > 0)
+                    {
+                        nodeVm.NodePropertyModel.Context.InputImages = inputImages;
+                        nodeVm.NodePropertyModel.Context.InputImage = inputImages[0];
+                        nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImages[0]);
+                    }
                     ExecuteSingleNodeOperation(nodeVm);
                     if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
                     {
-                        outputImages.Add(nodeVm.NodePropertyModel.Context.OutputImage);
+                        nodeVm.NodePropertyModel.Context.OutputImages = new List<Mat> { nodeVm.NodePropertyModel.Context.OutputImage };
                     }
                 }
-
-                nodeVm.NodePropertyModel.Context.OutputImages = outputImages;
-                if (outputImages.Count > 0)
+                else
                 {
-                    nodeVm.NodePropertyModel.Context.OutputImage = outputImages[0];
+                    if (inputImages.Count == 0 && (nodeVm.NodePropertyModel.Context.InputImage == null || nodeVm.NodePropertyModel.Context.InputImage.Empty()))
+                    {
+                        throw new InvalidOperationException($"Node \"{nodeVm.NodeModel.Title}\" chưa nhận được ảnh đầu vào hợp lệ.");
+                    }
+
+                    if (inputImages.Count > 0)
+                    {
+                        nodeVm.NodePropertyModel.Context.InputImages = inputImages;
+                        nodeVm.NodePropertyModel.Context.InputImage = inputImages[0];
+                        nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImages[0]);
+                    }
+
+                    var outputImages = new List<Mat>();
+
+                    if (inputImages.Count > 1)
+                    {
+                        foreach (var inputImg in inputImages)
+                        {
+                            nodeVm.NodePropertyModel.Context.InputImage = inputImg;
+                            nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImg);
+                            ExecuteSingleNodeOperation(nodeVm);
+                            if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
+                            {
+                                outputImages.Add(nodeVm.NodePropertyModel.Context.OutputImage);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ExecuteSingleNodeOperation(nodeVm);
+                        if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
+                        {
+                            outputImages.Add(nodeVm.NodePropertyModel.Context.OutputImage);
+                        }
+                    }
+
+                    nodeVm.NodePropertyModel.Context.OutputImages = outputImages;
+                    if (outputImages.Count > 0)
+                    {
+                        nodeVm.NodePropertyModel.Context.OutputImage = outputImages[0];
+                    }
                 }
             }
 
