@@ -10,8 +10,8 @@ FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mac
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConnectionPropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ConvertColor_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Dilate_PropertyView.xaml;;
-FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\DrawContours_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Erode_PropertyView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\FilterContours_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\FindContours_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\GaussianBlur_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\ImageCrop_PropertyView.xaml;;
@@ -22,6 +22,7 @@ FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mac
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\MorphologyEx_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\Threshold_PropertyView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\ConvertColor_NodeView.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\DrawContours_NodeView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\ImageImport_NodeView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_ConnectionView.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Nodes\Node_NodeView.xaml;;
@@ -30,4 +31,5 @@ FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\Mac
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\MainWindow.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\ImageImport_Window.xaml;;
 FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\Windows\NodeWindows\NodeWindow.xaml;;
+FD:\Dropbox\WPF Library\Node Editor\Machine Vision Node Editor - Antigravity\MachineVisionNodeEditor\MachineVisionNodeEditor\Views\NodeProperties\DrawContours_PropertyView.xaml;;
 

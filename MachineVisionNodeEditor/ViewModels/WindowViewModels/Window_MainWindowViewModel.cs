@@ -146,6 +146,8 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ICommand ImageResizeClick { get; }
         public ICommand ImageCropClick { get; }
         public ICommand FindContoursClick { get; }
+        public ICommand FilterContoursClick { get; }
+
         public ICommand DrawContoursClick { get; }
 
         public ICommand PipelineExecuteCommand { get; }
@@ -185,7 +187,8 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             ImageResizeClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageResize));
             ImageCropClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageCrop));
             FindContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.FindContours));
-            DrawContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.DrawContours));
+            FilterContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.FilterContours));
+            DrawContoursClick = new RelayCommand(() => Nodes.Count >= 0, () => AddNode(NodeType.DrawContours));
 
             UndoCommand = new RelayCommand(() => UndoRedoService.CanUndo, () => UndoRedoService.Undo());
             RedoCommand = new RelayCommand(() => UndoRedoService.CanRedo, () => UndoRedoService.Redo());

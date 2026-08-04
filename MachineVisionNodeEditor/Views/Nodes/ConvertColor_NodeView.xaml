@@ -78,8 +78,8 @@
 
                         <!-- Đang được chọn -->
                         <DataTrigger Binding="{Binding NodeModel.IsSelected}" Value="True">
-                            <Setter Property="BorderBrush" Value="MediumPurple"/>
-                            <Setter Property="BorderThickness" Value="3.5"></Setter>
+                            <Setter Property="BorderBrush" Value="Fuchsia"/>
+                            <Setter Property="BorderThickness" Value="2"></Setter>
                         </DataTrigger>
 
                     </Style.Triggers>

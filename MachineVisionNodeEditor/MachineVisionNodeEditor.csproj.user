@@ -11,7 +11,13 @@
     <Compile Update="Views\NodeProperties\ConvertColor_PropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\NodeProperties\DrawContours_PropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Nodes\ConvertColor_NodeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Nodes\DrawContours_NodeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Nodes\Node_ConnectionView.xaml.cs">

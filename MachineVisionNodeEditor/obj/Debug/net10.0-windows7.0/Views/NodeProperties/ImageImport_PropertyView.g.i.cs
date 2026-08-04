@@ -63,8 +63,8 @@ namespace MachineVisionNodeEditor.Views.NodeProperties {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;V1.0.0.0;component/views/nodeproperties/imageimport_prop" +
-                    "ertyview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;component/views/nodeproperties/imageimport_propertyview." +
+                    "xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\NodeProperties\ImageImport_PropertyView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

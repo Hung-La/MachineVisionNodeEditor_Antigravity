@@ -96,8 +96,8 @@ namespace MachineVisionNodeEditor.Views.Windows.NodeWindows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;V1.0.0.0;component/views/windows/nodewindows/imageimport" +
-                    "_window.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;component/views/windows/nodewindows/imageimport_window.x" +
+                    "aml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Views\Windows\NodeWindows\ImageImport_Window.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

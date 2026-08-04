@@ -428,7 +428,7 @@
     </DataTemplate>
 
     <!-- 14. Draw Contours -->
-    <DataTemplate DataType="{x:Type ViewModel:DrawContours_NodeViewModel}">
+    <DataTemplate DataType="{x:Type ViewModel:FilterContours_NodeViewModel}">
         <materialDesign:Card Style="{StaticResource SettingCardStyle}">
             <StackPanel>
                 <!-- Area Min -->

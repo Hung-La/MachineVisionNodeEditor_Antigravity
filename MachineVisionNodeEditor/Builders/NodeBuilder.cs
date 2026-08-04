@@ -54,6 +54,7 @@ namespace MachineVisionNodeEditor.Builders
                 NodeType.ImageResize => new ImageResize_NodeModel(),
                 NodeType.ImageCrop => new ImageCrop_NodeModel(),
                 NodeType.FindContours => new FindContours_NodeModel(),
+                NodeType.FilterContours => new FilterContours_NodeModel(),
                 NodeType.DrawContours => new DrawContours_NodeModel(),
                 _ => throw new NotImplementedException($"NodeType {_type} not handled in NodeBuilder")
             };

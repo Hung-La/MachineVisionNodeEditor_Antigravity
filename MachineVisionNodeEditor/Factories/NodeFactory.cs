@@ -25,6 +25,7 @@ namespace MachineVisionNodeEditor.Factories
                 NodeType.ImageResize => new ImageResize_NodeViewModel(),
                 NodeType.ImageCrop => new ImageCrop_NodeViewModel(),
                 NodeType.FindContours => new FindContours_NodeViewModel(),
+                NodeType.FilterContours => new FilterContours_NodeViewModel(),
                 NodeType.DrawContours => new DrawContours_NodeViewModel(),
                 _ => throw new NotImplementedException()
             };
@@ -49,6 +50,7 @@ namespace MachineVisionNodeEditor.Factories
                 NodeType.ImageResize => new ImageResize_NodeViewModel(nodeModel),
                 NodeType.ImageCrop => new ImageCrop_NodeViewModel(nodeModel),
                 NodeType.FindContours => new FindContours_NodeViewModel(nodeModel),
+                NodeType.FilterContours => new FilterContours_NodeViewModel(nodeModel),
                 NodeType.DrawContours => new DrawContours_NodeViewModel(nodeModel),
                 _ => throw new NotImplementedException($"NodeType {nodeModel.Type} not handled")
             };

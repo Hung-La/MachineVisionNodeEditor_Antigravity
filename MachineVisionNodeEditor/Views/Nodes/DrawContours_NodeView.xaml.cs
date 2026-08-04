@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MachineVisionNodeEditor.Views.NodeProperties
+namespace MachineVisionNodeEditor.Views.Nodes
 {
     /// <summary>
-    /// Interaction logic for DrawContours_PropertyView.xaml
+    /// Interaction logic for DrawContours_NodeView.xaml
     /// </summary>
-    public partial class DrawContours_PropertyView : NodePropertyControl
+    public partial class DrawContours_NodeView : NodeControl
     {
-        public DrawContours_PropertyView()
+        public DrawContours_NodeView()
         {
             InitializeComponent();
         }

@@ -1,33 +1,28 @@
-﻿using MachineVisionAlgorithm.Contours;
 using MachineVisionNodeEditor.Commands;
 using MachineVisionNodeEditor.Models.NodeModels;
 using MachineVisionNodeEditor.Models.NodeOperationModels;
 using MachineVisionNodeEditor.Models.NodePropertyModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 {
-    public class DrawContours_NodeViewModel : NodeControl_NodeViewModel<DrawContours_NodeModel, DrawContours_NodePropertyModel, DrawContours_NodeOperationModel>
+    public class FilterContours_NodeViewModel : NodeControl_NodeViewModel<FilterContours_NodeModel, FilterContours_NodePropertyModel, FilterContours_NodeOperationModel>
     {
-        public override ICommand ShowImageCommand { get ; protected set; }
+        public override ICommand ShowImageCommand { get; protected set; }
 
-        public DrawContours_NodeViewModel() : base() 
+        public FilterContours_NodeViewModel() : base()
         {
             Initialize();
             EnsureInitialPorts();
         }
 
-        public DrawContours_NodeViewModel(DrawContours_NodeModel model) : base(model)
+        public FilterContours_NodeViewModel(FilterContours_NodeModel model) : base(model)
         {
             Initialize();
             EnsureInitialPorts();
-
         }
 
-        public DrawContours_NodeViewModel(NodeModel nodeModel) : base(nodeModel is DrawContours_NodeModel vm ? vm : new DrawContours_NodeModel
+        public FilterContours_NodeViewModel(NodeModel nodeModel) : base(nodeModel is FilterContours_NodeModel vm ? vm : new FilterContours_NodeModel
         {
             X = nodeModel.X,
             Y = nodeModel.Y,
@@ -36,12 +31,11 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             Initialize();
             EnsureInitialPorts();
-
         }
 
         private void Initialize()
         {
-            NodeModel.Title = "Draw Contours";
+            NodeModel.Title = "Filter Contours";
             ShowImageCommand = new RelayCommand(
                 () => NodePropertyModel?.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.IsDisposed && !NodePropertyModel.Context.OutputImage.Empty(),
                 () => ShowNodeImages());
@@ -49,14 +43,10 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 
         private void EnsureInitialPorts()
         {
-            if (NodeModel.InputPorts.Count == 0)
-            {
-                NodeModel.AddPort(PortType.Input);
-                NodeModel.AddPort(PortType.Input);
-            }
+            if (NodeModel.InputPorts.Count == 0) NodeModel.AddPort(PortType.Input);
             if (NodeModel.OutputPorts.Count == 0) NodeModel.AddPort(PortType.Output);
         }
 
-        protected override DrawContours_NodeOperationModel CreateOperationModel() => new DrawContours_NodeOperationModel();
+        protected override FilterContours_NodeOperationModel CreateOperationModel() => new FilterContours_NodeOperationModel();
     }
 }

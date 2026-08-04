@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace MachineVisionNodeEditor.Models.NodeModels
 {
-    public class DrawContours_NodeModel : NodeModel
+    public class FilterContours_NodeModel : NodeModel
     {
-        public DrawContours_NodeModel() 
+        public FilterContours_NodeModel()
         {
             Type = NodeType.DrawContours;
             Title = "Draw Contours";

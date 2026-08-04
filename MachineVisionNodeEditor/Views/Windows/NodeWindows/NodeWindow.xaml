@@ -236,7 +236,7 @@
                     </Border>
 
                     <!-- Crop Preview Toggle Button (Visible only for ImageCrop Node) -->
-                    <ToggleButton x:Name="ToggleCropModeBtn" 
+                    <ToggleButton x:Name="ToggleCropModeBtn"
                                   IsChecked="False" 
                                   Content="Preview Crop Result" 
                                   FontSize="11" 

@@ -371,6 +371,12 @@
                         </RibbonButton>
 
                         <RibbonButton 
+                            Label="Filter Contours"
+                            Command="{Binding FilterContoursClick}"
+                            LargeImageSource="{StaticResource IconDrawContours}">
+                        </RibbonButton>
+
+                        <RibbonButton 
                             Label="Draw Contours"
                             Command="{Binding DrawContoursClick}"
                             LargeImageSource="{StaticResource IconDrawContours}">

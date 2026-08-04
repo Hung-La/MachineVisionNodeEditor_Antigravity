@@ -65,6 +65,10 @@
         <NodeView:Node_NodeView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type NodeViewModel:FilterContours_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type NodeViewModel:DrawContours_NodeViewModel}">
         <NodeView:Node_NodeView/>
     </DataTemplate>

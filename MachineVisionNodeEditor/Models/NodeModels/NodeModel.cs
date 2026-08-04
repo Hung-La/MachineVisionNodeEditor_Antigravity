@@ -30,6 +30,7 @@ namespace MachineVisionNodeEditor.Models.NodeModels
         ImageResize,
         ImageCrop,
         FindContours,
+        FilterContours,
         DrawContours
     }
     public abstract class NodeModel : BaseViewModel, ISelectable

@@ -64,8 +64,8 @@ namespace MachineVisionNodeEditor.Views.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;V1.0.0.0;component/views/usercontrols/usercontrol_contro" +
-                    "lbar.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;component/views/usercontrols/usercontrol_controlbar.xaml" +
+                    "", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\UserControls\UserControl_ControlBar.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

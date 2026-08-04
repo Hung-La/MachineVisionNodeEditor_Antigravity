@@ -1,6 +1,9 @@
-using MachineVisionAlgorithm.Contours;
+﻿using MachineVisionAlgorithm.Contours;
 using MachineVisionNodeEditor.Models.NodePropertyModels;
 using OpenCvSharp;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MachineVisionNodeEditor.Models.NodeOperationModels
 {
@@ -9,19 +12,16 @@ namespace MachineVisionNodeEditor.Models.NodeOperationModels
         public override void Execute(DrawContours_NodePropertyModel property)
         {
             var sourceImage = property.Context.Inputs.TryGetValue("Image", out var src) ? src.Value as Mat : null;
-            if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
+            var contours = property.Context.Inputs.TryGetValue("Contours", out var contour) ? contour.Value as Point[][] : null;
+            if (contours != null)
             {
-                property.Context.OutputImage = DrawContours.ApplyDrawContours(
-                    sourceImage,
-                    property.AreaMin,
-                    property.AreaMax,
-                    property.GetScalarColor(),
-                    property.Thickness,
-                    out int totalCount,
-                    out int drawnCount);
-
-                property.TotalContours = totalCount;
-                property.DrawnContours = drawnCount;
+                if (sourceImage != null && !sourceImage.IsDisposed && !sourceImage.Empty())
+                {
+                    property.Context.OutputImage = DrawContours.ApplyDrawContours(
+                        sourceImage, contours,
+                        Scalar.Green, 
+                        property.Thickness);
+                }
             }
         }
     }

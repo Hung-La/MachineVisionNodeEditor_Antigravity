@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MachineVisionNodeEditor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0945b7f74447f11df598d0d7ae36a07b873fabeb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67ef0d35717be6d38c7e99ebc0539cb3407d2ccd")]
 [assembly: System.Reflection.AssemblyProductAttribute("MachineVisionNodeEditor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MachineVisionNodeEditor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

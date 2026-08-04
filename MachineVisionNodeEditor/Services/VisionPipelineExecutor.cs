@@ -181,6 +181,8 @@ namespace MachineVisionNodeEditor.Services
                 cropVM.OperationModel.Execute(cropVM.NodePropertyModel);
             else if (nodeVm is FindContours_NodeViewModel fcVM)
                 fcVM.OperationModel.Execute(fcVM.NodePropertyModel);
+            else if (nodeVm is FilterContours_NodeViewModel filterContoursVM)
+                filterContoursVM.OperationModel.Execute(filterContoursVM.NodePropertyModel);
             else if (nodeVm is DrawContours_NodeViewModel dcVM)
                 dcVM.OperationModel.Execute(dcVM.NodePropertyModel);
         }

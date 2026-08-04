@@ -1,10 +1,10 @@
-<local:NodeControl
-            x:Class="MachineVisionNodeEditor.Views.Nodes.Node_NodeView"
+﻿<local:NodeControl 
+             x:Class="MachineVisionNodeEditor.Views.Nodes.DrawContours_NodeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MachineVisionNodeEditor.Views.Nodes"
+             xmlns:local="clr-namespace:MachineVisionNodeEditor.Views.Nodes" 
              xmlns:ViewModel="clr-namespace:MachineVisionNodeEditor.ViewModels.NodeViewModels"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=ViewModel:Node_NodeViewModel}"
@@ -12,13 +12,12 @@
              Loaded="NodeControl_Loaded"
              MinWidth="125" MaxWidth="225"
              Height="Auto">
-
     <local:NodeControl.Resources>
         <!--<ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source=""></ResourceDictionary>
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>-->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source=""></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>-->
 
         <!-- Style cho port (hình tròn nhỏ) -->
         <Style x:Key="PortStyle" TargetType="Ellipse">
@@ -41,18 +40,14 @@
         <DropShadowEffect Color="Black" BlurRadius="16" ShadowDepth="4" Opacity="0.5"/>
     </local:NodeControl.Effect>
 
-    <!--<UserControl.DataContext>
-        <ViewModel:Node_NodeViewModel></ViewModel:Node_NodeViewModel>
-    </UserControl.DataContext>-->
-
     <Grid>
         <!-- Body của node -->
         <Border Background="{DynamicResource NodeBackground}"
-            CornerRadius="8"
-            Padding="0,0,0,12"
-            MouseDown="Header_MouseDown"
-            MouseMove="Header_MouseMove"
-            MouseUp="Header_MouseUp">
+        CornerRadius="8"
+        Padding="0,0,0,12"
+        MouseDown="Header_MouseDown"
+        MouseMove="Header_MouseMove"
+        MouseUp="Header_MouseUp">
 
             <Border.Style>
                 <Style TargetType="Border">
@@ -89,38 +84,38 @@
             </Border.Style>
 
             <StackPanel 
-                x:Name="StackPanel_Text">
+            x:Name="StackPanel_Text">
                 <!-- Header -->
                 <Border Background="#00BCD4"
-                    CornerRadius="6,6,0,0"
-                    Padding="10,6"
-                    Cursor="SizeAll">
+                CornerRadius="6,6,0,0"
+                Padding="10,6"
+                Cursor="SizeAll">
                     <TextBlock 
-                        x:Name="TextBlock_Header"
-                        Text="{Binding NodeModel.Title}"
-                        Foreground="White"
-                        FontWeight="SemiBold"
-                        FontSize="13"
-                        FontFamily="Consolas"/>
+                    x:Name="TextBlock_Header"
+                    Text="{Binding NodeModel.Title}"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    FontSize="13"
+                    FontFamily="Consolas"/>
                 </Border>
 
                 <!-- Content -->
                 <Grid 
-                    x:Name="Grid_Node"
-                    Margin="0,10,0,0">
+                x:Name="Grid_Node"
+                Margin="0,10,0,0">
 
                     <Grid.Resources>
 
                         <ResourceDictionary>
                             <Style TargetType="TextBox" x:Key="TextBoxStyle" BasedOn="{StaticResource MaterialDesignTextBoxBase}">
                                 <EventSetter
-                                    Event="KeyDown"
-                                    Handler="TextBox_KeyDown">
+                                Event="KeyDown"
+                                Handler="TextBox_KeyDown">
                                 </EventSetter>
                             </Style>
 
                         </ResourceDictionary>
-                        
+
                     </Grid.Resources>
 
                     <Grid.ColumnDefinitions>
@@ -131,39 +126,39 @@
 
                     <!-- INPUT PORTS (left, dynamic) -->
                     <ItemsControl Grid.Column="0"
-                                  x:Name="InputPortsControl"
-                                  ItemsSource="{Binding NodeModel.InputPorts}">
+                              x:Name="InputPortsControl"
+                              ItemsSource="{Binding NodeModel.InputPorts}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- DataContext here IS the PortModel -->
                                 <local:Node_PortView
-                                Margin="-10,2,0,2"
-                                PortMouseUp="Port_PortMouseUp"
-                                ToolTip="Input Port"/>
+                            Margin="-10,2,0,2"
+                            PortMouseUp="Port_PortMouseUp"
+                            ToolTip="Input Port"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
                     <!-- Label -->
                     <TextBox Grid.Column="1"
-                           Style="{StaticResource TextBoxStyle}"
-                           Text="{Binding NodePropertyModel.Name, UpdateSourceTrigger=PropertyChanged}"
-                           Foreground="{DynamicResource NodeText}"
-                           FontSize="16"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center">
+                       Style="{StaticResource TextBoxStyle}"
+                       Text="{Binding NodePropertyModel.Name, UpdateSourceTrigger=PropertyChanged}"
+                       Foreground="{DynamicResource NodeText}"
+                       FontSize="16"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
                     </TextBox>
 
                     <!-- OUTPUT PORTS (right, dynamic) -->
                     <ItemsControl Grid.Column="2"
-                                  x:Name="OutputPortsControl"
-                                  ItemsSource="{Binding NodeModel.OutputPorts}">
+                              x:Name="OutputPortsControl"
+                              ItemsSource="{Binding NodeModel.OutputPorts}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <local:Node_PortView
-                                    Margin="0,2,-10,2"
-                                    PortMouseUp="Port_PortMouseUp"
-                                    ToolTip="Output Port"/>
+                                Margin="0,2,-10,2"
+                                PortMouseUp="Port_PortMouseUp"
+                                ToolTip="Output Port"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

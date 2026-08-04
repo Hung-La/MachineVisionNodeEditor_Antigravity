@@ -67,6 +67,10 @@
         <Property:FindContours_PropertyView></Property:FindContours_PropertyView>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type ViewModel:FilterContours_NodeViewModel}">
+        <Property:FilterContours_PropertyView></Property:FilterContours_PropertyView>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type ViewModel:DrawContours_NodeViewModel}">
         <Property:DrawContours_PropertyView></Property:DrawContours_PropertyView>
     </DataTemplate>
