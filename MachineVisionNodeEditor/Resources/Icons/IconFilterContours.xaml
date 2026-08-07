@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ⏳ Icon Filter Contours: Filtering contours by size/area, filtering out noise -->
+    <DrawingImage x:Key="IconFilterContours">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Background Image Canvas -->
+                <GeometryDrawing
+                    Brush="#FF1E262C"
+                    Geometry="M1.5,1.5 L14.5,1.5 L14.5,14.5 L1.5,14.5 Z"/>
+
+                <!-- Filter Funnel Housing (Amber / Orange) -->
+                <GeometryDrawing
+                    Brush="#FFEF6C00"
+                    Geometry="M2,2 L14,2 L9.5,8 L9.5,13.5 L6.5,14.5 L6.5,8 Z"/>
+
+                <!-- Funnel Interior Core -->
+                <GeometryDrawing
+                    Brush="#FFFFB74D"
+                    Geometry="M3,3 L13,3 L8.8,7.8 L8.8,12.5 L7.2,13 L7.2,7.8 Z"/>
+
+                <!-- Filter Grid / Sieve Bars (Horizontal mesh) -->
+                <GeometryDrawing
+                    Brush="#FF37474F"
+                    Geometry="M4,4 L12,4 L12,4.8 L4,4.8 Z M5.5,6 L10.5,6 L10.5,6.8 L5.5,6.8 Z"/>
+
+                <!-- Valid Filtered Contour passing through (Neon Green Ring) -->
+                <GeometryDrawing
+                    Brush="#FF00E676"
+                    Geometry="M7,2.2 C7.6,2.2 8.5,2.4 8.5,3 C8.5,3.6 7.6,3.8 7,3.8 C6.4,3.8 5.5,3.6 5.5,3 C5.5,2.4 6.4,2.2 7,2.2 Z M8,9.5 C9.2,9.5 10.2,10.2 10.2,11.2 C10.2,12.2 9.2,13 8,13 C6.8,13 5.8,12.2 5.8,11.2 C5.8,10.2 6.8,9.5 8,9.5 Z M8,10.3 C7.4,10.3 7,10.7 7,11.2 C7,11.7 7.4,12.1 8,12.1 C8.6,12.1 9,11.7 9,11.2 C9,10.7 8.6,10.3 8,10.3 Z"/>
+
+                <!-- Small noise particle rejected with Red X badge -->
+                <GeometryDrawing
+                    Brush="#FFFF1744"
+                    Geometry="M10.5,3.5 L12.5,5.5 M12.5,3.5 L10.5,5.5"/>
+
+                <!-- Checkmark on passed contour (Bottom Right) -->
+                <GeometryDrawing
+                    Brush="#FF00E676"
+                    Geometry="M11,10.5 L12,12 L14.5,8.5"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

@@ -99,6 +99,8 @@ namespace MachineVisionNodeEditor.Services
                 var inputImages = new List<Mat>();
                 List<Point[][]>? contoursList = null;
 
+                object? genericDrawData = null;
+
                 foreach (var conn in incomingConnections)
                 {
                     var sourceNodeModel = conn.ConnectionModel.FromPort.Owner;
@@ -108,8 +110,15 @@ namespace MachineVisionNodeEditor.Services
                     int fromPortIndex = sourceNodeModel.OutputPorts.Select(p => p.PortModel).ToList().IndexOf(conn.ConnectionModel.FromPort);
                     int toPortIndex = nodeVm.NodeModel.InputPorts.Select(p => p.PortModel).ToList().IndexOf(conn.ConnectionModel.ToPort);
 
-                    if ((sourceNodeVM is FindContours_NodeViewModel || sourceNodeVM is FilterContours_NodeViewModel) && (fromPortIndex == 1 || toPortIndex == 1))
+                    if (fromPortIndex == 1 || toPortIndex == 1)
                     {
+                        genericDrawData = sourceNodeVM.NodePropertyModel.Context.Get<object>("Lines")
+                                       ?? sourceNodeVM.NodePropertyModel.Context.Get<object>("Circles")
+                                       ?? sourceNodeVM.NodePropertyModel.Context.Get<object>("Contours")
+                                       ?? sourceNodeVM.NodePropertyModel.Context.Get<object>("Points2f")
+                                       ?? sourceNodeVM.NodePropertyModel.Context.Get<object>("Points")
+                                       ?? sourceNodeVM.NodePropertyModel.Context.Get<object>("DrawData");
+
                         var cList = sourceNodeVM.NodePropertyModel.Context.GetOutput<List<Point[][]>>("ContoursList")
                                  ?? sourceNodeVM.NodePropertyModel.Context.Get<List<Point[][]>>("ContoursList");
                         if (cList != null && cList.Count > 0)
@@ -168,6 +177,21 @@ namespace MachineVisionNodeEditor.Services
                         var inputImg = inputImages[i];
                         nodeVm.NodePropertyModel.Context.InputImage = inputImg;
                         nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImg);
+
+                        if (genericDrawData != null)
+                        {
+                            nodeVm.NodePropertyModel.Context.SetInput<object>("DrawData", genericDrawData);
+                            if (genericDrawData is LineSegmentPoint[] linesData)
+                                nodeVm.NodePropertyModel.Context.SetInput<LineSegmentPoint[]>("Lines", linesData);
+                            else if (genericDrawData is CircleSegment[] circlesData)
+                                nodeVm.NodePropertyModel.Context.SetInput<CircleSegment[]>("Circles", circlesData);
+                            else if (genericDrawData is Point[][] contoursData)
+                                nodeVm.NodePropertyModel.Context.SetInput<Point[][]>("Contours", contoursData);
+                            else if (genericDrawData is Point2f[] pts2fData)
+                                nodeVm.NodePropertyModel.Context.SetInput<Point2f[]>("Points2f", pts2fData);
+                            else if (genericDrawData is Point[] ptsData)
+                                nodeVm.NodePropertyModel.Context.SetInput<Point[]>("Points", ptsData);
+                        }
 
                         if (contoursList != null && i < contoursList.Count)
                         {
@@ -241,8 +265,14 @@ namespace MachineVisionNodeEditor.Services
                 fcVM.OperationModel.Execute(fcVM.NodePropertyModel);
             else if (nodeVm is FilterContours_NodeViewModel filterContoursVM)
                 filterContoursVM.OperationModel.Execute(filterContoursVM.NodePropertyModel);
+            else if (nodeVm is DrawOnImage_NodeViewModel doiVM)
+                doiVM.OperationModel.Execute(doiVM.NodePropertyModel);
             else if (nodeVm is DrawContours_NodeViewModel dcVM)
                 dcVM.OperationModel.Execute(dcVM.NodePropertyModel);
+            else if (nodeVm is HoughLinesP_NodeViewModel hlVM)
+                hlVM.OperationModel.Execute(hlVM.NodePropertyModel);
+            else if (nodeVm is HoughCircles_NodeViewModel hcVM)
+                hcVM.OperationModel.Execute(hcVM.NodePropertyModel);
         }
 
         private List<NodeControl_NodeViewModel> TopologicalSort()

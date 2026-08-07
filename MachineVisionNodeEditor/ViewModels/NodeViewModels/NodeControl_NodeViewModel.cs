@@ -39,6 +39,19 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
             get; protected set;
         }
 
+        private bool _hasSettingChanges;
+        public bool HasSettingChanges
+        {
+            get => _hasSettingChanges;
+            set
+            {
+                if (SetField(ref _hasSettingChanges, value))
+                {
+                    CommandManager.InvalidateRequerySuggested();
+                }
+            }
+        }
+
         public virtual ICommand? ApplySettingCommand { get; protected set; }
 
         public void ShowNodeImages()
@@ -118,15 +131,24 @@ namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
         {
             NodePropertyModel = new TPropertyModel();
             OperationModel = CreateOperationModel();
-            ApplySettingCommand = new RelayCommand(() => true, () => ExecuteNodeOperation());
+            ApplySettingCommand = new RelayCommand(
+                () => HasSettingChanges,
+                () =>
+                {
+                    ExecuteNodeOperation();
+                    HasSettingChanges = false;
+                });
 
             NodePropertyModel.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName != nameof(NodePropertyModel.Name) &&
                     e.PropertyName != nameof(NodePropertyModel.Description) &&
                     e.PropertyName != nameof(NodePropertyModel.Width) &&
-                    e.PropertyName != nameof(NodePropertyModel.Height))
+                    e.PropertyName != nameof(NodePropertyModel.Height) &&
+                    e.PropertyName != nameof(NodePropertyModel.Context) &&
+                    e.PropertyName != nameof(NodePropertyModel.View))
                 {
+                    HasSettingChanges = true;
                     ExecuteNodeOperation();
                 }
             };

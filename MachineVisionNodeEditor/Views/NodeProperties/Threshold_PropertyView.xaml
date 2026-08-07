@@ -85,10 +85,24 @@
                               Margin="0,0,0,12"/>
 
                     <TextBlock Text="{Binding NodePropertyModel.Thresh, StringFormat='Threshold Value: {0:F0}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.Thresh}" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.Thresh}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.Thresh, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
 
                     <TextBlock Text="{Binding NodePropertyModel.MaxVal, StringFormat='Max Value: {0:F0}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.MaxVal}" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.MaxVal}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.MaxVal, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
                 </StackPanel>
             </GroupBox>
 

@@ -55,7 +55,10 @@ namespace MachineVisionNodeEditor.Builders
                 NodeType.ImageCrop => new ImageCrop_NodeModel(),
                 NodeType.FindContours => new FindContours_NodeModel(),
                 NodeType.FilterContours => new FilterContours_NodeModel(),
-                NodeType.DrawContours => new DrawContours_NodeModel(),
+                NodeType.DrawContours => new DrawOnImage_NodeModel(),
+                NodeType.DrawOnImage => new DrawOnImage_NodeModel(),
+                NodeType.HoughLinesP => new HoughLinesP_NodeModel(),
+                NodeType.HoughCircles => new HoughCircles_NodeModel(),
                 _ => throw new NotImplementedException($"NodeType {_type} not handled in NodeBuilder")
             };
 

@@ -1,0 +1,109 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 🎨 Icon Draw On Image: Drawing multiple geometry types (contours, lines, circles) on image canvas -->
+    <DrawingImage x:Key="IconDrawOnImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Canvas Outer Frame -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M1.5,1.5 L14.5,1.5 L14.5,14.5 L1.5,14.5 Z"/>
+
+                <!-- Dark Image Canvas Surface -->
+                <GeometryDrawing
+                    Brush="#FF1E262C"
+                    Geometry="M2.5,2.5 L13.5,2.5 L13.5,13.5 L2.5,13.5 Z"/>
+
+                <!-- Drawn Geometric Shapes on Canvas -->
+                <!-- 1. Drawn Cyan Polygon / Contour -->
+                <GeometryDrawing
+                    Brush="#FF00E5FF"
+                    Geometry="M3.5,4.5 L7.5,3.5 L6,8 L3.5,6.5 Z M4.2,5.2 L4.2,6.1 L5.5,7 L6.4,4.5 Z"/>
+
+                <!-- 2. Drawn Yellow Circle Geometry -->
+                <GeometryDrawing
+                    Brush="#FFFFD600"
+                    Geometry="M4.5,10.5 C4.5,9.4 5.4,8.5 6.5,8.5 C7.6,8.5 8.5,9.4 8.5,10.5 C8.5,11.6 7.6,12.5 6.5,12.5 C5.4,12.5 4.5,11.6 4.5,10.5 Z M5.4,10.5 C5.4,11.1 5.9,11.6 6.5,11.6 C7.1,11.6 7.6,11.1 7.6,10.5 C7.6,9.9 7.1,9.4 6.5,9.4 C5.9,9.4 5.4,9.9 5.4,10.5 Z"/>
+
+                <!-- 3. Stylized Drawing Pen / Brush Overlay (Diagonal angled drawing tool) -->
+                <!-- Pen Body (Gradient / Magenta) -->
+                <GeometryDrawing
+                    Brush="#FFE91E63"
+                    Geometry="M13.5,3 L14,3.5 L9.5,8 L9,7.5 Z"/>
+
+                <GeometryDrawing
+                    Brush="#FF00BCD4"
+                    Geometry="M12.5,2 L14,3.5 L13,4.5 L11.5,3 Z"/>
+
+                <!-- Golden Nib / Pen Tip touching canvas -->
+                <GeometryDrawing
+                    Brush="#FFFFC107"
+                    Geometry="M9,7.5 L9.5,8 L8,9.5 Z"/>
+
+                <!-- Sparkling drawing point ink dot -->
+                <GeometryDrawing
+                    Brush="#FFFF1744"
+                    Geometry="M8,9.5 A0.7,0.7 0 1 1 7.9,9.5 Z"/>
+
+                <!-- RGB Color Palette Dots (Bottom Right) -->
+                <GeometryDrawing Brush="#FFFF1744" Geometry="M10,12 A0.8,0.8 0 1 1 9.9,12 Z"/>
+                <GeometryDrawing Brush="#FF00E676" Geometry="M11.5,10.5 A0.8,0.8 0 1 1 11.4,10.5 Z"/>
+                <GeometryDrawing Brush="#FF2979FF" Geometry="M13,12 A0.8,0.8 0 1 1 12.9,12 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Backward-compatible alias for existing references -->
+    <DrawingImage x:Key="IconDrawContours">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Canvas Outer Frame -->
+                <GeometryDrawing
+                    Brush="{DynamicResource ColorIconsMain}"
+                    Geometry="M1.5,1.5 L14.5,1.5 L14.5,14.5 L1.5,14.5 Z"/>
+
+                <!-- Dark Image Canvas Surface -->
+                <GeometryDrawing
+                    Brush="#FF1E262C"
+                    Geometry="M2.5,2.5 L13.5,2.5 L13.5,13.5 L2.5,13.5 Z"/>
+
+                <!-- Drawn Geometric Shapes on Canvas -->
+                <!-- 1. Drawn Cyan Polygon / Contour -->
+                <GeometryDrawing
+                    Brush="#FF00E5FF"
+                    Geometry="M3.5,4.5 L7.5,3.5 L6,8 L3.5,6.5 Z M4.2,5.2 L4.2,6.1 L5.5,7 L6.4,4.5 Z"/>
+
+                <!-- 2. Drawn Yellow Circle Geometry -->
+                <GeometryDrawing
+                    Brush="#FFFFD600"
+                    Geometry="M4.5,10.5 C4.5,9.4 5.4,8.5 6.5,8.5 C7.6,8.5 8.5,9.4 8.5,10.5 C8.5,11.6 7.6,12.5 6.5,12.5 C5.4,12.5 4.5,11.6 4.5,10.5 Z M5.4,10.5 C5.4,11.1 5.9,11.6 6.5,11.6 C7.1,11.6 7.6,11.1 7.6,10.5 C7.6,9.9 7.1,9.4 6.5,9.4 C5.9,9.4 5.4,9.9 5.4,10.5 Z"/>
+
+                <!-- 3. Stylized Drawing Pen / Brush Overlay -->
+                <GeometryDrawing
+                    Brush="#FFE91E63"
+                    Geometry="M13.5,3 L14,3.5 L9.5,8 L9,7.5 Z"/>
+
+                <GeometryDrawing
+                    Brush="#FF00BCD4"
+                    Geometry="M12.5,2 L14,3.5 L13,4.5 L11.5,3 Z"/>
+
+                <!-- Golden Nib / Pen Tip -->
+                <GeometryDrawing
+                    Brush="#FFFFC107"
+                    Geometry="M9,7.5 L9.5,8 L8,9.5 Z"/>
+
+                <!-- Drawing point dot -->
+                <GeometryDrawing
+                    Brush="#FFFF1744"
+                    Geometry="M8,9.5 A0.7,0.7 0 1 1 7.9,9.5 Z"/>
+
+                <!-- RGB Palette Dots -->
+                <GeometryDrawing Brush="#FFFF1744" Geometry="M10,12 A0.8,0.8 0 1 1 9.9,12 Z"/>
+                <GeometryDrawing Brush="#FF00E676" Geometry="M11.5,10.5 A0.8,0.8 0 1 1 11.4,10.5 Z"/>
+                <GeometryDrawing Brush="#FF2979FF" Geometry="M13,12 A0.8,0.8 0 1 1 12.9,12 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

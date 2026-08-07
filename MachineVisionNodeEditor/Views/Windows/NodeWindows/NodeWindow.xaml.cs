@@ -67,6 +67,10 @@ namespace MachineVisionNodeEditor.Views.Windows.NodeWindows
             }
 
             _vm = DataContext as ViewModels.NodeViewModels.NodeControl_NodeViewModel;
+            if (_vm != null)
+            {
+                _vm.HasSettingChanges = false;
+            }
             if (_vm?.NodePropertyModel?.Context != null)
             {
                 _vm.NodePropertyModel.Context.PropertyChanged += Context_PropertyChanged;

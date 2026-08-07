@@ -111,18 +111,46 @@
                     <!-- Custom RGB Color Sliders if Custom is chosen -->
                     <StackPanel Margin="0,0,0,12">
                         <TextBlock Text="{Binding NodePropertyModel.CustomR, StringFormat='Red (R): {0}'}" Margin="0,2,0,2"/>
-                        <Slider Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomR}" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomR}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.CustomR, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Grid>
 
                         <TextBlock Text="{Binding NodePropertyModel.CustomG, StringFormat='Green (G): {0}'}" Margin="0,2,0,2"/>
-                        <Slider Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomG}" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomG}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.CustomG, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Grid>
 
                         <TextBlock Text="{Binding NodePropertyModel.CustomB, StringFormat='Blue (B): {0}'}" Margin="0,2,0,2"/>
-                        <Slider Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomB}" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding NodePropertyModel.CustomB}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.CustomB, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Grid>
                     </StackPanel>
 
                     <!-- Line Thickness -->
                     <TextBlock Text="{Binding NodePropertyModel.Thickness, StringFormat='Line Thickness: {0}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Thickness}" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="1" Maximum="10" Value="{Binding NodePropertyModel.Thickness}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.Thickness, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
 
                     <!-- Status Display -->
                     <Border Background="#1A00E676" CornerRadius="4" Padding="10" Margin="0,4,0,4">

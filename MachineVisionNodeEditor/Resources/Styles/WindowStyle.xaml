@@ -32,7 +32,11 @@
         <ResourceDictionary Source="/Resources/Icons/IconDilate.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconMorphologyEx.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconFindContours.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconFilterContours.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Resources/Icons/IconDrawContours.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconDrawOnImage.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconHoughLinesP.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Resources/Icons/IconHoughCircles.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="MenuItem" x:Key="MenuItemStyle" BasedOn="{StaticResource MaterialDesignMenuItem}"> <!--BasedOn="{StaticResource MaterialDesignMenuItem}"-->

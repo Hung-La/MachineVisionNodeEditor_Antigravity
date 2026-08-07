@@ -26,7 +26,10 @@ namespace MachineVisionNodeEditor.Factories
                 NodeType.ImageCrop => new ImageCrop_NodeViewModel(),
                 NodeType.FindContours => new FindContours_NodeViewModel(),
                 NodeType.FilterContours => new FilterContours_NodeViewModel(),
-                NodeType.DrawContours => new DrawContours_NodeViewModel(),
+                NodeType.DrawContours => new DrawOnImage_NodeViewModel(),
+                NodeType.DrawOnImage => new DrawOnImage_NodeViewModel(),
+                NodeType.HoughLinesP => new HoughLinesP_NodeViewModel(),
+                NodeType.HoughCircles => new HoughCircles_NodeViewModel(),
                 _ => throw new NotImplementedException()
             };
         }
@@ -51,7 +54,10 @@ namespace MachineVisionNodeEditor.Factories
                 NodeType.ImageCrop => new ImageCrop_NodeViewModel(nodeModel),
                 NodeType.FindContours => new FindContours_NodeViewModel(nodeModel),
                 NodeType.FilterContours => new FilterContours_NodeViewModel(nodeModel),
-                NodeType.DrawContours => new DrawContours_NodeViewModel(nodeModel),
+                NodeType.DrawContours => new DrawOnImage_NodeViewModel(nodeModel),
+                NodeType.DrawOnImage => new DrawOnImage_NodeViewModel(nodeModel),
+                NodeType.HoughLinesP => new HoughLinesP_NodeViewModel(nodeModel),
+                NodeType.HoughCircles => new HoughCircles_NodeViewModel(nodeModel),
                 _ => throw new NotImplementedException($"NodeType {nodeModel.Type} not handled")
             };
         }

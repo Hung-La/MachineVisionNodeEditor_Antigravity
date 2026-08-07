@@ -379,20 +379,32 @@
                         <RibbonButton 
                             Label="Filter Contours"
                             Command="{Binding FilterContoursClick}"
-                            LargeImageSource="{StaticResource IconDrawContours}">
-                        </RibbonButton>
-
-                        <RibbonButton 
-                            Label="Draw Contours"
-                            Command="{Binding DrawContoursClick}"
-                            LargeImageSource="{StaticResource IconDrawContours}">
+                            LargeImageSource="{StaticResource IconFilterContours}">
                         </RibbonButton>
 
                     </RibbonGroup>
 
                     <RibbonGroup
                         Header="Hough Transform">
-                        
+                        <RibbonButton 
+                            Label="Hough Lines P"
+                            Command="{Binding HoughLinesPClick}"
+                            LargeImageSource="{StaticResource IconHoughLinesP}">
+                        </RibbonButton>
+                        <RibbonButton 
+                            Label="Hough Circles"
+                            Command="{Binding HoughCirclesClick}"
+                            LargeImageSource="{StaticResource IconHoughCircles}">
+                        </RibbonButton>
+                    </RibbonGroup>
+
+                    <RibbonGroup
+                        Header="Image Drawn">
+                        <RibbonButton 
+                            Label="Draw On Image"
+                            Command="{Binding DrawContoursClick}"
+                            LargeImageSource="{StaticResource IconDrawOnImage}">
+                        </RibbonButton>
                     </RibbonGroup>
                     
                 </RibbonTab>

@@ -1,61 +1,13 @@
-using MachineVisionAlgorithm.Contours;
-using MachineVisionNodeEditor.Commands;
 using MachineVisionNodeEditor.Models.NodeModels;
-using MachineVisionNodeEditor.Models.NodeOperationModels;
-using MachineVisionNodeEditor.Models.NodePropertyModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 
 namespace MachineVisionNodeEditor.ViewModels.NodeViewModels
 {
-    public class DrawContours_NodeViewModel : NodeControl_NodeViewModel<DrawContours_NodeModel, DrawContours_NodePropertyModel, DrawContours_NodeOperationModel>
+    [Obsolete("Use DrawOnImage_NodeViewModel instead.")]
+    public class DrawContours_NodeViewModel : DrawOnImage_NodeViewModel
     {
-        public override ICommand ShowImageCommand { get ; protected set; }
-
-        public DrawContours_NodeViewModel() : base() 
-        {
-            Initialize();
-            EnsureInitialPorts();
-        }
-
-        public DrawContours_NodeViewModel(DrawContours_NodeModel model) : base(model)
-        {
-            Initialize();
-            EnsureInitialPorts();
-
-        }
-
-        public DrawContours_NodeViewModel(NodeModel nodeModel) : base(nodeModel is DrawContours_NodeModel vm ? vm : new DrawContours_NodeModel
-        {
-            X = nodeModel.X,
-            Y = nodeModel.Y,
-            Type = NodeType.DrawContours
-        })
-        {
-            Initialize();
-            EnsureInitialPorts();
-
-        }
-
-        private void Initialize()
-        {
-            NodeModel.Title = "Draw Contours";
-            ShowImageCommand = new RelayCommand(
-                () => NodePropertyModel?.Context.OutputImage != null && !NodePropertyModel.Context.OutputImage.IsDisposed && !NodePropertyModel.Context.OutputImage.Empty(),
-                () => ShowNodeImages());
-        }
-
-        private void EnsureInitialPorts()
-        {
-            while (NodeModel.InputPorts.Count < 2)
-            {
-                NodeModel.AddPort(PortType.Input);
-            }
-            if (NodeModel.OutputPorts.Count == 0) NodeModel.AddPort(PortType.Output);
-        }
-
-        protected override DrawContours_NodeOperationModel CreateOperationModel() => new DrawContours_NodeOperationModel();
+        public DrawContours_NodeViewModel() : base() { }
+        public DrawContours_NodeViewModel(DrawOnImage_NodeModel model) : base(model) { }
+        public DrawContours_NodeViewModel(NodeModel nodeModel) : base(nodeModel) { }
     }
 }

@@ -69,14 +69,26 @@
         <NodeView:Node_NodeView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type NodeViewModel:DrawOnImage_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type NodeViewModel:DrawContours_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:HoughLinesP_NodeViewModel}">
+        <NodeView:Node_NodeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type NodeViewModel:HoughCircles_NodeViewModel}">
         <NodeView:Node_NodeView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type NodeViewModel:Node_ConnectionViewModel}">
         <NodeView:Node_ConnectionView></NodeView:Node_ConnectionView>
     </DataTemplate>
-    
+
     <!--#endregion-->
     
 </ResourceDictionary>

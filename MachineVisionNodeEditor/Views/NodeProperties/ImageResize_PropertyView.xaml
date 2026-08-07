@@ -104,10 +104,24 @@
                     <!-- Scale Factor Controls -->
                     <StackPanel Visibility="{Binding NodePropertyModel.UseScaleFactor, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock Text="{Binding NodePropertyModel.ScaleX, StringFormat='Scale X (fx): {0:F2}'}" Margin="0,4,0,4"/>
-                        <Slider Minimum="0.05" Maximum="10.0" Value="{Binding NodePropertyModel.ScaleX}" TickFrequency="0.1" IsSnapToTickEnabled="False" Margin="0,0,0,12"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider Grid.Column="0" Minimum="0.05" Maximum="10.0" Value="{Binding NodePropertyModel.ScaleX}" TickFrequency="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.ScaleX, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Grid>
 
                         <TextBlock Text="{Binding NodePropertyModel.ScaleY, StringFormat='Scale Y (fy): {0:F2}'}" Margin="0,4,0,4"/>
-                        <Slider Minimum="0.05" Maximum="10.0" Value="{Binding NodePropertyModel.ScaleY}" TickFrequency="0.1" IsSnapToTickEnabled="False" Margin="0,0,0,12"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider Grid.Column="0" Minimum="0.05" Maximum="10.0" Value="{Binding NodePropertyModel.ScaleY}" TickFrequency="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.ScaleY, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Grid>
                     </StackPanel>
 
                     <TextBlock Text="Interpolation" Margin="0,4,0,4"/>

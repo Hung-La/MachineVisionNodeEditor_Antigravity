@@ -31,7 +31,10 @@ namespace MachineVisionNodeEditor.Models.NodeModels
         ImageCrop,
         FindContours,
         FilterContours,
-        DrawContours
+        DrawContours,
+        DrawOnImage,
+        HoughLinesP,
+        HoughCircles
     }
     public abstract class NodeModel : BaseViewModel, ISelectable
     {

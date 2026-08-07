@@ -15,7 +15,7 @@
         d:DataContext="{d:DesignInstance Type=ViewModel:ImageImport_NodeViewModel}"
         KeyDown="NodeWindowControl_KeyDown"
         x:Name="ImageWindow"
-        Title="Result Image"
+        Title="{Binding NodePropertyModel.Name, StringFormat={}Result Image - {0}}"
         Height="800" Width="1200">
 
     <local:NodeWindowControl.Resources>
@@ -175,8 +175,8 @@
                             BorderBrush="#FF26A69A"
                             materialDesign:ButtonAssist.CornerRadius="6">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <materialDesign:PackIcon Kind="CheckBold" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Apply Settings" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="CheckBold" Foreground="WhiteSmoke" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Apply Settings" Foreground="WhiteSmoke" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </Border>

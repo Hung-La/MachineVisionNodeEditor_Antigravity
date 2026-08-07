@@ -80,13 +80,34 @@
             <GroupBox Header="Bilateral Filter Settings" Margin="0,10,0,0">
                 <StackPanel Margin="5">
                     <TextBlock Text="{Binding NodePropertyModel.D, StringFormat='Diameter (d): {0}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="1" Maximum="30" Value="{Binding NodePropertyModel.D}" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="1" Maximum="30" Value="{Binding NodePropertyModel.D}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.D, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
 
                     <TextBlock Text="{Binding NodePropertyModel.SigmaColor, StringFormat='Sigma Color: {0:F0}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaColor}" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaColor}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.SigmaColor, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
 
                     <TextBlock Text="{Binding NodePropertyModel.SigmaSpace, StringFormat='Sigma Space: {0:F0}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaSpace}" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="1" Maximum="200" Value="{Binding NodePropertyModel.SigmaSpace}" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.SigmaSpace, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
                 </StackPanel>
             </GroupBox>
 

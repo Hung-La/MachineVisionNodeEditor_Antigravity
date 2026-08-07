@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace MachineVisionNodeEditor.Models.NodeModels
 {
-    public class DrawContours_NodeModel : NodeModel
+    [Obsolete("Use DrawOnImage_NodeModel instead.")]
+    public class DrawContours_NodeModel : DrawOnImage_NodeModel
     {
-        public DrawContours_NodeModel() 
-        {
-            Type = NodeType.DrawContours;
-            Title = "Draw Contours";
-        }
     }
 }

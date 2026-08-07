@@ -80,10 +80,24 @@
             <GroupBox Header="Image Rotate Settings" Margin="0,10,0,0">
                 <StackPanel Margin="5">
                     <TextBlock Text="{Binding NodePropertyModel.Angle, StringFormat='Angle (°): {0:F1}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="-360" Maximum="360" Value="{Binding NodePropertyModel.Angle}" TickFrequency="15" IsSnapToTickEnabled="False" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="-360" Maximum="360" Value="{Binding NodePropertyModel.Angle}" TickFrequency="15" IsSnapToTickEnabled="False" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.Angle, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
 
                     <TextBlock Text="{Binding NodePropertyModel.Scale, StringFormat='Scale: {0:F2}'}" Margin="0,4,0,4"/>
-                    <Slider Minimum="0.1" Maximum="5.0" Value="{Binding NodePropertyModel.Scale}" TickFrequency="0.1" IsSnapToTickEnabled="False" Margin="0,0,0,12"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" Minimum="0.1" Maximum="5.0" Value="{Binding NodePropertyModel.Scale}" TickFrequency="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding NodePropertyModel.Scale, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
 
                     <TextBlock Text="Interpolation" Margin="0,4,0,4"/>
                     <ComboBox ItemsSource="{Binding NodePropertyModel.Interpolations}" SelectedItem="{Binding NodePropertyModel.Interpolation}" Margin="0,0,0,12"/>

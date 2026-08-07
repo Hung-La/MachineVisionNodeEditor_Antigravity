@@ -196,8 +196,10 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ICommand ImageCropClick { get; }
         public ICommand FindContoursClick { get; }
         public ICommand FilterContoursClick { get; }
-
         public ICommand DrawContoursClick { get; }
+        public ICommand DrawOnImageClick { get; }
+        public ICommand HoughLinesPClick { get; }
+        public ICommand HoughCirclesClick { get; }
 
         public ICommand PipelineExecuteCommand { get; }
         public ICommand ExecutePipelineCommand { get; }
@@ -244,7 +246,10 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             ImageCropClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.ImageCrop));
             FindContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.FindContours));
             FilterContoursClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.FilterContours));
-            DrawContoursClick = new RelayCommand(() => Nodes.Count >= 0, () => AddNode(NodeType.DrawContours));
+            DrawContoursClick = new RelayCommand(() => Nodes.Count >= 0, () => AddNode(NodeType.DrawOnImage));
+            DrawOnImageClick = new RelayCommand(() => Nodes.Count >= 0, () => AddNode(NodeType.DrawOnImage));
+            HoughLinesPClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.HoughLinesP));
+            HoughCirclesClick = new RelayCommand(() => Nodes.Count > 0, () => AddNode(NodeType.HoughCircles));
 
             UndoCommand = new RelayCommand(() => UndoRedoService.CanUndo, () => UndoRedoService.Undo());
             RedoCommand = new RelayCommand(() => UndoRedoService.CanRedo, () => UndoRedoService.Redo());
@@ -516,8 +521,8 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             if (IsDirty)
             {
                 var result = MessageBox.Show(
-                    "Bạn có muốn lưu thay đổi trước khi mở file khác?",
-                    "Lưu thay đổi",
+                    "Do you want to save before open another file?",
+                    "Save Changes",
                     MessageBoxButton.YesNoCancel,
                     MessageBoxImage.Question);
 
@@ -549,8 +554,8 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Không thể mở file:\n{ex.Message}",
-                    "Lỗi",
+                    $"Can not open file:\n{ex.Message}",
+                    "Error",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
