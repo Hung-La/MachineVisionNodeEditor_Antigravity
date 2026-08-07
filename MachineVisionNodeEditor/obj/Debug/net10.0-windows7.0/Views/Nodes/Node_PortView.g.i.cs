@@ -54,7 +54,7 @@ namespace MachineVisionNodeEditor.Views.Nodes {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;component/views/nodes/node_portview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MachineVisionNodeEditor;V1.0.0.0;component/views/nodes/node_portview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Nodes\Node_PortView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -259,6 +259,53 @@ namespace MachineVisionNodeEditor.Views.Windows
                     Window_MainWindowViewModel.PipelineExecuteCommand.Execute(null);
                 }
             }
+
+            // ── Copy / Cut / Paste ──
+            if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                Window_MainWindowViewModel.CopySelection();
+                e.Handled = true;
+            }
+
+            if (e.Key == Key.X && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                Window_MainWindowViewModel.CutSelection();
+                e.Handled = true;
+            }
+
+            if (e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                Window_MainWindowViewModel.PasteSelection();
+                e.Handled = true;
+            }
+
+            // ── File operations ──
+            if (e.Key == Key.N && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (Window_MainWindowViewModel.NewPipelineCommand.CanExecute(null))
+                    Window_MainWindowViewModel.NewPipelineCommand.Execute(null);
+                e.Handled = true;
+            }
+
+            if (e.Key == Key.O && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (Window_MainWindowViewModel.OpenPipelineCommand.CanExecute(null))
+                    Window_MainWindowViewModel.OpenPipelineCommand.Execute(null);
+                e.Handled = true;
+            }
+
+            if (e.Key == Key.S && Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+            {
+                if (Window_MainWindowViewModel.SaveAsPipelineCommand.CanExecute(null))
+                    Window_MainWindowViewModel.SaveAsPipelineCommand.Execute(null);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (Window_MainWindowViewModel.SavePipelineCommand.CanExecute(null))
+                    Window_MainWindowViewModel.SavePipelineCommand.Execute(null);
+                e.Handled = true;
+            }
         }
 
         private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)

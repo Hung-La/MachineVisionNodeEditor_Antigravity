@@ -23,7 +23,7 @@
         mc:Ignorable="d"
         Name="mainWindow"
         d:DataContext="{d:DesignInstance Type=WindowViewModel:Window_MainWindowViewModel}"
-        Title="Machine Vision Diagram Editor" 
+        Title="{Binding WindowTitle, FallbackValue='Machine Vision Diagram Editor'}" 
         d:Height="800" d:Width="1200"
         Height="1000" Width="1700"
         KeyDown="mainWindow_KeyDown"
@@ -69,8 +69,11 @@
                 DockPanel.Dock="Left">
 
                 <MenuItem Header="File">
-                    <MenuItem Header="New"></MenuItem>
-                    <MenuItem Header="Open"></MenuItem>
+                    <MenuItem Header="New" Command="{Binding NewPipelineCommand}" InputGestureText="Ctrl+N"></MenuItem>
+                    <MenuItem Header="Open" Command="{Binding OpenPipelineCommand}" InputGestureText="Ctrl+O"></MenuItem>
+                    <MenuItem Header="Save" Command="{Binding SavePipelineCommand}" InputGestureText="Ctrl+S"></MenuItem>
+                    <MenuItem Header="Save As" Command="{Binding SaveAsPipelineCommand}" InputGestureText="Ctrl+Shift+S"></MenuItem>
+                    <Separator/>
                     <MenuItem Header="Exit"></MenuItem>
                 </MenuItem>
 
@@ -160,16 +163,19 @@
 
                         <RibbonButton 
                             Label="Open"
+                            Command="{Binding OpenPipelineCommand}"
                             LargeImageSource="{StaticResource IconOpenScheme}">
                         </RibbonButton>
 
                         <RibbonButton
                             Label="Save"
+                            Command="{Binding SavePipelineCommand}"
                             LargeImageSource="{StaticResource IconSave}">
                         </RibbonButton>
 
                         <RibbonButton
                             Label="Save As"
+                            Command="{Binding SaveAsPipelineCommand}"
                             LargeImageSource="{StaticResource IconSaveAs}">
                         </RibbonButton>
 

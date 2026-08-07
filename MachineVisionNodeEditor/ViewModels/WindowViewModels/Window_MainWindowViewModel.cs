@@ -11,10 +11,12 @@ using MachineVisionNodeEditor.Services.NodeServies;
 using MachineVisionNodeEditor.ViewModels.NodeViewModels;
 using MachineVisionNodeEditor.Views.Nodes;
 using MachineVisionNodeEditor.Views.Windows;
+using Microsoft.Win32;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,9 +36,56 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         private bool _isPipelineExecutedSuccess;
         private string _pipelineExecutionStatusText = string.Empty;
         private bool _isPipelineStatusVisible;
+
+        public ClipboardService ClipboardService { get; } = new();
+
+        /// <summary>Đường dẫn file project hiện tại (null nếu chưa lưu).</summary>
+        private string? _currentFilePath;
+
+        /// <summary>Cờ đánh dấu diagram đã thay đổi kể từ lần lưu cuối.</summary>
+        private bool _isDirty;
+
+        /// <summary>Hằng số cho file filter dialog.</summary>
+        private const string FileFilter = "Machine Vision Node Editor (*.mvne)|*.mvne|All files (*.*)|*.*";
         #endregion
 
         #region Properties
+
+        /// <summary>Đường dẫn file project hiện tại.</summary>
+        public string? CurrentFilePath
+        {
+            get => _currentFilePath;
+            set
+            {
+                SetField(ref _currentFilePath, value);
+                OnPropertyChanged(nameof(WindowTitle));
+            }
+        }
+
+        /// <summary>Cờ đánh dấu diagram đã thay đổi kể từ lần lưu cuối.</summary>
+        public bool IsDirty
+        {
+            get => _isDirty;
+            set
+            {
+                SetField(ref _isDirty, value);
+                OnPropertyChanged(nameof(WindowTitle));
+            }
+        }
+
+        /// <summary>Tiêu đề cửa sổ hiển thị tên file và trạng thái thay đổi.</summary>
+        public string WindowTitle
+        {
+            get
+            {
+                var fileName = CurrentFilePath != null
+                    ? Path.GetFileName(CurrentFilePath)
+                    : "Untitled";
+                var dirty = IsDirty ? " *" : "";
+                return $"{fileName}{dirty} - Machine Vision Node Editor";
+            }
+        }
+
         public bool IsPipelineExecutedSuccess
         {
             get => _isPipelineExecutedSuccess;
@@ -155,6 +204,13 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
         public ICommand NewPipelineCommand { get; }
+        public ICommand OpenPipelineCommand { get; }
+        public ICommand SavePipelineCommand { get; }
+        public ICommand SaveAsPipelineCommand { get; }
+
+        public ICommand CopyCommand { get; }
+        public ICommand CutCommand { get; }
+        public ICommand PasteCommand { get; }
 
         #endregion
 
@@ -192,20 +248,25 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
 
             UndoCommand = new RelayCommand(() => UndoRedoService.CanUndo, () => UndoRedoService.Undo());
             RedoCommand = new RelayCommand(() => UndoRedoService.CanRedo, () => UndoRedoService.Redo());
-            NewPipelineCommand = new RelayCommand(() => true, () =>
-            {
-                Nodes.Clear();
-                Connections.Clear();
-                SelectionService.Clear();
-                IsPipelineStatusVisible = false;
-            });
+            NewPipelineCommand = new RelayCommand(() => true, () => NewPipeline());
+            OpenPipelineCommand = new RelayCommand(() => true, () => OpenPipeline());
+            SavePipelineCommand = new RelayCommand(() => true, () => SavePipeline());
+            SaveAsPipelineCommand = new RelayCommand(() => true, () => SaveAsPipeline());
 
             PipelineExecuteCommand = new RelayCommand(() => Nodes.Count > 0, () => ExecutePipeline());
             ExecutePipelineCommand = PipelineExecuteCommand;
 
+            CopyCommand = new RelayCommand(() => SelectionService.HasSelection, () => CopySelection());
+            CutCommand = new RelayCommand(() => SelectionService.HasSelection, () => CutSelection());
+            PasteCommand = new RelayCommand(() => ClipboardService.HasData, () => PasteSelection());
+
             SelectionService.SelectedItems.CollectionChanged += (sender, e) => OnPropertyChanged(nameof(SelectedItem));
             Nodes.CollectionChanged += Model_CollectionChanged;
             Connections.CollectionChanged += Model_CollectionChanged;
+
+            // Đánh dấu dirty khi nodes hoặc connections thay đổi
+            Nodes.CollectionChanged += (s, e) => IsDirty = true;
+            Connections.CollectionChanged += (s, e) => IsDirty = true;
         }
 
         private System.Windows.Threading.DispatcherTimer? _statusTimer;
@@ -360,5 +421,201 @@ namespace MachineVisionNodeEditor.ViewModels.WindowViewModels
         }
 
         public void ClearAllSelections() => SelectionService.Clear();
+
+        #region Copy / Cut / Paste
+
+        /// <summary>
+        /// Copy các node đã chọn vào clipboard nội bộ.
+        /// </summary>
+        public void CopySelection()
+        {
+            var selectedNodes = Nodes
+                .Where(n => n.NodeModel.IsSelected)
+                .ToList();
+
+            if (selectedNodes.Count == 0) return;
+
+            ClipboardService.CopyNodes(selectedNodes, Connections);
+        }
+
+        /// <summary>
+        /// Cut các node đã chọn: copy vào clipboard rồi xóa khỏi diagram.
+        /// </summary>
+        public void CutSelection()
+        {
+            var selectedNodes = Nodes
+                .Where(n => n.NodeModel.IsSelected)
+                .ToList();
+
+            if (selectedNodes.Count == 0) return;
+
+            // Copy trước
+            ClipboardService.CopyNodes(selectedNodes, Connections);
+
+            // Sau đó xóa (dùng lại logic DeleteSelection)
+            DeleteSelection();
+        }
+
+        /// <summary>
+        /// Paste các node từ clipboard vào diagram với offset vị trí.
+        /// </summary>
+        public void PasteSelection()
+        {
+            if (!ClipboardService.HasData) return;
+
+            var pastedNodes = ClipboardService.CreatePastedNodes();
+            if (pastedNodes.Count == 0) return;
+
+            // Truyền bản copy của connection snapshots (không phải reference)
+            var connectionSnapshots = new List<ClipboardService.ConnectionSnapshot>(ClipboardService.CopiedConnections);
+            var pasteCmd = new PasteNodesCommand(this, pastedNodes, connectionSnapshots);
+            UndoRedoService.Execute(pasteCmd);
+        }
+
+        #endregion
+
+        #region New / Open / Save / Save As
+
+        /// <summary>
+        /// Tạo pipeline mới. Hỏi xác nhận nếu có thay đổi chưa lưu.
+        /// </summary>
+        private void NewPipeline()
+        {
+            if (IsDirty)
+            {
+                var result = MessageBox.Show(
+                    "Bạn có muốn lưu thay đổi trước khi tạo mới?",
+                    "Lưu thay đổi",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Cancel)
+                    return;
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SavePipeline();
+                    // Nếu user cancel dialog Save thì không tiếp tục
+                    if (IsDirty) return;
+                }
+            }
+
+            Nodes.Clear();
+            Connections.Clear();
+            SelectionService.Clear();
+            IsPipelineStatusVisible = false;
+            CurrentFilePath = null;
+            IsDirty = false;
+        }
+
+        /// <summary>
+        /// Mở file project (.mvne).
+        /// </summary>
+        private void OpenPipeline()
+        {
+            if (IsDirty)
+            {
+                var result = MessageBox.Show(
+                    "Bạn có muốn lưu thay đổi trước khi mở file khác?",
+                    "Lưu thay đổi",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Cancel)
+                    return;
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SavePipeline();
+                    if (IsDirty) return;
+                }
+            }
+
+            var openDialog = new OpenFileDialog
+            {
+                Filter = FileFilter,
+                Title = "Open Pipeline Project"
+            };
+
+            if (openDialog.ShowDialog() != true)
+                return;
+
+            try
+            {
+                ProjectFileService.LoadFromFile(openDialog.FileName, this);
+                CurrentFilePath = openDialog.FileName;
+                IsDirty = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Không thể mở file:\n{ex.Message}",
+                    "Lỗi",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Lưu file. Nếu chưa có đường dẫn thì chuyển sang Save As.
+        /// </summary>
+        private void SavePipeline()
+        {
+            if (string.IsNullOrEmpty(CurrentFilePath))
+            {
+                SaveAsPipeline();
+                return;
+            }
+
+            try
+            {
+                ProjectFileService.SaveToFile(CurrentFilePath, this);
+                IsDirty = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Không thể lưu file:\n{ex.Message}",
+                    "Lỗi",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Lưu file với tên mới (luôn hiển thị dialog).
+        /// </summary>
+        private void SaveAsPipeline()
+        {
+            var saveDialog = new SaveFileDialog
+            {
+                Filter = FileFilter,
+                Title = "Save Pipeline Project As",
+                DefaultExt = ".mvne",
+                FileName = CurrentFilePath != null
+                    ? Path.GetFileName(CurrentFilePath)
+                    : "Untitled.mvne"
+            };
+
+            if (saveDialog.ShowDialog() != true)
+                return;
+
+            try
+            {
+                ProjectFileService.SaveToFile(saveDialog.FileName, this);
+                CurrentFilePath = saveDialog.FileName;
+                IsDirty = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Không thể lưu file:\n{ex.Message}",
+                    "Lỗi",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        #endregion
     }
 }

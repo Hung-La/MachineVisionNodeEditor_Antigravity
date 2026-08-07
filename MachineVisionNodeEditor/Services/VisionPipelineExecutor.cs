@@ -97,6 +97,7 @@ namespace MachineVisionNodeEditor.Services
                 }
 
                 var inputImages = new List<Mat>();
+                List<Point[][]>? contoursList = null;
 
                 foreach (var conn in incomingConnections)
                 {
@@ -107,11 +108,23 @@ namespace MachineVisionNodeEditor.Services
                     int fromPortIndex = sourceNodeModel.OutputPorts.Select(p => p.PortModel).ToList().IndexOf(conn.ConnectionModel.FromPort);
                     int toPortIndex = nodeVm.NodeModel.InputPorts.Select(p => p.PortModel).ToList().IndexOf(conn.ConnectionModel.ToPort);
 
-                    if ((sourceNodeVM is FindContours_NodeViewModel || sourceNodeVM is FilterContours_NodeViewModel) && fromPortIndex == 1)
+                    if ((sourceNodeVM is FindContours_NodeViewModel || sourceNodeVM is FilterContours_NodeViewModel) && (fromPortIndex == 1 || toPortIndex == 1))
                     {
-                        var contours = sourceNodeVM.NodePropertyModel.Context.GetOutput<Point[][]>("Contours")
-                                    ?? sourceNodeVM.NodePropertyModel.Context.Get<Point[][]>("Contours");
-                        nodeVm.NodePropertyModel.Context.SetInput<Point[][]>("Contours", contours);
+                        var cList = sourceNodeVM.NodePropertyModel.Context.GetOutput<List<Point[][]>>("ContoursList")
+                                 ?? sourceNodeVM.NodePropertyModel.Context.Get<List<Point[][]>>("ContoursList");
+                        if (cList != null && cList.Count > 0)
+                        {
+                            contoursList = cList;
+                        }
+                        else
+                        {
+                            var singleContours = sourceNodeVM.NodePropertyModel.Context.GetOutput<Point[][]>("Contours")
+                                               ?? sourceNodeVM.NodePropertyModel.Context.Get<Point[][]>("Contours");
+                            if (singleContours != null)
+                            {
+                                contoursList = new List<Point[][]> { singleContours };
+                            }
+                        }
                     }
                     else
                     {
@@ -130,66 +143,64 @@ namespace MachineVisionNodeEditor.Services
                         {
                             inputImages.Add(sourceNodeVM.NodePropertyModel.Context.OutputImage);
                         }
-                    }
-                }
 
-                if (nodeVm is DrawContours_NodeViewModel)
-                {
-                    if (inputImages.Count > 0)
-                    {
-                        nodeVm.NodePropertyModel.Context.InputImages = inputImages;
-                        nodeVm.NodePropertyModel.Context.InputImage = inputImages[0];
-                        nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImages[0]);
-                    }
-                    ExecuteSingleNodeOperation(nodeVm);
-                    if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
-                    {
-                        nodeVm.NodePropertyModel.Context.OutputImages = new List<Mat> { nodeVm.NodePropertyModel.Context.OutputImage };
-                    }
-                }
-                else
-                {
-                    if (inputImages.Count == 0 && (nodeVm.NodePropertyModel.Context.InputImage == null || nodeVm.NodePropertyModel.Context.InputImage.Empty()))
-                    {
-                        throw new InvalidOperationException($"Node \"{nodeVm.NodeModel.Title}\" chưa nhận được ảnh đầu vào hợp lệ.");
-                    }
-
-                    if (inputImages.Count > 0)
-                    {
-                        nodeVm.NodePropertyModel.Context.InputImages = inputImages;
-                        nodeVm.NodePropertyModel.Context.InputImage = inputImages[0];
-                        nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImages[0]);
-                    }
-
-                    var outputImages = new List<Mat>();
-
-                    if (inputImages.Count > 1)
-                    {
-                        foreach (var inputImg in inputImages)
+                        var cList = sourceNodeVM.NodePropertyModel.Context.GetOutput<List<Point[][]>>("ContoursList")
+                                 ?? sourceNodeVM.NodePropertyModel.Context.Get<List<Point[][]>>("ContoursList");
+                        if (cList != null && cList.Count > 0 && contoursList == null)
                         {
-                            nodeVm.NodePropertyModel.Context.InputImage = inputImg;
-                            nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImg);
-                            ExecuteSingleNodeOperation(nodeVm);
-                            if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
-                            {
-                                outputImages.Add(nodeVm.NodePropertyModel.Context.OutputImage);
-                            }
+                            contoursList = cList;
                         }
                     }
-                    else
+                }
+
+                if (inputImages.Count == 0 && (nodeVm.NodePropertyModel.Context.InputImage == null || nodeVm.NodePropertyModel.Context.InputImage.Empty()))
+                {
+                    throw new InvalidOperationException($"Node \"{nodeVm.NodeModel.Title}\" chưa nhận được ảnh đầu vào hợp lệ.");
+                }
+
+                var outputImages = new List<Mat>();
+                var generatedContoursList = new List<Point[][]>();
+
+                if (inputImages.Count > 0)
+                {
+                    for (int i = 0; i < inputImages.Count; i++)
                     {
+                        var inputImg = inputImages[i];
+                        nodeVm.NodePropertyModel.Context.InputImage = inputImg;
+                        nodeVm.NodePropertyModel.Context.SetInput<Mat>("Image", inputImg);
+
+                        if (contoursList != null && i < contoursList.Count)
+                        {
+                            nodeVm.NodePropertyModel.Context.SetInput<Point[][]>("Contours", contoursList[i]);
+                        }
+                        else if (contoursList != null && contoursList.Count > 0)
+                        {
+                            nodeVm.NodePropertyModel.Context.SetInput<Point[][]>("Contours", contoursList[0]);
+                        }
+
                         ExecuteSingleNodeOperation(nodeVm);
+
                         if (nodeVm.NodePropertyModel.Context.OutputImage != null && !nodeVm.NodePropertyModel.Context.OutputImage.Empty())
                         {
                             outputImages.Add(nodeVm.NodePropertyModel.Context.OutputImage);
                         }
-                    }
 
-                    nodeVm.NodePropertyModel.Context.OutputImages = outputImages;
-                    if (outputImages.Count > 0)
-                    {
-                        nodeVm.NodePropertyModel.Context.OutputImage = outputImages[0];
+                        var currentContours = nodeVm.NodePropertyModel.Context.Get<Point[][]>("Contours");
+                        if (currentContours != null)
+                        {
+                            generatedContoursList.Add(currentContours);
+                        }
                     }
+                }
+
+                nodeVm.NodePropertyModel.Context.OutputImages = outputImages;
+                if (outputImages.Count > 0)
+                {
+                    nodeVm.NodePropertyModel.Context.OutputImage = outputImages[0];
+                }
+                if (generatedContoursList.Count > 0)
+                {
+                    nodeVm.NodePropertyModel.Context.Set<List<Point[][]>>("ContoursList", generatedContoursList);
                 }
             }
 

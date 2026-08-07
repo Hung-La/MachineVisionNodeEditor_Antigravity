@@ -550,7 +550,7 @@
 
                 <!-- Show Text CheckBox -->
                 <CheckBox Style="{StaticResource SettingCheckBoxStyle}"
-                          Content="Show Contour Labels (#1, #2...)" 
+                          Content="Show Contour Labels" 
                           IsChecked="{Binding NodePropertyModel.ShowText}"/>
 
                 <!-- Total Contours Status -->
